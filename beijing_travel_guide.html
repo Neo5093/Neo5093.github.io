@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京2天1夜超全攻略 | 小红书爆款</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* 封面 */
+        .cover {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 50%, #FFCD56 100%);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '🏯';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            opacity: 0.3;
+        }
+        
+        .cover::after {
+            content: '🍜';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.3;
+        }
+        
+        .cover h1 {
+            color: white;
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover .subtitle {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+        
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tag {
+            background: rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+        
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .card-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2D3436;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #FF6B9D, #FF8E53);
+            border-radius: 2px;
+        }
+        
+        /* Day标题 */
+        .day-header {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .day-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .day-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        /* 时间轴 */
+        .timeline {
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667EEA 0%, #764BA2 50%, #FF6B9D 100%);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: #F8F9FA;
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 4px solid #667EEA;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 25px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 4px solid #667EEA;
+            border-radius: 50%;
+        }
+        
+        .time-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B9D, #FF8E53);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item h3 {
+            font-size: 20px;
+            color: #2D3436;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .timeline-item p {
+            color: #636E72;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .tip {
+            display: inline-block;
+            background: #FFF9E6;
+            color: #F39C12;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 600;
+            border: 1px solid #F39C12;
+        }
+        
+        /* 美食卡片 */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .food-card {
+            background: linear-gradient(135deg, #FFF5F5, #FFF0E6);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF6B9D;
+            box-shadow: 0 10px 30px rgba(255,107,157,0.2);
+        }
+        
+        .food-card .emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .food-card h4 {
+            font-size: 18px;
+            color: #2D3436;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .food-card p {
+            font-size: 13px;
+            color: #636E72;
+            margin-bottom: 5px;
+        }
+        
+        .food-card .price {
+            color: #E17055;
+            font-weight: 800;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+        
+        /* 攻略表格 */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .info-table th {
+            background: linear-gradient(135deg, #667EEA, #764BA2);
+            color: white;
+            padding: 15px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .info-table td {
+            padding: 15px;
+            border-bottom: 1px solid #E0E0E0;
+            font-size: 15px;
+            color: #2D3436;
+        }
+        
+        .info-table tr:hover {
+            background: #F8F9FA;
+        }
+        
+        .total-box {
+            background: linear-gradient(135deg, #FF6B9D, #FF8E53);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        
+        /* 提示卡片 */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .tip-card {
+            background: linear-gradient(135deg, #667EEA, #764BA2);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tip-card .icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+        
+        .tip-card h4 {
+            font-size: 17px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .tip-card p {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        /* 结尾 */
+        .ending {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+        }
+        
+        .ending h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .ending p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .hashtag {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .food-grid, .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cover h1 {
+                font-size: 36px;
+            }
+            
+            .card-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面 -->
+        <div class="cover">
+            <h1>北京2天1夜<br>超全攻略</h1>
+            <div class="subtitle">小红书爆款路线 · 必看必收藏💕</div>
+            <div class="tag-container">
+                <span class="tag">📍经典必游</span>
+                <span class="tag">🍜地道美食</span>
+                <span class="tag">🚇地铁直达</span>
+                <span class="tag">💰人均800</span>
+            </div>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="card">
+            <div class="day-header">
+                <div class="day-badge">Day 1</div>
+                <div class="day-title">皇城根儿经典之旅</div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time-tag">08:00-12:00</div>
+                    <h3>🏛️ 故宫博物院</h3>
+                    <p>• 路线: 午门→太和殿→中和殿→保和殿→乾清宫→御花园</p>
+                    <p>• 门票: 60元 | 游览: 3-4小时 | 必须提前7天预约!</p>
+                    <p>• 地铁1号线天安门东站</p>
+                    <span class="tip">💡 Tips: 穿舒适鞋子,带身份证,租语音导览20元</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">12:00-13:30</div>
+                    <h3>🦆 午餐: 四季民福烤鸭</h3>
+                    <p>• 地道北京烤鸭,性价比超高</p>
+                    <p>• 人均: 150-200元 | 神武门出来步行10分钟</p>
+                    <span class="tip">💡 Tips: 人气火爆,建议11点到店排队</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">14:00-16:30</div>
+                    <h3>🙏 雍和宫</h3>
+                    <p>• 北京最大藏传佛教寺院,香火超旺</p>
+                    <p>• 门票: 25元(送香) | 地铁5号线雍和宫站</p>
+                    <span class="tip">💡 Tips: 周一人多,尽量避开</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">17:00-20:00</div>
+                    <h3>🏮 南锣鼓巷 & 什刹海</h3>
+                    <p>• 文艺小店逛吃,文宇奶酪必打卡</p>
+                    <p>• 什刹海看日落,烟袋斜街拍照</p>
+                    <p>• 地铁6/8号线南锣鼓巷站</p>
+                    <span class="tip">💡 Tips: 傍晚景色最美,适合拍照</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">20:00-22:00</div>
+                    <h3>🦞 簋街宵夜: 胡大饭馆</h3>
+                    <p>• 麻辣小龙虾排队也要吃!</p>
+                    <p>• 人均: 100-150元 | 24小时营业</p>
+                    <span class="tip">💡 Tips: 晚上排队人多,耐心等待</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="card">
+            <div class="day-header">
+                <div class="day-badge">Day 2</div>
+                <div class="day-title">皇家园林 & 现代北京</div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time-tag">07:30-11:30</div>
+                    <h3>🏯 天坛公园</h3>
+                    <p>• 路线: 祈年殿→回音壁→圜丘坛</p>
+                    <p>• 门票: 15元(联票35元) | 地铁5号线天坛东门站</p>
+                    <p>• 明清皇帝祭天场所,建筑精美</p>
+                    <span class="tip">💡 Tips: 早上空气好,8点前人少</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">12:00-15:30</div>
+                    <h3>🏞️ 颐和园</h3>
+                    <p>• 路线: 万寿山→昆明湖→十七孔桥→长廊</p>
+                    <p>• 门票: 30元(联票60元) | 地铁4号线北宫门站</p>
+                    <p>• 中国古典园林之首,皇家避暑胜地</p>
+                    <span class="tip">💡 Tips: 园区大,建议3-4小时,可租船游湖</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">16:00-17:30</div>
+                    <h3>🎨 798艺术区</h3>
+                    <p>• 工业风艺术园区,网红打卡地</p>
+                    <p>• 免费参观 | 地铁14号线望京南站</p>
+                    <span class="tip">💡 Tips: 适合拍照,很多咖啡厅和艺术商店</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">18:00-20:00</div>
+                    <h3>🏟️ 鸟巢 & 水立方</h3>
+                    <p>• 奥运场馆夜景打卡</p>
+                    <p>• 门票: 鸟巢50元,水立方30元 | 地铁8号线奥体中心站</p>
+                    <span class="tip">💡 Tips: 晚上灯光秀超美,不进去可免费拍照</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-tag">20:30-22:00</div>
+                    <h3>🥘 涮羊肉告别宴</h3>
+                    <p>• 推荐: 南门涮肉或聚宝源</p>
+                    <p>• 人均: 100-150元 | 正宗老北京涮肉</p>
+                    <span class="tip">💡 Tips: 清水锅底+麻酱蘸料,绝配!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 美食推荐 -->
+        <div class="card">
+            <h2 class="card-title">🍜 必吃美食清单</h2>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="emoji">🦆</div>
+                    <h4>北京烤鸭</h4>
+                    <p>全聚德(百年老店)</p>
+                    <p>大董(现代创意)</p>
+                    <p>四季民福(高性价比)</p>
+                    <div class="price">💰 150-300元/人</div>
+                </div>
+
+                <div class="food-card">
+                    <div class="emoji">🍜</div>
+                    <h4>炸酱面</h4>
+                    <p>海碗居</p>
+                    <p>方砖厂炸酱面</p>
+                    <p>配黄瓜丝、豆芽</p>
+                    <div class="price">💰 25-40元/人</div>
+                </div>
+
+                <div class="food-card">
+                    <div class="emoji">🥘</div>
+                    <h4>涮羊肉</h4>
+                    <p>东来顺(老字号)</p>
+                    <p>南门涮肉</p>
+                    <p>聚宝源</p>
+                    <div class="price">💰 100-150元/人</div>
+                </div>
+
+                <div class="food-card">
+                    <div class="emoji">🥟</div>
+                    <h4>传统小吃</h4>
+                    <p>豆汁儿配焦圈</p>
+                    <p>爆肚、卤煮火烧</p>
+                    <p>护国寺小吃店</p>
+                    <div class="price">💰 20-50元/人</div>
+                </div>
+
+                <div class="food-card">
+                    <div class="emoji">🦞</div>
+                    <h4>簋街小龙虾</h4>
+                    <p>胡大饭馆(必打卡)</p>
+                    <p>花家怡园</p>
+                    <p>24小时美食街</p>
+                    <div class="price">💰 100-150元/人</div>
+                </div>
+
+                <div class="food-card">
+                    <div class="emoji">🧁</div>
+                    <h4>文艺甜品</h4>
+                    <p>文宇奶酪</p>
+                    <p>稻香村糕点</p>
+                    <p>北冰洋汽水</p>
+                    <div class="price">💰 10-30元/人</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实用攻略 -->
+        <div class="card">
+            <h2 class="card-title">📝 实用攻略</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="icon">🎫</div>
+                    <h4>门票预约</h4>
+                    <p>故宫提前7天预约<br>其他景点提前1-3天<br>官方小程序购票</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="icon">🚇</div>
+                    <h4>交通出行</h4>
+                    <p>地铁支付宝扫码<br>避开早晚高峰<br>景点地铁直达</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="icon">🏨</div>
+                    <h4>住宿建议</h4>
+                    <p>推荐东单/王府井<br>地铁沿线方便<br>预算300-600元/晚</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="icon">🌤️</div>
+                    <h4>最佳季节</h4>
+                    <p>春季4-5月<br>秋季9-10月<br>天气舒适人少</p>
+                </div>
+            </div>
+
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>费用项目</th>
+                        <th>预算(元)</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>门票</td>
+                        <td>200-250</td>
+                        <td>故宫、天坛、颐和园等</td>
+                    </tr>
+                    <tr>
+                        <td>餐饮</td>
+                        <td>400-500</td>
+                        <td>烤鸭+涮肉+小吃</td>
+                    </tr>
+                    <tr>
+                        <td>交通</td>
+                        <td>50-80</td>
+                        <td>地铁+共享单车</td>
+                    </tr>
+                    <tr>
+                        <td>住宿</td>
+                        <td>300-600</td>
+                        <td>经济型酒店/民宿</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-box">
+                💰 总预算: 950-1430元/人 (不含往返大交通)
+            </div>
+        </div>
+
+        <!-- 结尾 -->
+        <div class="ending">
+            <h2>✨ 祝你旅途愉快! ✨</h2>
+            <p>收藏这篇攻略,北京之行不踩坑💕</p>
+            <div class="hashtags">
+                <span class="hashtag">#北京旅游</span>
+                <span class="hashtag">#北京攻略</span>
+                <span class="hashtag">#故宫打卡</span>
+                <span class="hashtag">#北京美食</span>
+                <span class="hashtag">#周末游</span>
+                <span class="hashtag">#小红书爆款</span>
+                <span class="hashtag">#2天1夜</span>
+                <span class="hashtag">#人均800</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

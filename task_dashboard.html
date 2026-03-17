@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务中心 - 钉钉&飞书任务看板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header .stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .stat-item.pending .stat-value { color: #fbbf24; }
+        .stat-item.success .stat-value { color: #34d399; }
+        .stat-item.failed .stat-value { color: #f87171; }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 40px;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(59,130,246,0.5);
+            border-color: #3b82f6;
+        }
+        
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .task-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        
+        .task-card:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateX(5px);
+        }
+        
+        .task-id {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            min-width: 40px;
+        }
+        
+        .task-source {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .task-source.dingtalk {
+            background: rgba(45, 140, 255, 0.2);
+            color: #2d8cff;
+        }
+        
+        .task-source.feishu {
+            background: rgba(0, 180, 255, 0.2);
+            color: #00b4ff;
+        }
+        
+        .task-source.cli {
+            background: rgba(156, 136, 255, 0.2);
+            color: #9c88ff;
+        }
+        
+        .task-source.scheduler {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-command {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .task-time {
+            font-size: 12px;
+            opacity: 0.5;
+        }
+        
+        .task-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .task-status.pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        
+        .task-status.running {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+        
+        .task-status.success {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+        
+        .task-status.failed {
+            background: rgba(248, 113, 113, 0.2);
+            color: #f87171;
+        }
+        
+        .task-result {
+            max-width: 300px;
+            font-size: 13px;
+            opacity: 0.7;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            opacity: 0.5;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+            transition: all 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .task-status.running::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 任务中心</h1>
+        <div class="stats">
+            <div class="stat-item pending">
+                <div class="stat-value" id="pendingCount">0</div>
+                <div class="stat-label">待处理</div>
+            </div>
+            <div class="stat-item success">
+                <div class="stat-value" id="successCount">0</div>
+                <div class="stat-label">已完成</div>
+            </div>
+            <div class="stat-item failed">
+                <div class="stat-value" id="failedCount">0</div>
+                <div class="stat-label">失败</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="dingtalk">钉钉</button>
+            <button class="filter-btn" data-filter="feishu">飞书</button>
+            <button class="filter-btn" data-filter="pending">进行中</button>
+        </div>
+        
+        <div class="task-list" id="taskList">
+            <div class="empty-state">暂无任务记录</div>
+        </div>
+    </div>
+    
+    <button class="refresh-btn" onclick="loadTasks()">↻</button>
+    
+    <script>
+        let allTasks = [];
+        
+        function loadTasks() {
+            fetch('tasks.json')
+                .then(res => res.json())
+                .then(tasks => {
+                    allTasks = tasks.reverse();
+                    renderTasks();
+                    updateStats();
+                })
+                .catch(() => {
+                    document.getElementById('taskList').innerHTML = 
+                        '<div class="empty-state">加载失败，请确保服务器正在运行</div>';
+                });
+        }
+        
+        function renderTasks(filter = 'all') {
+            const container = document.getElementById('taskList');
+            const filtered = filter === 'all' ? allTasks : 
+                allTasks.filter(t => t.source.toLowerCase().includes(filter) || 
+                    (filter === 'pending' && t.status === 'pending'));
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state">暂无任务记录</div>';
+                return;
+            }
+            
+            container.innerHTML = filtered.map(task => `
+                <div class="task-card">
+                    <div class="task-id">#${task.id}</div>
+                    <div class="task-source ${task.source.toLowerCase()}">${getSourceName(task.source)}</div>
+                    <div class="task-content">
+                        <div class="task-command">${escapeHtml(task.command)}</div>
+                        <div class="task-time">${task.timestamp}</div>
+                    </div>
+                    <div class="task-status ${task.status}">${getStatusName(task.status)}</div>
+                    <div class="task-result">${escapeHtml(task.result || '')}</div>
+                </div>
+            `).join('');
+        }
+        
+        function updateStats() {
+            const pending = allTasks.filter(t => t.status === 'pending' || t.status === 'running').length;
+            const success = allTasks.filter(t => t.status === 'success').length;
+            const failed = allTasks.filter(t => t.status === 'failed').length;
+            
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('successCount').textContent = success;
+            document.getElementById('failedCount').textContent = failed;
+        }
+        
+        function getSourceName(source) {
+            const map = {
+                'dingtalk': '钉钉',
+                'feishu': '飞书',
+                'cli': '命令行',
+                'scheduler': '定时任务'
+            };
+            return map[source.toLowerCase()] || source;
+        }
+        
+        function getStatusName(status) {
+            const map = {
+                'pending': '待处理',
+                'running': '进行中',
+                'success': '已完成',
+                'failed': '失败'
+            };
+            return map[status] || status;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderTasks(btn.dataset.filter);
+            });
+        });
+        
+        // 自动刷新
+        setInterval(loadTasks, 10000);
+        loadTasks();
+    </script>
+</body>
+</html>

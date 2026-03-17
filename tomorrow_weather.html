@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>明日天气预报 - 唐山滦州</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .weather-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 35px;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .date {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .location {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .location-icon {
+            font-size: 20px;
+        }
+
+        .main-weather {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .weather-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+        }
+
+        .weather-type {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .temperature {
+            font-size: 72px;
+            font-weight: 300;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .temperature-range {
+            font-size: 16px;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .detail-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            color: #1f2937;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .advice {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid #10b981;
+        }
+
+        .advice-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .advice-item {
+            font-size: 13px;
+            color: #047857;
+            line-height: 1.8;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .advice-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .update-time {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .sun-times {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 15px;
+        }
+
+        .sun-item {
+            text-align: center;
+        }
+
+        .sun-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .sun-label {
+            font-size: 11px;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .sun-value {
+            font-size: 14px;
+            color: #78350f;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 480px) {
+            .weather-card {
+                padding: 30px 20px;
+            }
+
+            .temperature {
+                font-size: 56px;
+            }
+
+            .details {
+                gap: 10px;
+            }
+
+            .detail-item {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-card">
+        <div class="header">
+            <div class="date">2025年3月12日 星期三</div>
+            <div class="location">
+                <span class="location-icon">📍</span>
+                唐山滦州
+            </div>
+        </div>
+
+        <div class="main-weather">
+            <div class="weather-icon">☀️</div>
+            <div class="weather-type">晴转多云</div>
+            <div class="temperature">7°</div>
+            <div class="temperature-range">7°C ~ 17°C</div>
+        </div>
+
+        <div class="details">
+            <div class="detail-item">
+                <div class="detail-icon">💨</div>
+                <div class="detail-label">风向风力</div>
+                <div class="detail-value">西南风<br>2-3级</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">💧</div>
+                <div class="detail-label">湿度</div>
+                <div class="detail-value">45%</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">👁️</div>
+                <div class="detail-label">能见度</div>
+                <div class="detail-value">良好</div>
+            </div>
+        </div>
+
+        <div class="sun-times">
+            <div class="sun-item">
+                <div class="sun-icon">🌅</div>
+                <div class="sun-label">日出</div>
+                <div class="sun-value">06:15</div>
+            </div>
+            <div class="sun-item">
+                <div class="sun-icon">🌇</div>
+                <div class="sun-label">日落</div>
+                <div class="sun-value">18:25</div>
+            </div>
+        </div>
+
+        <div class="advice">
+            <div class="advice-title">
+                <span>💡</span> 出行建议
+            </div>
+            <div class="advice-item">天气晴朗,阳光充足,适合户外活动</div>
+            <div class="advice-item">最高温17°C,适合外出散步和运动</div>
+            <div class="advice-item">温差较大(10°C),注意适时增减衣物</div>
+            <div class="advice-item">建议穿薄外套,早晚会有些凉意</div>
+        </div>
+
+        <div class="footer">
+            <div class="update-time">更新时间: 2025年3月11日</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Kitty 🐱💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 50%, #ff69b4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .kitty-face {
+            width: 280px;
+            height: 250px;
+            background: white;
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            margin: 0 auto 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .ear {
+            width: 80px;
+            height: 90px;
+            background: white;
+            position: absolute;
+            top: -40px;
+            border-radius: 50% 50% 0 0;
+            animation: ear-wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes ear-wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .ear-left {
+            left: 30px;
+            transform: rotate(-20deg);
+        }
+
+        .ear-right {
+            right: 30px;
+            transform: rotate(20deg);
+        }
+
+        .ear-inner {
+            width: 40px;
+            height: 50px;
+            background: #ffb6c1;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .eye {
+            width: 30px;
+            height: 35px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 90px;
+            animation: blink 4s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 45%, 55%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+        }
+
+        .eye-left {
+            left: 70px;
+        }
+
+        .eye-right {
+            right: 70px;
+        }
+
+        .nose {
+            width: 20px;
+            height: 15px;
+            background: #ff69b4;
+            border-radius: 50%;
+            position: absolute;
+            top: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mouth {
+            width: 30px;
+            height: 15px;
+            position: absolute;
+            top: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .mouth-side {
+            width: 12px;
+            height: 8px;
+            border-bottom: 3px solid #333;
+            border-radius: 0 0 50% 50%;
+        }
+
+        .whisker {
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #333;
+            top: 145px;
+        }
+
+        .whisker-left-1 {
+            left: -50px;
+            transform: rotate(-10deg);
+        }
+
+        .whisker-left-2 {
+            left: -55px;
+            top: 155px;
+            transform: rotate(5deg);
+        }
+
+        .whisker-left-3 {
+            left: -50px;
+            top: 165px;
+            transform: rotate(20deg);
+        }
+
+        .whisker-right-1 {
+            right: -50px;
+            transform: rotate(10deg);
+        }
+
+        .whisker-right-2 {
+            right: -55px;
+            top: 155px;
+            transform: rotate(-5deg);
+        }
+
+        .whisker-right-3 {
+            right: -50px;
+            top: 165px;
+            transform: rotate(-20deg);
+        }
+
+        .bow {
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            animation: bow-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bow-bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .bow-center {
+            width: 25px;
+            height: 25px;
+            background: #ff1493;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+        }
+
+        .bow-center::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bow-left, .bow-right {
+            width: 35px;
+            height: 25px;
+            background: #ff1493;
+            position: absolute;
+            top: 0;
+            border-radius: 50%;
+        }
+
+        .bow-left {
+            left: -30px;
+            transform: rotate(-30deg);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+        }
+
+        .bow-right {
+            right: -30px;
+            transform: rotate(30deg);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+        }
+
+        h1 {
+            font-size: 48px;
+            color: white;
+            text-shadow: 3px 3px 0 #ff69b4, 6px 6px 0 #ff1493;
+            margin-bottom: 20px;
+            animation: title-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes title-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .message {
+            font-size: 24px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 30px;
+            animation: heart-float 4s ease-in-out infinite;
+        }
+
+        @keyframes heart-float {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px) scale(1.2); }
+        }
+
+        .heart-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .heart-2 { top: 20%; right: 15%; animation-delay: 1s; }
+        .heart-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
+        .heart-4 { bottom: 20%; right: 10%; animation-delay: 1.5s; }
+        .heart-5 { top: 50%; left: 5%; animation-delay: 0.5s; }
+        .heart-6 { top: 40%; right: 5%; animation-delay: 2.5s; }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .sparkle-1 { top: 15%; left: 20%; animation-delay: 0s; }
+        .sparkle-2 { top: 25%; right: 25%; animation-delay: 0.5s; }
+        .sparkle-3 { bottom: 35%; left: 25%; animation-delay: 1s; }
+        .sparkle-4 { bottom: 25%; right: 20%; animation-delay: 1.5s; }
+        .sparkle-5 { top: 60%; left: 10%; animation-delay: 0.3s; }
+        .sparkle-6 { top: 55%; right: 12%; animation-delay: 0.8s; }
+        .sparkle-7 { bottom: 40%; left: 8%; animation-delay: 1.2s; }
+        .sparkle-8 { bottom: 45%; right: 8%; animation-delay: 0.6s; }
+
+        .paw-prints {
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.3;
+            animation: paw-appear 5s ease-in-out infinite;
+        }
+
+        @keyframes paw-appear {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.4; }
+        }
+
+        .paw-1 { top: 5%; left: 5%; transform: rotate(-20deg); animation-delay: 0s; }
+        .paw-2 { top: 8%; right: 8%; transform: rotate(20deg); animation-delay: 1s; }
+        .paw-3 { bottom: 10%; left: 8%; transform: rotate(-15deg); animation-delay: 2s; }
+        .paw-4 { bottom: 8%; right: 5%; transform: rotate(15deg); animation-delay: 3s; }
+
+        .flower {
+            position: absolute;
+            font-size: 50px;
+            bottom: 5%;
+            animation: flower-sway 3s ease-in-out infinite;
+        }
+
+        @keyframes flower-sway {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .flower-left { left: 10%; animation-delay: 0s; }
+        .flower-right { right: 10%; animation-delay: 1.5s; }
+    </style>
+</head>
+<body>
+    <div class="hearts heart-1">💖</div>
+    <div class="hearts heart-2">💕</div>
+    <div class="hearts heart-3">💖</div>
+    <div class="hearts heart-4">💕</div>
+    <div class="hearts heart-5">💗</div>
+    <div class="hearts heart-6">💖</div>
+
+    <div class="sparkle sparkle-1"></div>
+    <div class="sparkle sparkle-2"></div>
+    <div class="sparkle sparkle-3"></div>
+    <div class="sparkle sparkle-4"></div>
+    <div class="sparkle sparkle-5"></div>
+    <div class="sparkle sparkle-6"></div>
+    <div class="sparkle sparkle-7"></div>
+    <div class="sparkle sparkle-8"></div>
+
+    <div class="paw-prints paw-1">🐾</div>
+    <div class="paw-prints paw-2">🐾</div>
+    <div class="paw-prints paw-3">🐾</div>
+    <div class="paw-prints paw-4">🐾</div>
+
+    <div class="flower flower-left">🌸</div>
+    <div class="flower flower-right">🌸</div>
+
+    <div class="container">
+        <div class="kitty-face">
+            <div class="ear ear-left">
+                <div class="ear-inner"></div>
+            </div>
+            <div class="ear ear-right">
+                <div class="ear-inner"></div>
+            </div>
+
+            <div class="eye eye-left"></div>
+            <div class="eye eye-right"></div>
+
+            <div class="nose"></div>
+
+            <div class="mouth">
+                <div class="mouth-side"></div>
+                <div class="mouth-side"></div>
+            </div>
+
+            <div class="whisker whisker-left-1"></div>
+            <div class="whisker whisker-left-2"></div>
+            <div class="whisker whisker-left-3"></div>
+            <div class="whisker whisker-right-1"></div>
+            <div class="whisker whisker-right-2"></div>
+            <div class="whisker whisker-right-3"></div>
+
+            <div class="bow">
+                <div class="bow-left"></div>
+                <div class="bow-center"></div>
+                <div class="bow-right"></div>
+            </div>
+        </div>
+
+        <h1>Hello Kitty! 🐱💖</h1>
+        <p class="message">
+            欢迎来到我的世界！<br>
+            每一天都充满爱与快乐 💕✨
+        </p>
+    </div>
+
+    <script>
+        // 添加鼠标跟随效果
+        document.addEventListener('mousemove', (e) => {
+            const hearts = document.querySelectorAll('.hearts');
+            const sparkles = document.querySelectorAll('.sparkle');
+
+            hearts.forEach((heart, index) => {
+                const speed = 0.02 * (index + 1);
+                const x = (e.clientX * speed);
+                const y = (e.clientY * speed);
+                heart.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            sparkles.forEach((sparkle, index) => {
+                const speed = 0.015 * (index + 1);
+                const x = (e.clientX * speed);
+                const y = (e.clientY * speed);
+                sparkle.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // 点击产生爱心
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('div');
+            heart.textContent = '💖';
+            heart.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                font-size: 30px;
+                pointer-events: none;
+                z-index: 1000;
+                animation: click-heart 1s ease-out forwards;
+            `;
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 1000);
+        });
+
+        // 添加点击动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes click-heart {
+                0% { opacity: 1; transform: scale(0.5); }
+                100% { opacity: 0; transform: scale(2) translateY(-50px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
