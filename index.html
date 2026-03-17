@@ -228,6 +228,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            cursor: pointer;
         }
 
         li:hover {
@@ -236,19 +238,31 @@
             transform: translateX(8px);
         }
 
-        a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
+        li a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .link-content {
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: color 0.2s;
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            width: 100%;
         }
 
-        a:hover {
-            color: var(--primary);
+        .link-content .text {
+            flex: 1;
+        }
+
+        .status-badge {
+            pointer-events: auto;
         }
 
         .link-row {
@@ -412,20 +426,18 @@
             </h2>
             <ul>
                 <li>
-                    <div class="link-row">
-                        <a href="Intelnet-daily-news/互联网早报_2026年3月17日.html">
-                            <span class="series-tag">互联网早报</span>
-                            2026年3月17日
-                        </a>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月17日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月17日</span>
                     </div>
                     <span class="latest">最新</span>
                 </li>
                 <li>
-                    <div class="link-row">
-                        <a href="Intelnet-daily-news/互联网早报_2026年3月16日.html">
-                            <span class="series-tag">互联网早报</span>
-                            2026年3月16日
-                        </a>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月16日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月16日</span>
                     </div>
                     <span class="date">2026-03-16</span>
                 </li>
@@ -439,47 +451,42 @@
             </h2>
             <ul>
                 <li>
-                    <div class="link-row">
-                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月17日.html">
-                            <span class="series-tag">OpenClaw</span>
-                            2026年3月17日
-                        </a>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月17日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw</span>
+                        <span class="text">2026年3月17日</span>
                     </div>
                     <span class="latest">最新</span>
                 </li>
                 <li>
-                    <div class="link-row">
-                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月16日.html">
-                            <span class="series-tag">OpenClaw</span>
-                            2026年3月16日
-                        </a>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月16日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw</span>
+                        <span class="text">2026年3月16日</span>
                     </div>
                     <span class="date">2026-03-16</span>
                 </li>
                 <li>
-                    <div class="link-row">
-                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月15日.html">
-                            <span class="series-tag">OpenClaw</span>
-                            2026年3月15日
-                        </a>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月15日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw</span>
+                        <span class="text">2026年3月15日</span>
                     </div>
                     <span class="date">2026-03-15</span>
                 </li>
                 <li>
-                    <div class="link-row">
-                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月14日.html">
-                            <span class="series-tag">OpenClaw</span>
-                            2026年3月14日
-                        </a>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月14日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw</span>
+                        <span class="text">2026年3月14日</span>
                     </div>
                     <span class="date">2026-03-14</span>
                 </li>
                 <li>
-                    <div class="link-row">
-                        <a href="openclaw-daily-news/OpenClaw简报_2025年3月13日.html">
-                            <span class="series-tag">OpenClaw</span>
-                            2025年3月13日
-                        </a>
+                    <a href="openclaw-daily-news/OpenClaw简报_2025年3月13日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw</span>
+                        <span class="text">2025年3月13日</span>
                     </div>
                     <span class="date">2025-03-13</span>
                 </li>
