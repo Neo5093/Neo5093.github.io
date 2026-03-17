@@ -1,0 +1,11 @@
+
+
+# Ignore everything
+*
+
+# But not these files and folders
+!index.html
+!.github/
+!Intelnet-daily-news/
+!openclaw-daily-news/
+!*.html
