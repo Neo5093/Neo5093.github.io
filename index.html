@@ -3,46 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>互联网日报 - 每日存档</title>
+    <title>该影未来窗 | 每日资讯</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 900px; margin: 50px auto; padding: 20px; background: #f5f5f5; }
-        h1 { color: #333; text-align: center; }
-        .section { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h2 { color: #0066cc; border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
-        ul { list-style: none; padding: 0; }
-        li { padding: 12px; margin: 8px 0; border-bottom: 1px solid #eee; }
-        a { color: #0066cc; text-decoration: none; font-size: 16px; }
-        a:hover { text-decoration: underline; }
-        .date { color: #888; font-size: 14px; float: right; }
-        .count { text-align: center; color: #888; margin-top: 20px; }
-        .series-tag { display: inline-block; background: #e6f7ff; color: #0066cc; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 8px; }
+        :root {
+            --bg-base: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --primary: #4F46E5;
+            --secondary: #7C3AED;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent-success: #10B981;
+            --border: #E2E8F0;
+            --shadow-default: 0 4px 20px -2px rgba(79, 70, 229, 0.1);
+            --shadow-hover: 0 10px 25px -5px rgba(79, 70, 229, 0.15), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.4);
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: pulse 4000ms ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            top: -200px;
+            left: -200px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #7C3AED, #4F46E5);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 2000ms;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #C7D2FE, #A78BFA);
+            top: 40%;
+            left: 30%;
+            opacity: 0.2;
+            animation-delay: 3000ms;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            perspective: 2000px;
+        }
+
+        .header-card {
+            display: inline-block;
+            background: var(--bg-surface);
+            padding: 48px 72px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-default);
+            transform: rotateX(5deg) rotateY(-8deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .header-card:hover {
+            transform: rotateX(2deg) rotateY(-4deg) translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--bg-surface);
+            padding: 24px 48px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-default);
+            text-align: center;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px) rotateX(2deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .section {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-default);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .section:hover::before {
+            opacity: 1;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h2 .icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+        }
+
+        ul { list-style: none; }
+
+        li {
+            padding: 20px 24px;
+            margin: 14px 0;
+            border-radius: 16px;
+            background: var(--bg-base);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+            border-color: var(--primary);
+            transform: translateX(8px) rotateY(2deg);
+            box-shadow: var(--shadow-default);
+        }
+
+        li a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .link-content .text {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .series-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+            color: var(--primary);
+            border: 1px solid #C7D2FE;
+        }
+
+        .latest {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: var(--shadow-glow);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(79, 70, 229, 0.6); }
+        }
+
+        .date {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 2px;
+        }
+
+        .footer .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .footer .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-success);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Responsive - Tablet */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .header-card { padding: 32px 40px; transform: none; }
+            .header-card:hover { transform: translateY(-2px); }
+            .container { padding: 48px 16px; }
+            .stats { gap: 16px; margin-bottom: 40px; }
+            .stat-item { padding: 20px 28px; flex: 1; min-width: 140px; }
+            .stat-number { font-size: 2rem; }
+            .section { padding: 24px; margin-bottom: 24px; border-radius: 20px; }
+            .section h2 { font-size: 1.25rem; }
+            li { padding: 16px 20px; }
+            .series-tag, .latest, .date { font-size: 0.75rem; padding: 6px 12px; }
+            .footer { margin-top: 40px; padding: 32px 16px; }
+            .blob { filter: blur(80px); }
+            .blob-1 { width: 350px; height: 350px; top: -100px; left: -100px; }
+            .blob-2 { width: 300px; height: 300px; bottom: -80px; right: -80px; }
+            .blob-3 { display: none; }
+        }
+
+        /* Responsive - Mobile Small */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 2rem; }
+            .header .subtitle { font-size: 0.875rem; }
+            .header-card { padding: 24px 28px; border-radius: 20px; }
+            .container { padding: 32px 12px; }
+            .stats { gap: 12px; }
+            .stat-item { padding: 16px 20px; min-width: 110px; }
+            .stat-number { font-size: 1.75rem; }
+            .stat-label { font-size: 0.75rem; }
+            .section { padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+            .section h2 { font-size: 1.125rem; margin-bottom: 20px; }
+            .section h2 .icon { width: 32px; height: 32px; }
+            li { padding: 14px 16px; margin: 10px 0; border-radius: 12px; flex-wrap: wrap; gap: 10px; }
+            .link-content { flex-wrap: wrap; }
+            .series-tag { font-size: 0.6875rem; }
+            .latest, .date { font-size: 0.6875rem; }
+            .footer { margin-top: 32px; padding: 28px 12px; }
+            .blob-1 { width: 280px; height: 280px; }
+            .blob-2 { width: 220px; height: 220px; }
+        }
+
+        /* Safe Area for iPhone X+ */
+        @supports (padding: max(0px)) {
+            .container { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+            .footer { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+        }
+
+        /* Touch-friendly */
+        @media (hover: none) {
+            li:hover { transform: none; background: var(--bg-base); border-color: var(--border); }
+            li:active { background: #EEF2FF; transform: scale(0.99); }
+            .section:active { transform: scale(0.99); }
+            .stat-item:active { transform: scale(0.98); }
+            .header-card:active { transform: scale(0.98); }
+        }
     </style>
 </head>
 <body>
-    <h1>📰 互联网日报</h1>
-    <p style="text-align: center; color: #666;">每日互联网新闻存档</p>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
-    <div class="section">
-        <h2>📂 互联网早报</h2>
-        <ul>
-            <li><span class="series-tag">互联网早报</span><a href="Intelnet-daily-news/互联网早报_2026年3月18日.html">2026年3月18日</a><span class="date">最新</span></li>
-            <li><span class="series-tag">互联网早报</span><a href="Intelnet-daily-news/互联网早报_2026年3月17日.html">2026年3月17日</a><span class="date"></span></li>
-            <li><span class="series-tag">互联网早报</span><a href="Intelnet-daily-news/互联网早报_2026年3月16日.html">2026年3月16日</a><span class="date"></span></li>
-        </ul>
-    </div>
+    <div class="container">
+        <header class="header">
+            <div class="header-card">
+                <h1>该影未来窗</h1>
+                <p class="subtitle">每日资讯存档</p>
+            </div>
+        </header>
 
-    <div class="section">
-        <h2>📂 OpenClaw简报</h2>
-        <ul>
-            <li><span class="series-tag">OpenClaw简报</span><a href="openclaw-daily-news/OpenClaw简报_2026年3月18日.html">2026年3月18日</a><span class="date">最新</span></li>
-            <li><span class="series-tag">OpenClaw简报</span><a href="openclaw-daily-news/OpenClaw简报_2026年3月17日.html">2026年3月17日</a><span class="date"></span></li>
-            <li><span class="series-tag">OpenClaw简报</span><a href="openclaw-daily-news/OpenClaw简报_2026年3月16日.html">2026年3月16日</a><span class="date"></span></li>
-            <li><span class="series-tag">OpenClaw简报</span><a href="openclaw-daily-news/OpenClaw简报_2026年3月15日.html">2026年3月15日</a><span class="date"></span></li>
-            <li><span class="series-tag">OpenClaw简报</span><a href="openclaw-daily-news/OpenClaw简报_2026年3月14日.html">2026年3月14日</a><span class="date"></span></li>
-            <li><span class="series-tag">OpenClaw简报</span><a href="openclaw-daily-news/OpenClaw简报_2025年3月13日.html">2025年3月13日</a><span class="date"></span></li>
-        </ul>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">2</div>
+                <div class="stat-label">资讯系列</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">9</div>
+                <div class="stat-label">总期数</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>
+                <span class="icon">🌅</span>
+                互联网早报
+            </h2>
+            <ul>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月18日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月18日</span>
+                    </div>
+                    <span class="latest">最新</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月17日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月17日</span>
+                    </div>
+                    <span class="date">2026年3月17日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月16日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月16日</span>
+                    </div>
+                    <span class="date">2026年3月16日</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>
+                <span class="icon">🦞</span>
+                OpenClaw简报
+            </h2>
+            <ul>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月18日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月18日</span>
+                    </div>
+                    <span class="latest">最新</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月17日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月17日</span>
+                    </div>
+                    <span class="date">2026年3月17日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月16日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月16日</span>
+                    </div>
+                    <span class="date">2026年3月16日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月15日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月15日</span>
+                    </div>
+                    <span class="date">2026年3月15日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月14日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月14日</span>
+                    </div>
+                    <span class="date">2026年3月14日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2025年3月13日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2025年3月13日</span>
+                    </div>
+                    <span class="date">2025年3月13日</span>
+                </li>
+            </ul>
+        </div>
+
+        <footer class="footer">
+            <div class="status">
+                <span class="status-dot"></span>
+                <span>系统运行中</span>
+            </div>
+            <p>自动更新于 2026-03-18</p>
+            <p style="margin-top: 8px; opacity: 0.7;">Powered by OpenClaw Agent</p>
+        </footer>
     </div>
-    <p class="count">共 9 期日报</p>
-    <p style="text-align: center; color: #888; font-size: 12px;">自动更新于 2026-03-18 09:55:52</p>
 </body>
 </html>
