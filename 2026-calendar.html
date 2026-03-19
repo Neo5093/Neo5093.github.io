@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年精美日历</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'ZCOOL XiaoWei', serif;
+            background: linear-gradient(180deg, #fef9e7 0%, #fdebd0 50%, #f5cba7 100%);
+            min-height: 100vh;
+            padding: 30px;
+            color: #2c3e50;
+        }
+
+        .calendar-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0 30px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 20px;
+            margin: -30px -30px 30px -30px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(192, 57, 43, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 10px;
+            letter-spacing: 10px;
+        }
+
+        .year-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .year-number {
+            font-size: 7em;
+            font-weight: bold;
+            background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .zodiac-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .zodiac {
+            font-size: 2.5em;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 15px;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .zodiac-year {
+            font-size: 1.2em;
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .month-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 3px solid #e8d5b7;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .month-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: #c0392b;
+        }
+
+        .month-title {
+            text-align: center;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e74c3c;
+            color: #c0392b;
+            position: relative;
+        }
+
+        .month-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+        }
+
+        .month-title .lunar-month {
+            font-size: 0.65em;
+            color: #8e44ad;
+            display: block;
+            margin-top: 8px;
+            font-weight: normal;
+        }
+
+        .days-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            background: #fef9e7;
+            border-radius: 8px;
+        }
+
+        .days-header div:first-child,
+        .days-header div:last-child {
+            color: #e74c3c;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .day-cell {
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            border-radius: 12px;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 5px 2px;
+            background: #fafafa;
+            border: 1px solid #eee;
+        }
+
+        .day-cell:hover {
+            background: #fef9e7;
+            border-color: #e8d5b7;
+        }
+
+        .day-cell.empty {
+            background: transparent;
+            border: none;
+        }
+
+        .day-cell.other-month {
+            opacity: 0.3;
+            background: transparent;
+            border: none;
+        }
+
+        .day-cell .solar-day {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+
+        .day-cell .lunar-day {
+            font-size: 0.7em;
+            color: #8e44ad;
+            line-height: 1.2;
+            margin-top: 2px;
+        }
+
+        .day-cell .term-jieqi {
+            font-size: 0.6em;
+            color: #27ae60;
+            font-weight: bold;
+            background: #e8f8f5;
+            padding: 1px 4px;
+            border-radius: 4px;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+
+        .day-cell .festival {
+            font-size: 0.6em;
+            color: #fff;
+            background: #e74c3c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-top: 2px;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        .day-cell.today {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: #c0392b;
+        }
+
+        .day-cell.today .solar-day,
+        .day-cell.today .lunar-day,
+        .day-cell.today .term-jieqi {
+            color: #fff;
+        }
+
+        .day-cell.today .term-jieqi {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .day-cell.weekend .solar-day {
+            color: #e74c3c;
+        }
+
+        .day-cell.today.weekend .solar-day {
+            color: #fff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0 10px;
+            color: #7f8c8d;
+            font-size: 0.95em;
+            border-top: 2px dashed #e8d5b7;
+            margin-top: 30px;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .legend-color.festival {
+            background: #e74c3c;
+        }
+
+        .legend-color.jieqi {
+            background: #27ae60;
+        }
+
+        .legend-color.lunar {
+            background: #8e44ad;
+        }
+
+        @media (max-width: 1300px) {
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .calendar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header h1 {
+                font-size: 2.2em;
+            }
+            .year-number {
+                font-size: 5em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+            .year-display {
+                flex-direction: column;
+            }
+            body {
+                padding: 15px;
+            }
+            .calendar-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="header">
+            <h1>日 历</h1>
+            <div class="subtitle">二〇二六 · 丙午年</div>
+        </div>
+
+        <div class="year-display">
+            <div class="year-number">2026</div>
+            <div class="zodiac-badge">
+                <div class="zodiac">🐴 马年</div>
+                <div class="zodiac-year">丙午年</div>
+            </div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid"></div>
+
+        <div class="footer">
+            <p>农历 · 节气 · 节日</p>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color festival"></div>
+                    <span>节日</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color jieqi"></div>
+                    <span>节气</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color lunar"></div>
+                    <span>农历</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 2026年实际农历数据
+        // 2026年春节是1月29日（农历正月初一）
+        // 2026年是农历丙午年（马年）
+        
+        const lunarYearStart = { month: 1, day: 29 }; // 2026年春节
+        
+        // 农历日期名称
+        const lunarDays = ['初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+                          '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+                          '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'];
+
+        const lunarMonths = ['正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
+
+        // 2026年节气日期 (月, 日)
+        const solarTerms = [
+            { name: '小寒', month: 1, day: 5 },
+            { name: '大寒', month: 1, day: 20 },
+            { name: '立春', month: 2, day: 4 },
+            { name: '雨水', month: 2, day: 19 },
+            { name: '惊蛰', month: 3, day: 5 },
+            { name: '春分', month: 3, day: 20 },
+            { name: '清明', month: 4, day: 5 },
+            { name: '谷雨', month: 4, day: 20 },
+            { name: '立夏', month: 5, day: 6 },
+            { name: '小满', month: 5, day: 21 },
+            { name: '芒种', month: 6, day: 6 },
+            { name: '夏至', month: 6, day: 21 },
+            { name: '小暑', month: 7, day: 7 },
+            { name: '大暑', month: 7, day: 23 },
+            { name: '立秋', month: 8, day: 8 },
+            { name: '处暑', month: 8, day: 23 },
+            { name: '白露', month: 9, day: 7 },
+            { name: '秋分', month: 9, day: 23 },
+            { name: '寒露', month: 10, day: 8 },
+            { name: '霜降', month: 10, day: 23 },
+            { name: '立冬', month: 11, day: 7 },
+            { name: '小雪', month: 11, day: 22 },
+            { name: '大雪', month: 12, day: 7 },
+            { name: '冬至', month: 12, day: 22 }
+        ];
+
+        // 2026年节日（部分节日日期可能有微调，以实际为准）
+        const festivals = [
+            { month: 1, day: 1, name: '元旦' },
+            { month: 1, day: 29, name: '春节' },
+            { month: 2, day: 14, name: '情人节' },
+            { month: 3, day: 8, name: '妇女节' },
+            { month: 3, day: 12, name: '植树节' },
+            { month: 4, day: 5, name: '清明节' },
+            { month: 5, day: 1, name: '劳动节' },
+            { month: 5, day: 4, name: '青年节' },
+            { month: 5, day: 10, name: '母亲节' },
+            { month: 6, day: 1, name: '儿童节' },
+            { month: 6, day: 21, name: '父亲节' },
+            { month: 7, day: 1, name: '建党节' },
+            { month: 8, day: 1, name: '建军节' },
+            { month: 9, day: 10, name: '教师节' },
+            { month: 10, day: 1, name: '国庆节' },
+            { month: 10, day: 29, name: '重阳节' },
+            { month: 12, day: 25, name: '圣诞节' }
+        ];
+
+        // 农历每月天数（2026年）
+        const lunarMonthDays = [30, 29, 30, 29, 30, 29, 30, 30, 29, 30, 29, 30];
+
+        // 获取某月的天数
+        function getDaysInMonth(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        // 获取农历日期
+        function getLunarDate(year, month, day) {
+            // 计算距离春节的天数
+            const springFestival = new Date(year, 0, lunarYearStart.day);
+            const currentDate = new Date(year, month - 1, day);
+            const diffDays = Math.floor((currentDate - springFestival) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) {
+                // 在春节前，属于上一年的农历
+                const prevYear = year - 1;
+                // 2025年农历年天数
+                const prevYearDays = 384; // 2025年是闰年
+                const adjustedDays = prevYearDays + diffDays;
+                let dayOfYear = adjustedDays;
+                
+                let m = 0;
+                while (m < 12 && dayOfYear > lunarMonthDays[m]) {
+                    dayOfYear -= lunarMonthDays[m];
+                    m++;
+                }
+                return {
+                    month: lunarMonths[m],
+                    day: lunarDays[dayOfYear - 1]
+                };
+            } else {
+                // 在春节后
+                let remainingDays = diffDays;
+                let m = 0;
+                
+                while (m < 12 && remainingDays >= lunarMonthDays[m]) {
+                    remainingDays -= lunarMonthDays[m];
+                    m++;
+                }
+                
+                return {
+                    month: lunarMonths[m],
+                    day: lunarDays[remainingDays]
+                };
+            }
+        }
+
+        // 检查是否是节日
+        function getFestival(month, day) {
+            const festival = festivals.find(f => f.month === month && f.day === day);
+            return festival ? festival.name : null;
+        }
+
+        // 检查是否是节气
+        function getSolarTerm(month, day) {
+            const term = solarTerms.find(t => t.month === month && t.day === day);
+            return term ? term.name : null;
+        }
+
+        // 创建日历
+        function createCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const today = new Date();
+            
+            const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
+                               '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+            for (let month = 1; month <= 12; month++) {
+                const monthCard = document.createElement('div');
+                monthCard.className = 'month-card';
+
+                const daysInMonth = getDaysInMonth(2026, month);
+                const firstDay = new Date(2026, month - 1, 1).getDay();
+
+                // 获取农历月份
+                const lunarMonthInfo = getLunarDate(2026, month, 1);
+
+                let monthHTML = `
+                    <div class="month-title">
+                        ${monthNames[month - 1]}
+                        <span class="lunar-month">${lunarMonthInfo.month}</span>
+                    </div>
+                    <div class="days-header">
+                        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+                    </div>
+                    <div class="days-grid">
+                `;
+
+                // 上月剩余天数
+                for (let i = firstDay - 1; i >= 0; i--) {
+                    monthHTML += `<div class="day-cell empty"></div>`;
+                }
+
+                // 当月天数
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayOfWeek = (firstDay + day - 1) % 7;
+                    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+                    const isToday = today.getFullYear() === 2026 && today.getMonth() === month - 1 && today.getDate() === day;
+                    
+                    const lunar = getLunarDate(2026, month, day);
+                    const festival = getFestival(month, day);
+                    const solarTerm = getSolarTerm(month, day);
+                    
+                    let classes = 'day-cell';
+                    if (isWeekend) classes += ' weekend';
+                    if (isToday) classes += ' today';
+
+                    // 节日和节气分开显示在不同行
+                    let specialContent = '';
+                    if (solarTerm) {
+                        specialContent += `<span class="term-jieqi">${solarTerm}</span>`;
+                    }
+                    if (festival) {
+                        specialContent += `<span class="festival">${festival}</span>`;
+                    }
+
+                    monthHTML += `
+                        <div class="${classes}">
+                            <span class="solar-day">${day}</span>
+                            <span class="lunar-day">${lunar.day}</span>
+                            ${specialContent}
+                        </div>
+                    `;
+                }
+
+                // 填充剩余格子
+                const totalCells = firstDay + daysInMonth;
+                const remainingCells = 42 - totalCells;
+                for (let i = 0; i < remainingCells; i++) {
+                    monthHTML += `<div class="day-cell empty"></div>`;
+                }
+
+                monthHTML += `</div>`;
+                monthCard.innerHTML = monthHTML;
+                grid.appendChild(monthCard);
+            }
+        }
+
+        createCalendar();
+    </script>
+</body>
+</html>
