@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OpenClaw 简报 - 2026年3月20日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 25%, #e74c3c 50%, #c0392b 75%, #a93226 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 50%, #c0392b 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .header .date {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffebee;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #ff6b6b, #e74c3c);
+            border-radius: 2px;
+        }
+        .news-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 5px solid #e74c3c;
+            background: linear-gradient(135deg, #fff5f5, #ffffff);
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
+        .news-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.15);
+        }
+        .news-item:last-child { margin-bottom: 0; }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .tag-new { background: #ffebee; color: #e74c3c; }
+        .tag-security { background: #fff3e0; color: #e65100; }
+        .tag-update { background: #e8f5e9; color: #2e7d32; }
+        .tag-info { background: #e3f2fd; color: #1565c0; }
+        .news-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .news-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .skill-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fafafa, #ffffff);
+            border-radius: 12px;
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        .skill-item:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.1);
+        }
+        .skill-item:last-child { margin-bottom: 0; }
+        .skill-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e74c3c;
+            margin-bottom: 6px;
+        }
+        .skill-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        .skill-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        .skill-link {
+            color: #e74c3c;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .security-alert {
+            background: linear-gradient(135deg, #fff8e1, #fff3e0);
+            border: 2px solid #ff9800;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .security-alert .tag { background: #ff9800; color: white; }
+        .no-update {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 0.95rem;
+        }
+        .version-box {
+            background: linear-gradient(135deg, #ff6b6b, #e74c3c, #c0392b);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+        .version-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+        .version-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .upgrade-cmd {
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            word-break: break-all;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.5rem; }
+            .card { padding: 16px; }
+            .section-title { font-size: 1.1rem; }
+            .news-title, .skill-name { font-size: 0.95rem; }
+            .news-desc, .skill-desc { font-size: 0.85rem; }
+            .version-number { font-size: 1.5rem; }
+            .upgrade-cmd { font-size: 0.8rem; padding: 10px; }
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← 返回首页</a>
+    <div class="container">
+        <div class="header">
+            <h1>🦞 OpenClaw 简报</h1>
+            <div class="date">2026年3月20日 · 周五</div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">📢 OpenClaw 热点更新</div>
+            
+            <div class="news-item">
+                <span class="tag tag-new">新版本</span>
+                <div class="news-title">OpenClaw v2026.2.23 正式发布</div>
+                <div class="news-desc">安全强化升级版本，修复多个漏洞，新增 Claude Opus 4.6 支持。GitHub 星标已突破 30.9 万。</div>
+            </div>
+            
+            <div class="news-item">
+                <span class="tag tag-security">安全</span>
+                <div class="news-title">HTTP 安全标头强化</div>
+                <div class="news-desc">新增可选 Strict-Transport-Security 标头，针对直接 HTTPS 部署降低中间人攻击风险。</div>
+            </div>
+            
+            <div class="news-item">
+                <span class="tag tag-update">优化</span>
+                <div class="news-title">会话管理强化</div>
+                <div class="news-desc">通过 "openclaw sessions cleanup" 强化会话维护，引入磁盘配额控制和更安全的记录处理方式。</div>
+            </div>
+            
+            <div class="news-item">
+                <span class="tag tag-update">变更</span>
+                <div class="news-title">浏览器 SSRF 策略调整</div>
+                <div class="news-desc">默认调整为 "trusted-network" 模式，私有网络用户需显式配置，可通过 "openclaw doctor --fix" 迁移。</div>
+            </div>
+            
+            <div class="news-item">
+                <span class="tag tag-security">安全</span>
+                <div class="news-title">配置快照脱敏处理</div>
+                <div class="news-desc">配置快照中现已对 env.* 等敏感动态密钥进行脱敏处理，在保留恢复功能的同时阻断信息泄露。</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">🔥 社区热门 Skill</div>
+            
+            <div class="skill-item">
+                <div class="skill-name">awesome-openclaw-skills</div>
+                <div class="skill-meta">
+                    <span>⭐ 39.8k Stars</span>
+                    <span>📦 5400+ Skills</span>
+                </div>
+                <div class="skill-desc">官方精选 OpenClaw 技能合集，从官方技能注册中心筛选并分类，覆盖各类使用场景。</div>
+                <a href="https://github.com/VoltAgent/awesome-openclaw-skills" class="skill-link" target="_blank">GitHub 仓库 →</a>
+            </div>
+            
+            <div class="skill-item">
+                <div class="skill-name">awesome-openclaw-usecases</div>
+                <div class="skill-meta">
+                    <span>⭐ 26.2k Stars</span>
+                </div>
+                <div class="skill-desc">社区收集的 OpenClaw 用例集合，分享让生活更轻松的各类实战案例和应用场景。</div>
+                <a href="https://github.com/VoltAgent/awesome-openclaw-usecases" class="skill-link" target="_blank">GitHub 仓库 →</a>
+            </div>
+            
+            <div class="skill-item">
+                <div class="skill-name">baoyu-skills</div>
+                <div class="skill-meta">
+                    <span>⭐ 9.6k Stars</span>
+                </div>
+                <div class="skill-desc">TypeScript 代理技能集合，提供丰富的类型定义和代理工具扩展。</div>
+                <a href="https://github.com/VoltAgent/baoyu-skills" class="skill-link" target="_blank">GitHub 仓库 →</a>
+            </div>
+            
+            <div class="skill-item">
+                <div class="skill-name">notebooklm-py</div>
+                <div class="skill-meta">
+                    <span>⭐ 6.4k Stars</span>
+                </div>
+                <div class="skill-desc">非官方 Google NotebookLM Python API，支持通过 Python、CLI 和 AI 代理进行编程访问。</div>
+                <a href="https://github.com/VoltAgent/notebooklm-py" class="skill-link" target="_blank">GitHub 仓库 →</a>
+            </div>
+            
+            <div class="skill-item">
+                <div class="skill-name">claude-skills</div>
+                <div class="skill-meta">
+                    <span>⭐ 6k Stars</span>
+                    <span>📦 192+ Skills</span>
+                </div>
+                <div class="skill-desc">为 Claude Code、Codex、Gemini CLI、Cursor 等编码代理提供的技能合集，涵盖工程、市场、产品等领域。</div>
+                <a href="https://github.com/VoltAgent/claude-skills" class="skill-link" target="_blank">GitHub 仓库 →</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">🛡️ 安全与漏洞通告</div>
+            
+            <div class="security-alert">
+                <span class="tag">重要</span>
+                <div class="news-title">CVE-2026-25475: 路径遍历漏洞</div>
+                <div class="news-desc">
+                    <strong>影响版本:</strong> OpenClaw < 2026.1.30<br>
+                    <strong>漏洞描述:</strong> src/media/parse.ts 中 isValidMedia() 函数未正确验证文件路径，存在路径遍历风险。<br>
+                    <strong>修复状态:</strong> 2026.1.30 及以上版本已修复
+                </div>
+            </div>
+            
+            <div class="security-alert">
+                <span class="tag">高危</span>
+                <div class="news-title">CVE-2026-25253: WebSocket 劫持漏洞</div>
+                <div class="news-desc">
+                    <strong>CVSS 评分:</strong> 8.8 (高危)<br>
+                    <strong>影响版本:</strong> OpenClaw < 1.8.1<br>
+                    <strong>漏洞原理:</strong> Gateway 服务默认绑定 0.0.0.0:18789，WebSocket 握手阶段缺少 Origin 验证。<br>
+                    <strong>修复状态:</strong> 1.8.1 及以上版本已修复
+                </div>
+            </div>
+            
+            <div class="news-item">
+                <span class="tag tag-info">通告</span>
+                <div class="news-title">ClawHub 恶意插件预警</div>
+                <div class="news-desc">安全研究人员发现 ClawHub 恶意/高危插件占比约 12%，已识别 1184+ 个恶意技能。建议仅使用官方认证技能。</div>
+            </div>
+        </div>
+
+        <div class="version-box">
+            <h3>🚀 当前最新版本</h3>
+            <div class="version-number">v2026.2.23</div>
+            <div>升级命令:</div>
+            <div class="upgrade-cmd">
+                npm install -g openclaw@latest
+            </div>
+        </div>
+
+        <div class="footer">
+            由 OpenClaw 资讯播报助手生成 · 2026年3月20日
+        </div>
+    </div>
+</body>
+</html>
