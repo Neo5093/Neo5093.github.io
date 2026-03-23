@@ -2,20 +2,16 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>OpenClaw 简报 | 2026年3月23日</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OpenClaw 简报 - 2026年3月23日</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 25%, #e74c3c 50%, #c0392b 75%, #a93226 100%);
             min-height: 100vh;
             padding: 20px;
-            color: #333;
+            -webkit-font-smoothing: antialiased;
         }
         .container {
             max-width: 900px;
@@ -24,13 +20,11 @@
         .header {
             background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 50%, #c0392b 100%);
             border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.4);
         }
         .header::before {
             content: '';
@@ -39,362 +33,412 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
             animation: shimmer 3s infinite;
         }
         @keyframes shimmer {
             0% { transform: translateX(-100%) rotate(45deg); }
             100% { transform: translateX(100%) rotate(45deg); }
         }
+        .header-content { position: relative; z-index: 1; }
         .header h1 {
-            font-size: 2.2em;
+            color: white;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            position: relative;
         }
         .header .date {
-            font-size: 1.2em;
-            opacity: 0.95;
-            position: relative;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
         }
-        .header .issue {
-            font-size: 0.95em;
-            opacity: 0.85;
-            margin-top: 8px;
-        }
-        .back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 6px 16px;
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
-            z-index: 1000;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
+            font-size: 13px;
+            margin-top: 12px;
         }
         .section {
             background: white;
             border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         .section-title {
-            font-size: 1.4em;
+            font-size: 18px;
+            font-weight: 600;
             color: #e74c3c;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 3px solid #e74c3c;
-            position: relative;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffebee;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #e74c3c, #ff6b6b, transparent);
-            animation: gradientMove 3s ease infinite;
-        }
-        @keyframes gradientMove {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .section-title .icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
         }
         .news-item {
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            border-left: 5px solid #e74c3c;
+            padding: 16px;
             background: linear-gradient(135deg, #fff5f5, #ffffff);
+            border-left: 5px solid #e74c3c;
             border-radius: 0 12px 12px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
         }
         .news-item:hover {
             transform: translateX(8px);
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.15);
+            box-shadow: 0 4px 15px rgba(231,76,60,0.15);
         }
-        .news-item:last-child {
-            margin-bottom: 0;
-        }
-        .tag {
+        .news-item:last-child { margin-bottom: 0; }
+        .news-item .tag {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.78em;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: 600;
-            margin-right: 10px;
+            margin-bottom: 8px;
         }
-        .tag-new { background: #e74c3c; color: white; }
-        .tag-security { background: #f39c12; color: white; }
-        .tag-update { background: #3498db; color: white; }
-        .tag-milestone { background: #9b59b6; color: white; }
-        .tag-feature { background: #1abc9c; color: white; }
-        .tag-warning { background: #e74c3c; color: white; }
-        .news-title {
-            font-size: 1.1em;
+        .tag-new { background: #ffebee; color: #e74c3c; }
+        .tag-security { background: #fff3e0; color: #e67e22; }
+        .tag-update { background: #e8f5e9; color: #27ae60; }
+        .tag-breaking { background: #fce4ec; color: #c62828; }
+        .news-item .title {
+            font-size: 15px;
             font-weight: 600;
-            color: #2c3e50;
-            margin: 8px 0;
-        }
-        .news-desc {
-            color: #555;
-            line-height: 1.6;
-            font-size: 0.95em;
-        }
-        .skill-item {
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            border-left: 5px solid #3498db;
-            background: linear-gradient(135deg, #f0f8ff, #ffffff);
-            border-radius: 0 12px 12px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .skill-item:hover {
-            transform: translateX(8px);
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.15);
-        }
-        .skill-item:last-child {
-            margin-bottom: 0;
-        }
-        .skill-name {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #2c3e50;
+            color: #333;
             margin-bottom: 6px;
         }
-        .skill-name a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .skill-name a:hover {
-            text-decoration: underline;
-        }
-        .skill-desc {
-            color: #555;
+        .news-item .desc {
+            font-size: 13px;
+            color: #666;
             line-height: 1.6;
-            font-size: 0.95em;
         }
-        .skill-meta {
+        .skill-item {
+            padding: 16px;
+            background: linear-gradient(135deg, #fafafa, #fff);
+            border: 1px solid #eee;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        .skill-item:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 4px 15px rgba(231,76,60,0.1);
+        }
+        .skill-item:last-child { margin-bottom: 0; }
+        .skill-item .skill-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .skill-item .skill-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        .skill-item .skill-stars {
+            font-size: 12px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        .skill-item .skill-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        .skill-item .skill-link {
+            font-size: 12px;
+            color: #999;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .skill-item .skill-tags {
+            display: flex;
+            gap: 6px;
             margin-top: 8px;
-            font-size: 0.85em;
-            color: #888;
         }
-        .skill-meta span {
-            margin-right: 15px;
+        .skill-item .skill-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            background: #fff5f5;
+            color: #e74c3c;
+            border-radius: 8px;
+        }
+        .security-alert {
+            background: linear-gradient(135deg, #fff8e1, #fff);
+            border: 1px solid #ffcc02;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .security-alert:last-child { margin-bottom: 0; }
+        .security-alert .alert-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e67e22;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .security-alert .alert-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .security-alert .cve {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #c0392b;
+            background: #ffebee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 8px;
+            display: inline-block;
         }
         .version-box {
             background: linear-gradient(135deg, #ff6b6b, #e74c3c, #c0392b);
             border-radius: 16px;
-            padding: 30px;
+            padding: 24px;
             color: white;
             text-align: center;
-            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.4);
         }
-        .version-box h3 {
-            font-size: 1.3em;
-            margin-bottom: 15px;
+        .version-box .version-label {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 8px;
         }
-        .version-number {
-            font-size: 2.5em;
+        .version-box .version-number {
+            font-size: 32px;
             font-weight: 700;
-            margin: 15px 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 16px;
         }
-        .upgrade-cmd {
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin: 15px auto;
-            max-width: 500px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9em;
-            word-break: break-all;
+        .version-box .upgrade-cmd {
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-bottom: 8px;
         }
+        .version-box .upgrade-cmd:last-child { margin-bottom: 0; }
         .footer {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             color: rgba(255,255,255,0.8);
-            font-size: 0.9em;
+            font-size: 12px;
         }
-        .source {
-            font-size: 0.82em;
-            color: #888;
-            margin-top: 6px;
-        }
-        @media (max-width: 768px) {
-            body { padding: 15px; }
-            .header { padding: 30px 20px; }
-            .header h1 { font-size: 1.6em; }
-            .section { padding: 20px; }
-            .section-title { font-size: 1.2em; }
-            .back-btn { 
-                top: 10px; 
-                left: 10px; 
-                padding: 8px 16px;
-                font-size: 0.9em;
-            }
-            .news-item, .skill-item { padding: 14px 16px; }
-            .version-number { font-size: 2em; }
+        .footer a { color: white; text-decoration: none; }
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .section { padding: 16px; }
+            .section-title { font-size: 16px; }
+            .news-item .title { font-size: 14px; }
+            .version-box .version-number { font-size: 26px; }
+            .version-box .upgrade-cmd { font-size: 11px; padding: 10px; }
         }
     </style>
 </head>
 <body>
-    <a href="../index.html" class="back-btn">← 返回首页</a>
     <div class="container">
         <div class="header">
-            <h1>🦞 OpenClaw 简报</h1>
-            <div class="date">2026年3月23日 · 第15期</div>
-            <div class="issue">OpenClaw Daily News · OpenClaw简报</div>
+            <div class="header-content">
+                <h1>OpenClaw 简报</h1>
+                <div class="date">2026年3月23日 · 第14期</div>
+                <div class="version-badge">最新版本: v2026.3.13</div>
+            </div>
         </div>
 
         <div class="section">
-            <h2 class="section-title">📢 OpenClaw 热点更新</h2>
-            
-            <div class="news-item">
-                <span class="tag tag-new">新版本</span>
-                <div class="news-title">v2026.3.13 正式发布：修复版本上线</div>
-                <div class="news-desc">因GitHub发布机制问题，官方紧急发布v2026.3.13-1修复版本。npm版本号保持为2026.3.13，主要修复会话重置后lastAccountId和lastThreadId丢失问题，提升AI记忆稳定性。</div>
-                <div class="source">来源：搜狐科技、GitHub Releases</div>
+            <div class="section-title">
+                <span class="icon">1</span>
+                OpenClaw 热点更新
             </div>
-            
+
             <div class="news-item">
-                <span class="tag tag-feature">新功能</span>
-                <div class="news-title">Chrome DevTools MCP 官方原生支持</div>
-                <div class="news-desc">v2026.3.13版本新增Chrome DevTools MCP附加模式，开放完整调试能力。支持chrome://inspect/#remote-debugging远程调试协议，内置profile="user"和profile="chrome-relay"双模式。</div>
-                <div class="source">来源：CSDN</div>
+                <span class="tag tag-new">新功能</span>
+                <div class="title">ContextEngine 插件接口发布</div>
+                <div class="desc">全新 ContextEngine 插件接口实现上下文管理"自由插拔"，记忆热插拔能力已超越 Anthropic 官方产品。v2026.3.7 版本带来 89 项提交、200+ Bug 修复。</div>
             </div>
-            
+
             <div class="news-item">
-                <span class="tag tag-milestone">里程碑</span>
-                <div class="news-title">GitHub Stars 突破 25 万，登顶历史榜首</div>
-                <div class="news-desc">2026年3月初，OpenClaw以超过25万GitHub星标数超越React(24.3万)和Linux内核(22万)，成为GitHub平台最受欢迎的开源项目，刷新历史增长纪录。</div>
-                <div class="source">来源：腾讯网、企鹅号</div>
+                <span class="tag tag-update">升级</span>
+                <div class="title">外部密钥管理系统</div>
+                <div class="desc">彻底解决密钥明文存储、多环境管理难题。支持 env、GCP Secret Manager、AWS Secrets Manager 等多种密钥提供商，支持密钥引用、审计、重载及旧配置迁移。</div>
             </div>
-            
+
+            <div class="news-item">
+                <span class="tag tag-new">新功能</span>
+                <div class="title">ACP 线程代理（并行 Agent 协作）</div>
+                <div class="desc">将 Agent 协作从串行改为并行，支持多 Agent 同时处理任务，效率提升 3-5 倍。单个 Agent 出错不影响整体流程，支持并行任务的启动、状态监控和失败重试。</div>
+            </div>
+
             <div class="news-item">
                 <span class="tag tag-update">优化</span>
-                <div class="news-title">ContextEngine 插件化架构发布</div>
-                <div class="news-desc">v2026.3.7版本推出全新ContextEngine插件接口，支持上下文管理策略自由切换。同步支持GPT-5.4与Gemini 3.1 Flash双引擎，引入智能降级机制自动切换备用模型。</div>
-                <div class="source">来源：搜狐科技</div>
+                <div class="title">WebSocket 传输升级</div>
+                <div class="desc">从 SSE 单向通信升级为 WebSocket 双向通信，延迟降低 60%，支持自动重连和连接复用。默认启用并优先使用。</div>
             </div>
-            
+
             <div class="news-item">
-                <span class="tag tag-security">安全</span>
-                <div class="news-title">会话管理强化与多平台通信优化</div>
-                <div class="news-desc">修复Telegram集成媒体传输策略和SSRF处理，增强Docker安全防止网关令牌泄露。移动端Android/iOS全新UI升级，显著提升流式传输处理能力和启动速度。</div>
-                <div class="source">来源：CSDN博客</div>
+                <span class="tag tag-new">新功能</span>
+                <div class="title">Android 节点支持</div>
+                <div class="desc">让 Android 手机成为 OpenClaw 的执行节点，实现移动端与桌面端的跨设备协同。支持读取手机通知、远程发送短信、采集 GPS/加速计传感器数据。</div>
             </div>
         </div>
 
         <div class="section">
-            <h2 class="section-title">🛠️ 社区热门 Skill</h2>
-            
-            <div class="skill-item">
-                <div class="skill-name">
-                    <a href="https://github.com/VoltAgent/awesome-openclaw-skills" target="_blank">awesome-openclaw-skills</a>
-                    <span style="color:#f39c12;margin-left:8px;">⭐ 40.9k</span>
-                </div>
-                <div class="skill-desc">OpenClaw官方技能精选合集，从ClawHub筛选分类5400+高质量技能，覆盖AI、搜索、自动化等12大核心场景。</div>
-                <div class="skill-meta"><span>🏷️ 综合技能库</span><span>⭐ 40.9k Stars</span></div>
+            <div class="section-title">
+                <span class="icon">2</span>
+                社区热门 Skill
             </div>
-            
+
             <div class="skill-item">
-                <div class="skill-name">
-                    <a href="https://github.com/hesamsheikh/awesome-openclaw-usecases" target="_blank">awesome-openclaw-usecases</a>
-                    <span style="color:#f39c12;margin-left:8px;">⭐ 26.8k</span>
+                <div class="skill-header">
+                    <span class="skill-name">awesome-openclaw-skills</span>
+                    <span class="skill-stars">41k stars</span>
                 </div>
-                <div class="skill-desc">社区收集的OpenClaw用例集合，涵盖日常生活、工作效率、专业开发等多种应用场景，让AI助手真正融入生活。</div>
-                <div class="skill-meta"><span>🏷️ 用例集合</span><span>⭐ 26.8k Stars</span></div>
+                <div class="skill-desc">OpenClaw 官方技能精选库，从 5400+ 社区技能中筛选分类，涵盖 Git、Coding、Browser、DevOps 等 28 个分类。</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">综合</span>
+                    <span class="skill-tag">官方</span>
+                </div>
+                <a class="skill-link" href="https://github.com/VoltAgent/awesome-openclaw-skills">github.com/VoltAgent/awesome-openclaw-skills</a>
             </div>
-            
+
             <div class="skill-item">
-                <div class="skill-name">
-                    <a href="https://github.com/JimLiu/baoyu-skills" target="_blank">baoyu-skills</a>
-                    <span style="color:#f39c12;margin-left:8px;">⭐ 10.3k</span>
+                <div class="skill-header">
+                    <span class="skill-name">awesome-openclaw-usecases</span>
+                    <span class="skill-stars">26.9k stars</span>
                 </div>
-                <div class="skill-desc">TypeScript编写的OpenClaw代理技能集合，提供丰富的AI交互扩展能力，适合开发者二次开发。</div>
-                <div class="skill-meta"><span>🏷️ TypeScript</span><span>⭐ 10.3k Stars</span></div>
+                <div class="skill-desc">社区用例集合，包含 40+ 真实运行案例，涵盖社交媒体自动化、多智能体协作、金融交易等场景。</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">用例</span>
+                    <span class="skill-tag">社区</span>
+                </div>
+                <a class="skill-link" href="https://github.com/hesamsheikh/awesome-openclaw-usecases">github.com/hesamsheikh/awesome-openclaw-usecases</a>
             </div>
-            
+
             <div class="skill-item">
-                <div class="skill-name">
-                    <a href="https://github.com/teng-lin/notebooklm-py" target="_blank">notebooklm-py</a>
-                    <span style="color:#f39c12;margin-left:8px;">⭐ 7k</span>
+                <div class="skill-header">
+                    <span class="skill-name">baoyu-skills</span>
+                    <span class="skill-stars">10.5k stars</span>
                 </div>
-                <div class="skill-desc">非官方Google NotebookLM Python API和代理技能，提供对NotebookLM功能的完全编程访问，支持音频分析和深度研究。</div>
-                <div class="skill-meta"><span>🏷️ Python</span><span>⭐ 7k Stars</span></div>
+                <div class="skill-desc">内容生成技能套装，支持小红书信息图、幻灯片、公众号文章、翻译等多平台内容创作与发布。</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">内容创作</span>
+                    <span class="skill-tag">社交媒体</span>
+                </div>
+                <a class="skill-link" href="https://github.com/JimLiu/baoyu-skills">github.com/JimLiu/baoyu-skills</a>
             </div>
-            
+
             <div class="skill-item">
-                <div class="skill-name">
-                    <a href="https://github.com/alirezarezvani/claude-skills" target="_blank">claude-skills</a>
-                    <span style="color:#f39c12;margin-left:8px;">⭐ 6.4k</span>
+                <div class="skill-header">
+                    <span class="skill-name">notebooklm-py</span>
+                    <span class="skill-stars">7.1k stars</span>
                 </div>
-                <div class="skill-desc">192+个Claude Code技能和代理插件集合，兼容Claude Code、Codex、Gemini CLI等多种编码代理。</div>
-                <div class="skill-meta"><span>🏷️ Claude生态</span><span>⭐ 6.4k Stars</span></div>
+                <div class="skill-desc">Google NotebookLM 非官方 Python API，支持程序化访问 NotebookLM 的全部功能，用于学术研究和文献分析。</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">学术</span>
+                    <span class="skill-tag">API</span>
+                </div>
+                <a class="skill-link" href="https://github.com/teng-lin/notebooklm-py">github.com/teng-lin/notebooklm-py</a>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">claude-skills</span>
+                    <span class="skill-stars">6.4k stars</span>
+                </div>
+                <div class="skill-desc">192+ Claude Code 技能与插件集合，适用于 Claude Code、Codex、Gemini CLI、Cursor 等多个编码代理平台。</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">编程</span>
+                    <span class="skill-tag">开发</span>
+                </div>
+                <a class="skill-link" href="https://github.com/alirezarezvani/claude-skills">github.com/alirezarezvani/claude-skills</a>
             </div>
         </div>
 
         <div class="section">
-            <h2 class="section-title">🔒 安全与漏洞通告</h2>
-            
-            <div class="news-item">
-                <span class="tag tag-warning">高危</span>
-                <div class="news-title">CVE-2026-25475：路径遍历漏洞（已修复）</div>
-                <div class="news-desc">v2026.1.30之前版本受影响，src/media/parse.ts中isValidMedia()函数未正确验证文件路径。攻击者可通过MEDIA:/path/to/file读取任意系统文件。官方已在v2026.1.30及更高版本中修复。</div>
-                <div class="source">来源：SentinelOne、NVD</div>
+            <div class="section-title">
+                <span class="icon">3</span>
+                安全与漏洞通告
             </div>
-            
-            <div class="news-item">
-                <span class="tag tag-warning">高危</span>
-                <div class="news-title">CVE-2026-25253：WebSocket劫持漏洞（CVSS 8.8）</div>
-                <div class="news-desc">OpenClaw Gateway默认绑定0.0.0.0:18789，WebSocket握手阶段缺少Origin验证。攻击者可构造恶意网页在用户不知情时建立连接并执行代码。建议升级至1.8.1+版本。</div>
-                <div class="source">来源：CSDN安全博客</div>
+
+            <div class="security-alert">
+                <div class="alert-title">
+                    <span>!</span> CVE-2026-25253 跨站 WebSocket 劫持
+                </div>
+                <div class="alert-desc">Control UI 模块从 URL 读取 gatewayUrl 参数未做验证，攻击者可在恶意网页中注入 JS 窃取认证 Token。CVSS 8.8，已修复。</div>
+                <span class="cve">CVE-2026-25253</span>
             </div>
-            
-            <div class="news-item">
-                <span class="tag tag-security">警告</span>
-                <div class="news-title">ClawHub 恶意插件预警：占比约12%</div>
-                <div class="news-desc">据安全研究人员扫描，ClawHub中恶意/高危插件占比12%(341/2857)，已识别1184+恶意技能。官方与VirusTotal合作提供安全扫描报告，安装前请务必审查源码。</div>
-                <div class="source">来源：安全报告</div>
+
+            <div class="security-alert">
+                <div class="alert-title">
+                    <span>!</span> CVE-2026-25475 任意文件读取
+                </div>
+                <div class="alert-desc">MEDIA 路径解析函数未校验文件路径，攻击者可用目录穿越序列读取任意文件。已修复。</div>
+                <span class="cve">CVE-2026-25475</span>
             </div>
-            
-            <div class="news-item">
-                <span class="tag tag-security">通报</span>
-                <div class="news-title">CNNVD通报：82个漏洞采集</div>
-                <div class="news-desc">国家信息安全漏洞库统计，2026年1月至3月初共采集OpenClaw漏洞82个，其中超危12个、高危21个、中危47个。涵盖访问控制错误、代码问题、路径遍历等类型。</div>
-                <div class="source">来源：通信世界网、CNNVD</div>
+
+            <div class="security-alert">
+                <div class="alert-title">
+                    <span>!</span> CVE-2026-24763 Docker 沙箱命令注入
+                </div>
+                <div class="alert-desc">Docker 沙箱模式下 PATH 环境变量未经转义直接拼接 shell 命令，攻击者可执行任意命令。已修复。</div>
+                <span class="cve">CVE-2026-24763</span>
+            </div>
+
+            <div class="security-alert">
+                <div class="alert-title">
+                    <span>!</span> ClawHub 恶意 Skill 预警
+                </div>
+                <div class="alert-desc">ClawHub 平台已发现 341+ 恶意 Skills，主要伪装为加密货币工具、YouTube 助手、自动更新程序等。感染后可窃取 API 密钥、部署木马。已识别部分恶意技能：clawhub 仿冒系列、polymarket-trader、better-polymarket、rankaj、moltbook-registry 等。</div>
+            </div>
+
+            <div class="security-alert">
+                <div class="alert-title">
+                    <span>!</span> 提示词注入风险
+                </div>
+                <div class="alert-desc">攻击者通过网页、邮件等构造隐藏恶意指令，诱导 OpenClaw 读取后执行未授权操作（如泄露环境变量）。建议禁用自动读取网页功能。</div>
+                <span class="cve">CVE-2026-27001</span>
             </div>
         </div>
 
         <div class="section">
+            <div class="section-title">
+                <span class="icon">4</span>
+                版本升级
+            </div>
             <div class="version-box">
-                <h3>🚀 当前最新版本</h3>
+                <div class="version-label">当前最新版本</div>
                 <div class="version-number">v2026.3.13</div>
-                <p style="margin-bottom: 15px;">发布于 2026年3月 · 安全修复版本</p>
-                <div class="upgrade-cmd">
-                    npm install -g openclaw@latest
-                </div>
-                <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
-                    Windows PowerShell: iwr -useb https://openclaw.ai/install.ps1 | iex<br>
-                    macOS/Linux: curl -fsSL https://openclaw.ai/install.sh | bash
-                </p>
+                <div class="upgrade-cmd">npm install -g openclaw@latest</div>
+                <div class="upgrade-cmd">iwr -useb https://openclaw.ai/install.ps1 | iex</div>
             </div>
         </div>
 
         <div class="footer">
-            <p>OpenClaw 简报 · 每日9:15自动更新</p>
-            <p style="margin-top: 8px;">数据来源：GitHub · 安全报告 · 社区贡献</p>
-            <p style="margin-top: 8px;">© 2026 OpenClaw Community</p>
+            <p>OpenClaw 简报 · 每日自动化生成</p>
+            <p><a href="https://github.com/openclaw/openclaw/releases">GitHub Releases</a> · <a href="https://clawhub.ai">ClawHub</a> · <a href="https://docs.openclaw.ai">官方文档</a></p>
         </div>
     </div>
 </body>
