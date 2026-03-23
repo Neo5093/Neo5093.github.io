@@ -250,6 +250,25 @@
             .news-grid { grid-template-columns: 1fr; }
             .section-title { font-size: 16px; }
         }
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease;
+        }
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
         @media (max-width: 480px) {
             .header h1 { font-size: 20px; }
             .header .meta { gap: 10px; }
@@ -257,6 +276,7 @@
             .news-card { padding: 12px; }
             .news-title { font-size: 13px; }
             .footer .stats { gap: 10px; padding: 8px 14px; }
+            .back-home { padding: 8px 14px; font-size: 12px; top: 10px; left: 10px; }
         }
         @media (min-width: 769px) and (max-width: 1024px) {
             .news-grid { grid-template-columns: repeat(2, 1fr); }
@@ -267,6 +287,7 @@
     </style>
 </head>
 <body>
+    <a href="../index.html" class="back-home">← 返回首页</a>
     <div class="container">
         <div class="header">
             <h1>互联网早报</h1>
