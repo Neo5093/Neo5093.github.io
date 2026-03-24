@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 简报 | 2026年3月24日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 25%, #e74c3c 50%, #c0392b 75%, #a93226 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 50%, #c0392b 100%);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .header .date {
+            font-size: 1.1em;
+            opacity: 0.95;
+            position: relative;
+        }
+        .header .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-size: 0.9em;
+            position: relative;
+        }
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .section-title {
+            font-size: 1.3em;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #fee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #e74c3c, transparent);
+        }
+        .news-item {
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #fff5f5, #ffffff);
+            border-left: 5px solid #e74c3c;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
+        .news-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.15);
+        }
+        .news-item:last-child { margin-bottom: 0; }
+        .news-item .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .tag-new { background: #ffebee; color: #c62828; }
+        .tag-fix { background: #e8f5e9; color: #2e7d32; }
+        .tag-update { background: #fff3e0; color: #e65100; }
+        .tag-security { background: #fce4ec; color: #ad1457; }
+        .tag-hot { background: #f3e5f5; color: #7b1fa2; }
+        .news-item h3 {
+            font-size: 1.05em;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .news-item p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+        }
+        .news-item .source {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 8px;
+        }
+        .news-item .source a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+        .skill-item {
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            border-left: 5px solid #5c6bc0;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
+        .skill-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.15);
+        }
+        .skill-item:last-child { margin-bottom: 0; }
+        .skill-item h3 {
+            font-size: 1.05em;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .skill-item h3 a {
+            color: #5c6bc0;
+            text-decoration: none;
+        }
+        .skill-item .desc {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+        .skill-item .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.8em;
+        }
+        .skill-item .stars {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+        .skill-item .scenario {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+        .security-warning {
+            background: linear-gradient(135deg, #fff5f5, #fff);
+            border: 2px solid #ef5350;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .security-warning h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .security-warning p {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        .version-box {
+            background: linear-gradient(135deg, #ff6b6b, #e74c3c, #c0392b);
+            border-radius: 16px;
+            padding: 28px;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .version-box h3 {
+            font-size: 1.2em;
+            margin-bottom: 16px;
+        }
+        .version-box .version-number {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .version-box .upgrade-cmd {
+            background: rgba(255,255,255,0.15);
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        .version-box .upgrade-cmd:last-child { margin-bottom: 0; }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85em;
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .header { padding: 28px 20px; }
+            .header h1 { font-size: 1.6em; }
+            .section { padding: 20px; }
+            .news-item, .skill-item { padding: 14px 16px; }
+            .version-box { padding: 20px; }
+            .version-box .upgrade-cmd { font-size: 0.85em; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OpenClaw 简报</h1>
+            <div class="date">2026 年 3 月 24 日 | 第 16 期</div>
+            <div class="version-badge">最新版本 v2026.3.23</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">OpenClaw 热点更新</div>
+
+            <div class="news-item">
+                <span class="tag tag-new">新版本</span>
+                <h3>v2026.3.23 正式发布（Recovery Release）</h3>
+                <p>2026年3月23日发布，修复 GitHub 不可变发布标签问题。修复浏览器连接超时、ClawHub 凭据读取、消息组件发送等问题。安全加固：增强命令执行审批逻辑，限制画布路由匿名访问。</p>
+                <div class="source">来源：<a href="https://github.com/openclaw/openclaw/releases" target="_blank">GitHub Releases</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-new">新功能</span>
+                <h3>ClawHub 官方插件市场内置集成</h3>
+                <p>v2026.3.22 起，插件安装命令简化为 <code>openclaw plugins install &lt;package&gt;</code>，优先从 ClawHub 市场搜索。新增插件 SDK（<code>openclaw/plugin-sdk/*</code>），统一第三方插件接口。</p>
+                <div class="source">来源：<a href="https://www.appinn.com/openclaw-2026-3-22/" target="_blank">小众软件</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-update">优化</span>
+                <h3>Chrome/MCP 浏览器集成重大改进</h3>
+                <p>移除 relay 浏览器扩展，新增 <code>existing-session</code>（使用现有浏览器会话）和 <code>user</code>（独立浏览器配置）模式。支持连接 Brave、Edge 等 Chromium 内核浏览器指定用户数据目录。修复 macOS 重复授权问题，提升无头 Linux 环境性能。</p>
+                <div class="source">来源：<a href="https://github.com/openclaw/openclaw/releases" target="_blank">GitHub Releases</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-new">核心</span>
+                <h3>图片生成功能核心化</h3>
+                <p>将图片生成功能集成为核心工具 <code>image_generate</code>，移除旧的 <code>nano-banana-pro</code> 相关文档。默认使用 OpenAI <code>gpt-5.4</code> 模型，新增 <code>/btw</code> 临时提问命令不干扰当前上下文。</p>
+                <div class="source">来源：<a href="https://www.appinn.com/openclaw-2026-3-22/" target="_blank">小众软件</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-security">安全</span>
+                <h3>Gateway 认证与权限加固</h3>
+                <p>增强执行命令审批逻辑，防止潜在命令注入风险。网关认证加固，限制匿名访问画布路由和会话重置功能。过滤系统变量，<code>exec</code> 环境不再默认继承宿主构建/运行时关键环境变量。</p>
+                <div class="source">来源：<a href="https://github.com/openclaw/openclaw/releases" target="_blank">GitHub Releases</a></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">社区热门 Skill</div>
+
+            <div class="skill-item">
+                <h3><a href="https://github.com/VoltAgent/awesome-openclaw-skills" target="_blank">awesome-openclaw-skills</a></h3>
+                <p class="desc">官方精选 OpenClaw 技能库，从 5200+ 社区技能中筛选分类整理。涵盖编程代理、Web 开发、DevOps、AI&LLM 等多个领域。</p>
+                <div class="meta">
+                    <span class="stars">41.3k Stars</span>
+                    <span class="scenario">适用：综合技能扩展</span>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h3><a href="https://github.com/openclaw/skills/tree/main/skills/browser-use" target="_blank">browser-use</a></h3>
+                <p class="desc">浏览器自动化终极工具，执行复杂网页操作、爬虫、数据抓取、表单填写、截图等任务。兼容多种 AI 模型，是网页自动化的首选技能。</p>
+                <div class="meta">
+                    <span class="stars">高热度</span>
+                    <span class="scenario">适用：Web 自动化、爬虫、数据采集</span>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h3><a href="https://github.com/openclaw/skills/tree/main/skills/tavily" target="_blank">tavily-search</a></h3>
+                <p class="desc">专为 AI 代理设计的实时网络搜索工具，支持精准检索和深度网页提取。提供免费额度，完全兼容 OpenClaw 的 Search Provider 接口。</p>
+                <div class="meta">
+                    <span class="stars">高热度</span>
+                    <span class="scenario">适用：实时联网搜索、深度研究</span>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h3><a href="https://github.com/openclaw/skills/tree/main/skills/agent-team-orchestration" target="_blank">agent-team-orchestration</a></h3>
+                <p class="desc">多智能体团队编排框架，使用定义的角色、任务生命周期、交接协议和审查工作流程来协调多个 AI Agent 协同工作。</p>
+                <div class="meta">
+                    <span class="stars">热门</span>
+                    <span class="scenario">适用：复杂任务分解、多Agent协作</span>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <h3><a href="https://github.com/openclaw/skills/tree/main/skills/notebooklm-py" target="_blank">notebooklm-py</a></h3>
+                <p class="desc">Google NotebookLM Python API 接口封装，实现与 NotebookLM 的无缝集成。支持播客摘要、FAQ 生成、对话式 AI 交互等高级功能。</p>
+                <div class="meta">
+                    <span class="stars">7.1k Stars</span>
+                    <span class="scenario">适用：AI 研究辅助、内容分析</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">安全与漏洞通告</div>
+
+            <div class="security-warning">
+                <h4>高危漏洞提醒</h4>
+                <p>以下漏洞已在 v2026.3.13+ 版本中修复，请确认您的 OpenClaw 版本并及时升级。所有历史版本用户（≤2026.1.29）建议立即更换所有 API 密钥和通信令牌。</p>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-security">高危 (CVSS 8.8)</span>
+                <h3>CVE-2026-25253：WebSocket 劫持远程代码执行（ClawBleed）</h3>
+                <p>控制 UI 对 gatewayUrl 参数过度信任，通过恶意链接可实现跨站 WebSocket 劫持窃取 authToken，进而一键接管本地 AI 助手。影响 24,000+ 公网暴露实例。已在 v2026.1.29+ 修复。</p>
+                <div class="source">来源：<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-25253" target="_blank">NVD CVE-2026-25253</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-security">高危</span>
+                <h3>CVE-2026-25475：路径遍历漏洞</h3>
+                <p>允许攻击者通过构造特殊路径访问服务器任意文件，已在后续版本中修复。</p>
+                <div class="source">来源：<a href="https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/" target="_blank">Adversa AI Security Guide</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-security">中危</span>
+                <h3>CVE-2026-24763 / CVE-2026-25157：命令注入漏洞</h3>
+                <p>通过未正确过滤的输入字段在网关中执行任意命令，已修复。</p>
+                <div class="source">来源：<a href="https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/" target="_blank">Adversa AI Security Guide</a></div>
+            </div>
+
+            <div class="news-item">
+                <span class="tag tag-security">风险提示</span>
+                <h3>ClawHub 恶意技能预警</h3>
+                <p>ClawHub 技能市场中约 12-20% 技能含恶意代码（如 Atomic Stealer 变种）。建议人工审查代码后再安装，优先使用官方认证技能。</p>
+                <div class="source">来源：<a href="https://news.cctv.cn/2026/03/13/ARTIEOruVARjjvgc18Uw0m5F260313.shtml" target="_blank">国家网络与信息安全信息通报中心</a></div>
+            </div>
+
+            <div class="security-warning" style="border-color: #ff9800; background: linear-gradient(135deg, #fff8f0, #fff);">
+                <h4 style="color: #e65100;">安全加固建议</h4>
+                <p>1. 启用网关认证：设置 <code>gateway.auth.password</code><br>
+                2. 控制 UI 仅绑定 <code>127.0.0.1</code>，避免公网暴露<br>
+                3. 设置 API 使用限额，防止恶意循环消耗<br>
+                4. 执行 <code>openclaw security audit --deep --fix</code> 自动检测</p>
+            </div>
+        </div>
+
+        <div class="version-box">
+            <h3>当前最新版本与升级命令</h3>
+            <div class="version-number">v2026.3.23</div>
+            <div class="upgrade-cmd">Windows: <code>npm install -g openclaw@latest</code></div>
+            <div class="upgrade-cmd">Windows PowerShell: <code>iwr -useb https://openclaw.ai/install.ps1 | iex</code></div>
+            <div class="upgrade-cmd">macOS/Linux: <code>curl -fsSL https://openclaw.ai/install.sh | bash</code></div>
+        </div>
+
+        <div class="footer">
+            OpenClaw 简报 | 每日自动生成 | 数据来源：GitHub、CVE 数据库、社区公告
+        </div>
+    </div>
+</body>
+</html>
