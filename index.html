@@ -1,614 +1,1030 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>该影未来窗 | 每日资讯</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ========================================
+           CSS 变量 - 设计系统核心
+           ======================================== */
         :root {
-            --bg-base: #F8FAFC;
-            --bg-surface: #FFFFFF;
-            --primary: #4F46E5;
-            --secondary: #7C3AED;
-            --text-main: #0F172A;
-            --text-muted: #64748B;
-            --accent-success: #10B981;
-            --border: #E2E8F0;
-            --shadow-default: 0 4px 20px -2px rgba(79, 70, 229, 0.1);
-            --shadow-hover: 0 10px 25px -5px rgba(79, 70, 229, 0.15), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
-            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.4);
-            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            /* 主色调 - 玄青 */
+            --color-primary:        #1E3A5F;
+            --color-primary-light:  #2D5A87;
+            --color-primary-dark:   #0F1F33;
+            --color-primary-alpha:   rgba(30, 58, 95, 0.08);
+
+            /* 强调色 - 琥珀 */
+            --color-accent:         #F59E0B;
+            --color-accent-light:   #FCD34D;
+
+            /* 语义色 */
+            --color-success:        #10B981;
+            --color-warning:        #F59E0B;
+            --color-error:          #EF4444;
+            --color-info:          #3B82F6;
+
+            /* 背景色 */
+            --color-bg-primary:     #FAFBFC;
+            --color-bg-secondary:    #FFFFFF;
+            --color-bg-tertiary:     #F8FAFB;
+
+            /* 文字色 */
+            --color-text-primary:   #111827;
+            --color-text-secondary: #4B5563;
+            --color-text-muted:     #9CA3AF;
+
+            /* 边框 */
+            --color-border:         #E5E7EB;
+            --color-border-light:    #F3F4F6;
+
+            /* 阴影 */
+            --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md:   0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg:   0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl:   0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-primary: 0 4px 14px 0 rgb(30 58 95 / 0.25);
+
+            /* 圆角 */
+            --radius-sm:   4px;
+            --radius-md:   8px;
+            --radius-lg:   12px;
+            --radius-xl:   16px;
+            --radius-2xl:  24px;
+            --radius-full: 9999px;
+
+            /* 间距 */
+            --space-1:  0.25rem;
+            --space-2:  0.5rem;
+            --space-3:  0.75rem;
+            --space-4:  1rem;
+            --space-5:  1.25rem;
+            --space-6:  1.5rem;
+            --space-8:  2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+
+            /* 过渡 */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* 字体 */
+            --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* 深色模式 */
+        [data-theme="dark"] {
+            --color-bg-primary:     #0A0A0F;
+            --color-bg-secondary:   #141419;
+            --color-bg-tertiary:    #1E1E26;
+            --color-text-primary:   #F9FAFB;
+            --color-text-secondary: #D1D5DB;
+            --color-text-muted:     #6B7280;
+            --color-border:         #374151;
+            --color-border-light:    #1F2937;
+            --shadow-primary: 0 4px 14px 0 rgb(0 0 0 / 0.4);
+        }
+
+        /* ========================================
+           基础重置
+           ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
 
         body {
-            font-family: var(--font-family);
-            background: var(--bg-base);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: var(--font-sans);
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
             line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
-            z-index: -1;
-            animation: pulse 4000ms ease-in-out infinite;
-        }
-
-        .blob-1 {
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(135deg, #4F46E5, #7C3AED);
-            top: -200px;
-            left: -200px;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #7C3AED, #4F46E5);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 2000ms;
-        }
-
-        .blob-3 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #C7D2FE, #A78BFA);
-            top: 40%;
-            left: 30%;
-            opacity: 0.2;
-            animation-delay: 3000ms;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.4; }
-            50% { transform: scale(1.1); opacity: 0.3; }
-        }
-
-        .container {
-            max-width: 1280px;
+        /* ========================================
+           布局容器
+           ======================================== */
+        .app-container {
+            max-width: 960px;
             margin: 0 auto;
-            padding: 80px 24px;
+            padding: var(--space-8) var(--space-6);
         }
 
+        /* ========================================
+           头部区域
+           ======================================== */
         .header {
             text-align: center;
-            margin-bottom: 60px;
-            perspective: 2000px;
-        }
-
-        .header-card {
-            display: inline-block;
-            background: var(--bg-surface);
-            padding: 48px 72px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-default);
-            transform: rotateX(5deg) rotateY(-8deg);
-            transition: all 0.3s ease;
+            margin-bottom: var(--space-12);
             position: relative;
-            overflow: hidden;
         }
 
-        .header-card::before {
+        .header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border-radius: 50%;
+            opacity: 0.08;
+            filter: blur(40px);
+            z-index: -1;
         }
 
-        .header-card:hover {
-            transform: rotateX(2deg) rotateY(-4deg) translateY(-4px);
-            box-shadow: var(--shadow-hover);
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
-        .header h1 {
-            font-size: 3.5rem;
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .logo-text {
+            font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 12px;
         }
 
-        .header .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-muted);
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--color-text-muted);
             font-weight: 500;
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
-        .stats {
+        /* ========================================
+           系列选择器 - 胶囊式切换
+           ======================================== */
+        .series-selector {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-bottom: 60px;
-            flex-wrap: wrap;
+            margin-bottom: var(--space-8);
         }
 
-        .stat-item {
-            background: var(--bg-surface);
-            padding: 24px 48px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-default);
-            text-align: center;
-            transition: all 0.2s ease;
+        .series-tabs {
+            display: inline-flex;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            gap: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .series-tab {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-base);
             position: relative;
-            overflow: hidden;
         }
 
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .series-tab:hover:not(.active) {
+            color: var(--color-text-primary);
+            background: var(--color-bg-tertiary);
         }
 
-        .stat-item:hover {
-            transform: translateY(-4px) rotateX(2deg);
-            box-shadow: var(--shadow-hover);
+        .series-tab.active {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            box-shadow: var(--shadow-primary);
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #4F46E5, #7C3AED);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .series-tab .tab-icon {
+            font-size: 16px;
         }
 
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-muted);
+        .series-tab .tab-count {
+            font-size: 12px;
+            padding: 2px 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--radius-full);
+        }
+
+        .series-tab:not(.active) .tab-count {
+            background: var(--color-bg-tertiary);
+            color: var(--color-text-muted);
+        }
+
+        /* ========================================
+           主内容区
+           ======================================== */
+        .main-content {
+            position: relative;
+        }
+
+        .content-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================
+           日期选择区
+           ======================================== */
+        .date-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .date-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+        }
+
+        .date-section-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .date-section-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--color-primary-alpha);
+            color: var(--color-primary);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        /* 自定义下拉框 */
+        .custom-select {
+            position: relative;
+        }
+
+        .select-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--color-bg-tertiary);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-sans);
+            font-size: 15px;
             font-weight: 500;
-            margin-top: 4px;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
         }
 
-        .section {
-            background: var(--bg-surface);
-            border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 32px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-default);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .select-trigger:hover {
+            border-color: var(--color-primary);
         }
 
-        .section::before {
-            content: '';
+        .select-trigger:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-alpha);
+        }
+
+        .select-trigger .selected-text {
+            color: var(--color-text-muted);
+        }
+
+        .select-trigger.has-value .selected-text {
+            color: var(--color-text-primary);
+        }
+
+        .select-trigger .arrow {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            transition: transform var(--transition-fast);
+        }
+
+        .custom-select.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .select-dropdown {
             position: absolute;
-            top: 0;
+            top: calc(100% + 8px);
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            z-index: 100;
+            max-height: 280px;
+            overflow-y: auto;
+            display: none;
         }
 
-        .section:hover {
-            box-shadow: var(--shadow-hover);
+        .custom-select.open .select-dropdown {
+            display: block;
+            animation: slideDown 0.2s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .select-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .select-option:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        .select-option.selected {
+            background: var(--color-primary-alpha);
+        }
+
+        .select-option .option-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        .select-option .option-badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           行动按钮
+           ======================================== */
+        .action-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: 16px 32px;
+            margin-top: var(--space-4);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .action-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 95, 0.35);
+        }
+
+        .action-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .action-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .action-button .btn-icon {
+            transition: transform var(--transition-fast);
+        }
+
+        .action-button:hover:not(:disabled) .btn-icon {
+            transform: translateX(4px);
+        }
+
+        /* ========================================
+           快速访问区
+           ======================================== */
+        .quick-access {
+            margin-top: var(--space-6);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .quick-access-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-4);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: 14px 16px;
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--color-text-primary);
+            transition: all var(--transition-base);
+        }
+
+        .quick-link:hover {
+            background: var(--color-bg-secondary);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
             transform: translateY(-2px);
         }
 
-        .section:hover::before {
-            opacity: 1;
-        }
-
-        .section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section h2 .icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.125rem;
-        }
-
-        ul { list-style: none; }
-
-        li {
-            padding: 20px 24px;
-            margin: 14px 0;
-            border-radius: 16px;
-            background: var(--bg-base);
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            cursor: pointer;
-        }
-
-        li:hover {
-            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
-            border-color: var(--primary);
-            transform: translateX(8px) rotateY(2deg);
-            box-shadow: var(--shadow-default);
-        }
-
-        li a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-        }
-
-        .link-content {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-            z-index: 2;
-            pointer-events: none;
-            width: 100%;
-        }
-
-        .link-content .text {
+        .quick-link .link-date {
+            font-size: 14px;
+            font-weight: 600;
             flex: 1;
-            font-weight: 500;
-            color: var(--text-main);
         }
 
-        .series-tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+        .quick-link .link-arrow {
+            color: var(--color-primary);
+            font-size: 14px;
             font-weight: 600;
-            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
-            color: var(--primary);
-            border: 1px solid #C7D2FE;
         }
 
-        .latest {
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: var(--shadow-glow);
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.4); }
-            50% { box-shadow: 0 0 30px rgba(79, 70, 229, 0.6); }
-        }
-
-        .date {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
+        /* ========================================
+           底部状态栏
+           ======================================== */
         .footer {
+            margin-top: var(--space-16);
             text-align: center;
-            margin-top: 60px;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            position: relative;
+            padding: var(--space-8);
         }
 
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            border-radius: 2px;
-        }
-
-        .footer .status {
+        .status-indicator {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
         }
 
-        .footer .status-dot {
+        .status-dot {
             width: 8px;
             height: 8px;
-            background: var(--accent-success);
+            background: var(--color-success);
             border-radius: 50%;
-            animation: blink 2s infinite;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes blink {
+        @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
 
-        /* Responsive - Tablet */
+        .status-text {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-info a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           键盘提示
+           ======================================== */
+        .keyboard-hint {
+            margin-top: var(--space-6);
+            padding: var(--space-4);
+            background: var(--color-bg-tertiary);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .keyboard-hint kbd {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            box-shadow: 0 2px 0 var(--color-border);
+        }
+
+        .keyboard-hint span {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            margin: 0 var(--space-2);
+        }
+
+        /* ========================================
+           主题切换
+           ======================================== */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            width: 44px;
+            height: 44px;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-text-secondary);
+        }
+
+        .theme-toggle .icon-sun { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+        /* ========================================
+           响应式设计
+           ======================================== */
         @media (max-width: 768px) {
-            .header h1 { font-size: 2.5rem; }
-            .header-card { padding: 32px 40px; transform: none; }
-            .header-card:hover { transform: translateY(-2px); }
-            .container { padding: 48px 16px; }
-            .stats { gap: 16px; margin-bottom: 40px; }
-            .stat-item { padding: 20px 28px; flex: 1; min-width: 140px; }
-            .stat-number { font-size: 2rem; }
-            .section { padding: 24px; margin-bottom: 24px; border-radius: 20px; }
-            .section h2 { font-size: 1.25rem; }
-            li { padding: 16px 20px; }
-            .series-tag, .latest, .date { font-size: 0.75rem; padding: 6px 12px; }
-            .footer { margin-top: 40px; padding: 32px 16px; }
-            .blob { filter: blur(80px); }
-            .blob-1 { width: 350px; height: 350px; top: -100px; left: -100px; }
-            .blob-2 { width: 300px; height: 300px; bottom: -80px; right: -80px; }
-            .blob-3 { display: none; }
+            .app-container {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .series-tab {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .series-tab .tab-icon {
+                font-size: 14px;
+            }
+
+            .date-section {
+                padding: var(--space-4);
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+                width: 40px;
+                height: 40px;
+            }
         }
 
-        /* Responsive - Mobile Small */
         @media (max-width: 480px) {
-            .header h1 { font-size: 2rem; }
-            .header .subtitle { font-size: 0.875rem; }
-            .header-card { padding: 24px 28px; border-radius: 20px; }
-            .container { padding: 32px 12px; }
-            .stats { gap: 12px; }
-            .stat-item { padding: 16px 20px; min-width: 110px; }
-            .stat-number { font-size: 1.75rem; }
-            .stat-label { font-size: 0.75rem; }
-            .section { padding: 20px; border-radius: 16px; margin-bottom: 20px; }
-            .section h2 { font-size: 1.125rem; margin-bottom: 20px; }
-            .section h2 .icon { width: 32px; height: 32px; }
-            li { padding: 14px 16px; margin: 10px 0; border-radius: 12px; flex-wrap: wrap; gap: 10px; }
-            .link-content { flex-wrap: wrap; }
-            .series-tag { font-size: 0.6875rem; }
-            .latest, .date { font-size: 0.6875rem; }
-            .footer { margin-top: 32px; padding: 28px 12px; }
-            .blob-1 { width: 280px; height: 280px; }
-            .blob-2 { width: 220px; height: 220px; }
+            .series-tabs {
+                width: 100%;
+            }
+
+            .series-tab {
+                flex: 1;
+                justify-content: center;
+                padding: 10px 12px;
+            }
+
+            .series-tab .tab-count {
+                display: none;
+            }
+
+            .header-subtitle {
+                font-size: 12px;
+            }
         }
 
-        /* Safe Area for iPhone X+ */
-        @supports (padding: max(0px)) {
-            .container { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
-            .footer { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
-        }
-
-        /* Touch-friendly */
-        @media (hover: none) {
-            li:hover { transform: none; background: var(--bg-base); border-color: var(--border); }
-            li:active { background: #EEF2FF; transform: scale(0.99); }
-            .section:active { transform: scale(0.99); }
-            .stat-item:active { transform: scale(0.98); }
-            .header-card:active { transform: scale(0.98); }
+        /* ========================================
+           减少动画
+           ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+    <!-- 主题切换 -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+    </button>
 
-    <div class="container">
+    <div class="app-container">
+        <!-- 头部 -->
         <header class="header">
-            <div class="header-card">
-                <h1>该影未来窗</h1>
-                <p class="subtitle">每日资讯存档</p>
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">该影未来窗</span>
             </div>
+            <p class="header-subtitle">每日资讯存档</p>
         </header>
 
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">2</div>
-                <div class="stat-label">资讯系列</div>
+        <!-- 系列选择器 -->
+        <div class="series-selector">
+            <div class="series-tabs">
+                <button class="series-tab active" data-series="internet" onclick="switchSeries('internet')">
+                    <span class="tab-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </span>
+                    <span>互联网早报</span>
+                    <span class="tab-count">7</span>
+                </button>
+                <button class="series-tab" data-series="openclaw" onclick="switchSeries('openclaw')">
+                    <span class="tab-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </span>
+                    <span>OpenClaw简报</span>
+                    <span class="tab-count">10</span>
+                </button>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">17</div>
-                <div class="stat-label">总期数</div>
+        </div>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 互联网早报面板 -->
+            <div class="content-panel active" id="panel-internet">
+                <div class="date-section">
+                    <div class="date-section-header">
+                        <span class="date-section-label">选择日期</span>
+                        <span class="date-section-badge">自动更新</span>
+                    </div>
+                    <div class="custom-select" id="select-internet">
+                        <div class="select-trigger" tabindex="0" onclick="toggleSelect('internet')">
+                            <span class="selected-text">请选择日期...</span>
+                            <span class="arrow">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M6 9l6 6 6-6"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="select-dropdown">
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月24日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月24日</span>
+                                <span class="option-badge">最新</span>
+                            </div>
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月23日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月23日</span>
+                            </div>
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月20日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月20日</span>
+                            </div>
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月19日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月19日</span>
+                            </div>
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月18日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月18日</span>
+                            </div>
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月17日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月17日</span>
+                            </div>
+                            <div class="select-option" data-value="Intelnet-daily-news/互联网早报_2026年3月16日.html" onclick="selectOption('internet', this)">
+                                <span class="option-text">2026年3月16日</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="action-button" id="btn-internet" disabled onclick="goToReport('internet')">
+                        <span>前往阅读</span>
+                        <span class="btn-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="quick-access">
+                    <div class="quick-access-header">快速访问</div>
+                    <div class="quick-links">
+                        <a href="Intelnet-daily-news/互联网早报_2026年3月24日.html" class="quick-link">
+                            <span class="link-date">3月24日</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="Intelnet-daily-news/互联网早报_2026年3月23日.html" class="quick-link">
+                            <span class="link-date">3月23日</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="Intelnet-daily-news/互联网早报_2026年3月20日.html" class="quick-link">
+                            <span class="link-date">3月20日</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            <!-- OpenClaw简报面板 -->
+            <div class="content-panel" id="panel-openclaw">
+                <div class="date-section">
+                    <div class="date-section-header">
+                        <span class="date-section-label">选择日期</span>
+                        <span class="date-section-badge">自动更新</span>
+                    </div>
+                    <div class="custom-select" id="select-openclaw">
+                        <div class="select-trigger" tabindex="0" onclick="toggleSelect('openclaw')">
+                            <span class="selected-text">请选择日期...</span>
+                            <span class="arrow">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M6 9l6 6 6-6"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="select-dropdown">
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月24日.html" onclick="selectOption('openclaw', '2026年3月24日', true)">
+                                <span class="option-text">2026年3月24日</span>
+                                <span class="option-badge">最新</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月23日.html" onclick="selectOption('openclaw', '2026年3月23日', false)">
+                                <span class="option-text">2026年3月23日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月20日.html" onclick="selectOption('openclaw', '2026年3月20日', false)">
+                                <span class="option-text">2026年3月20日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月19日.html" onclick="selectOption('openclaw', '2026年3月19日', false)">
+                                <span class="option-text">2026年3月19日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月18日.html" onclick="selectOption('openclaw', '2026年3月18日', false)">
+                                <span class="option-text">2026年3月18日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月17日.html" onclick="selectOption('openclaw', '2026年3月17日', false)">
+                                <span class="option-text">2026年3月17日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月16日.html" onclick="selectOption('openclaw', '2026年3月16日', false)">
+                                <span class="option-text">2026年3月16日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月15日.html" onclick="selectOption('openclaw', '2026年3月15日', false)">
+                                <span class="option-text">2026年3月15日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2026年3月14日.html" onclick="selectOption('openclaw', this)">
+                                <span class="option-text">2026年3月14日</span>
+                            </div>
+                            <div class="select-option" data-value="openclaw-daily-news/OpenClaw简报_2025年3月13日.html" onclick="selectOption('openclaw', '2025年3月13日', false)">
+                                <span class="option-text">2025年3月13日</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="action-button" id="btn-openclaw" disabled onclick="goToReport('openclaw')">
+                        <span>前往阅读</span>
+                        <span class="btn-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="quick-access">
+                    <div class="quick-access-header">快速访问</div>
+                    <div class="quick-links">
+                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月24日.html" class="quick-link">
+                            <span class="link-date">3月24日</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月23日.html" class="quick-link">
+                            <span class="link-date">3月23日</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="openclaw-daily-news/OpenClaw简报_2026年3月20日.html" class="quick-link">
+                            <span class="link-date">3月20日</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 键盘提示 -->
+        <div class="keyboard-hint">
+            <kbd>Enter</kbd>
+            <span>选中日期后快速跳转</span>
+            <kbd>Esc</kbd>
+            <span>关闭下拉菜单</span>
         </div>
 
-        <div class="section">
-            <h2>
-                <span class="icon">🌅</span>
-                互联网早报
-            </h2>
-            <ul>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月24日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月24日</span>
-                    </div>
-                    <span class="latest">最新</span>
-                </li>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月23日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月23日</span>
-                    </div>
-                    <span class="date">2026年3月23日</span>
-                </li>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月20日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月20日</span>
-                    </div>
-                    <span class="date">2026年3月20日</span>
-                </li>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月19日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月19日</span>
-                    </div>
-                    <span class="date">2026年3月19日</span>
-                </li>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月18日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月18日</span>
-                    </div>
-                    <span class="date">2026年3月18日</span>
-                </li>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月17日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月17日</span>
-                    </div>
-                    <span class="date">2026年3月17日</span>
-                </li>
-                <li>
-                    <a href="Intelnet-daily-news/互联网早报_2026年3月16日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">互联网早报</span>
-                        <span class="text">2026年3月16日</span>
-                    </div>
-                    <span class="date">2026年3月16日</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>
-                <span class="icon">🦞</span>
-                OpenClaw简报
-            </h2>
-            <ul>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月24日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月24日</span>
-                    </div>
-                    <span class="latest">最新</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月23日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月23日</span>
-                    </div>
-                    <span class="date">2026年3月23日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月20日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月20日</span>
-                    </div>
-                    <span class="date">2026年3月20日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月19日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月19日</span>
-                    </div>
-                    <span class="date">2026年3月19日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月18日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月18日</span>
-                    </div>
-                    <span class="date">2026年3月18日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月17日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月17日</span>
-                    </div>
-                    <span class="date">2026年3月17日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月16日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月16日</span>
-                    </div>
-                    <span class="date">2026年3月16日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月15日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月15日</span>
-                    </div>
-                    <span class="date">2026年3月15日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月14日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2026年3月14日</span>
-                    </div>
-                    <span class="date">2026年3月14日</span>
-                </li>
-                <li>
-                    <a href="openclaw-daily-news/OpenClaw简报_2025年3月13日.html"></a>
-                    <div class="link-content">
-                        <span class="series-tag">OpenClaw简报</span>
-                        <span class="text">2025年3月13日</span>
-                    </div>
-                    <span class="date">2025年3月13日</span>
-                </li>
-            </ul>
-        </div>
-
+        <!-- 底部 -->
         <footer class="footer">
-            <div class="status">
+            <div class="status-indicator">
                 <span class="status-dot"></span>
-                <span>系统运行中</span>
+                <span class="status-text">系统运行中</span>
             </div>
-            <p>自动更新于 2026-03-24</p>
-            <p style="margin-top: 8px; opacity: 0.7;">Powered by OpenClaw Agent</p>
+            <div class="footer-info">
+                <p>自动更新于 2026-03-24</p>
+                <p>Powered by <a href="#">OpenClaw Agent</a></p>
+            </div>
         </footer>
     </div>
+
+    <script>
+        // 存储选择状态
+        const selectedValues = {
+            internet: null,
+            openclaw: null
+        };
+
+        // 切换系列
+        function switchSeries(series) {
+            document.querySelectorAll('.series-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`[data-series="${series}"]`).classList.add('active');
+            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+            document.getElementById(`panel-${series}`).classList.add('active');
+            document.querySelectorAll('.custom-select').forEach(select => select.classList.remove('open'));
+        }
+
+        // 切换下拉框
+        function toggleSelect(series) {
+            const select = document.getElementById(`select-${series}`);
+            const wasOpen = select.classList.contains('open');
+            document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('open'));
+            if (!wasOpen) select.classList.add('open');
+        }
+
+        // 选择选项 - 直接从DOM元素获取路径
+        function selectOption(series, element) {
+            const select = document.getElementById(`select-${series}`);
+            const trigger = select.querySelector('.select-trigger');
+            const btn = document.getElementById(`btn-${series}`);
+            const path = element.dataset.value;
+            const text = element.querySelector('.option-text').textContent;
+
+            // 更新显示
+            trigger.querySelector('.selected-text').textContent = text;
+            trigger.classList.add('has-value');
+
+            // 清除之前的选中状态
+            select.querySelectorAll('.select-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // 存储路径并启用按钮
+            selectedValues[series] = path;
+            btn.disabled = false;
+
+            // 关闭下拉框
+            select.classList.remove('open');
+        }
+
+        // 跳转
+        function goToReport(series) {
+            if (selectedValues[series]) {
+                window.location.href = selectedValues[series];
+            }
+        }
+
+        // 主题切换
+        function toggleTheme() {
+            const html = document.documentElement;
+            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // 恢复主题
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        // 全局键盘事件
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.custom-select.open').forEach(select => select.classList.remove('open'));
+            }
+            if (e.key === 'Enter') {
+                const openSelect = document.querySelector('.custom-select.open');
+                if (openSelect) {
+                    const series = openSelect.id.replace('select-', '');
+                    const selectedOption = openSelect.querySelector('.select-option.selected');
+                    if (selectedOption) {
+                        goToReport(series);
+                    }
+                }
+            }
+        });
+
+        // 点击外部关闭下拉框
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select')) {
+                document.querySelectorAll('.custom-select.open').forEach(select => select.classList.remove('open'));
+            }
+        });
+    </script>
 </body>
 </html>
