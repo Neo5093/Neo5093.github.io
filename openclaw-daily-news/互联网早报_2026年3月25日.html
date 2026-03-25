@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f0f9ff">
+    <title>互联网早报 - 2026年3月25日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #0ea5e9;
+            --primary-purple: #6366f1;
+            --light-blue: #f0f9ff;
+            --ice-gray: #f8fafc;
+            --tech-silver: #94a3b8;
+            --aurora-white: #ffffff;
+            --text-dark: #0f172a;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --gradient-start: #e0f2fe;
+            --gradient-end: #f0f9ff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { max-width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 24px 16px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+        .header .date { font-size: 15px; color: var(--text-medium); font-weight: 500; }
+        .header .weekday { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+        .header .meta {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .content { padding: 16px; max-width: 1200px; margin: 0 auto; }
+        .section { margin-bottom: 24px; animation: fadeInUp 0.6s ease-out; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding: 14px 16px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        .section-title:hover { transform: translateX(4px); box-shadow: var(--card-shadow); }
+        .section-title .icon { font-size: 22px; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .news-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .news-card {
+            background: var(--aurora-white);
+            border-radius: 14px;
+            padding: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0ea5e9, #6366f1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .news-card:hover { transform: translateY(-3px); box-shadow: 0 16px 20px -5px rgba(0, 0, 0, 0.1); border-color: #0ea5e9; }
+        .news-card:hover::before { transform: scaleX(1); }
+        .news-number {
+            position: absolute;
+            top: 10px; right: 10px;
+            width: 24px; height: 24px;
+            background: linear-gradient(135deg, #e0f2fe, #e0f2fe);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #0ea5e9;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+        }
+        .news-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 10px;
+            padding-right: 30px;
+        }
+        .news-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .news-source { background: linear-gradient(135deg, #e0f2fe, #e0f2fe); color: #0ea5e9; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .news-link { color: #0ea5e9; text-decoration: none; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: rgba(14, 165, 233, 0.1); transition: all 0.2s ease; }
+        .news-link:hover { background: #0ea5e9; color: white; }
+        .footer { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); padding: 24px 16px; text-align: center; color: var(--text-medium); }
+        .footer .brand { font-size: 16px; font-weight: 600; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer .stats { display: inline-flex; gap: 16px; background: white; padding: 10px 20px; border-radius: 30px; margin: 12px 0; box-shadow: var(--card-shadow); flex-wrap: wrap; justify-content: center; }
+        .footer .stat-number { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer .stat-label { font-size: 11px; color: var(--text-light); }
+        .back-home { position: fixed; top: 14px; left: 14px; z-index: 1000; background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); color: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: 500; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); transition: all 0.3s ease; }
+        .back-home:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); color: white; }
+        @media (max-width: 480px) {
+            .header h1 { font-size: 20px; }
+            .header .meta { gap: 8px; font-size: 11px; }
+            .content { padding: 10px; }
+            .section { margin-bottom: 18px; }
+            .section-title { font-size: 15px; padding: 12px 14px; gap: 8px; }
+            .section-title .icon { font-size: 18px; }
+            .news-card { padding: 12px; }
+            .news-title { font-size: 13px; }
+            .news-number { width: 20px; height: 20px; font-size: 10px; }
+            .footer .stats { gap: 10px; padding: 8px 14px; }
+            .footer .stat-number { font-size: 18px; }
+            .back-home { padding: 6px 12px; font-size: 11px; top: 10px; left: 10px; }
+        }
+        @media (min-width: 481px) and (max-width: 768px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 769px) {
+            .news-grid { grid-template-columns: repeat(3, 1fr); }
+            .header { padding: 30px 20px; }
+            .header h1 { font-size: 32px; }
+            .content { padding: 20px; }
+            .section-title { font-size: 20px; padding: 16px 20px; }
+            .news-title { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-home">← 返回首页</a>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 互联网早报</h1>
+            <div class="date">2026年3月25日</div>
+            <div class="weekday">星期三 · 乙巳年二月廿六</div>
+            <div class="meta">
+                <span>📊 <strong>13</strong> 个核心栏目</span>
+                <span>📰 <strong>65</strong> 条精选新闻</span>
+                <span>⏰ <strong>09:00</strong> 准时推送</span>
+            </div>
+        </div>
+        <div class="content">
+            <!-- 1. 数据亮点 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">✨</span><span>数据亮点</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">A股强势反弹：上证指数涨1.78%，超5100只个股上涨</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">港股IPO爆发：年内融资规模突破1000亿港元，同比大增逾500%</div><div class="news-meta"><span class="news-source">中国证券报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">央行开展5000亿元MLF操作，连续第13个月加量续作，净投放500亿元</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">博鳌亚洲论坛：预计2026年亚洲经济增速将达4.5%，GDP占世界经济比重升至49.7%</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">A股沪指报4531点涨1.26%，逾九成ETF上涨，黄金股ETF涨超5%</div><div class="news-meta"><span class="news-source">东方财富网</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 2. 国内要闻 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🇨🇳</span><span>国内要闻</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">阿里巴巴发布玄铁C950处理器，国产芯片生态持续突破</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">小米集团2025年汽车业务首度盈利，计划五年研发投入超2000亿元</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">字节跳动手小云雀AI短剧Agent，剧本到成片全自动化，搭载Seedance2.0</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/ld326/article/details/159318709" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">微信正式推出ClawBot插件，支持接入OpenClaw智能体生态</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">私募基金规模突破24万亿元创历史新高，高盛维持A股高配建议</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 3. 政务快讯 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">📋</span><span>政务快讯</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">商务部等9部门联合印发《关于促进旅行服务出口扩大入境消费的政策措施》</div><div class="news-meta"><span class="news-source">商务部官网</span><a href="https://www.gov.cn/zhengce/zhengceku/202603/content_7063374.htm" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">国家药监局发布《慢性鼻窦炎伴鼻息肉治疗药物临床试验技术指导原则》</div><div class="news-meta"><span class="news-source">国家药监局</span><a href="https://www.cde.org.cn/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">国家卫健委公布2026年国家医疗质量安全改进目标，提质扩面</div><div class="news-meta"><span class="news-source">新华网</span><a href="https://www.news.cn/politics/20260317/dad7112b9f2f4fae87edce0de71a659c/c.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">中国信通院启动2026年首批智能体互联协作能力评估，推动生态互联互通</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">上期所对异常交易账户采取监管措施，1组实际控制关系账户被限制开仓</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 4. 科技通信 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">📱</span><span>科技通信</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">英伟达发布DGX Station GB300算力设备，HBM4内存及HBM4E原型亮相</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/ld326/article/details/159318709" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">中国（上海）国际半导体展览会3月25日开幕，2026年市场规模预计达19850亿元</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">阿里发布通义千问3.5-Max-Preview，腾讯开源Penguin-VL多模态模型</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/chen_si_shang_/article/details/159349513" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">华为预计到2030年，中国AI相关产业规模将突破10万亿元</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">三星电子宣布年度追加投资约733亿美元，目标构建AI半导体全栈能力</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 5. 文娱影游 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🎬</span><span>文娱影游</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">2026年3月超30部新片扎堆上映，电影全产业链产值已超1600亿元</div><div class="news-meta"><span class="news-source">央视网</span><a href="https://news.cctv.com/2026/03/14/ARTIfVI3cTBXsf2Qg0LEiJWi260314.shtml" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">2026年电影行业经历洗牌：春节档总票房不及预期，影视公司分化加剧</div><div class="news-meta"><span class="news-source">每日经济新闻</span><a href="https://www.nbd.com.cn/articles/2026-03-01/4274089.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">国内游戏版号常态化：1-2月累计发放游戏版号334个，同比增长34.1%</div><div class="news-meta"><span class="news-source">国信证券研报</span><a href="https://www.vzkoo.com/read/4648909238859468800.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">院线进入存量优化阶段：影院减少、银幕微增，运营效率成核心</div><div class="news-meta"><span class="news-source">证券时报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">短剧、漫剧、粉丝经济等新兴内容形态保持30%以上增速</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 6. 金融财经 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">💰</span><span>金融财经</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">港股年内回购规模已超200亿港元，腾讯、泡泡玛特获南向资金净买入</div><div class="news-meta"><span class="news-source">证券日报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">超200家公司发布年报分红方案，中国移动、工商银行等行业龙头慷慨派现</div><div class="news-meta"><span class="news-source">证券时报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">公募基金春季策略会密集召开，机构普遍看好权益资产长期配置价值</div><div class="news-meta"><span class="news-source">中国证券报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">年内新增专项债券发行突破1万亿元，财政政策持续发力</div><div class="news-meta"><span class="news-source">证券日报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">A股并购重组持续活跃，产业链整合与高端先进制造成两大主线</div><div class="news-meta"><span class="news-source">证券日报</span><a href="https://www.cnfin.com/yw-lb/detail/20260325/4390604_1.html" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 7. 住房地产 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🏠</span><span>住房地产</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">上海二手房成交持续活跃，市场情绪回暖明显</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">四川冕宁稀土资源大增，锂资源开发持续推进</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">碳酸锂主力合约一度涨7.10%，触及15.44万元/吨，津巴布韦锂出口禁令持续</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">涂料产业链涨价：孚日股份发布涨价通知，工业涂料价格上调10%-25%</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">三棵树、七彩化学等建材龙头受益涨价，配置价值显现</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 8. 汽车出行 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🚗</span><span>汽车出行</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">理想汽车董事会批准10亿美元股份回购计划，彰显长期发展信心</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">2026年2月新能源汽车动力电池装机量27.3GWh，同比下降19.2%</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">小米、比亚迪、特斯拉成为动力电池装机量主要贡献企业</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">比亚迪推出第二代刀片电池与闪充技术，能量密度与安全性双提升</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/ld326/article/details/159318709" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">零一汽车实现基于端到端多模态大模型的自动驾驶重卡上车</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/ld326/article/details/159318709" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 9. 医疗健康 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🏥</span><span>医疗健康</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">华深智药AI制药平台完成7.87亿美元融资，DST、高瓴、赛诺菲抢投</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">长春高新子公司GenSci128片获FDA孤儿药资格，用于胃癌治疗</div><div class="news-meta"><span class="news-source">上海证券报</span><a href="http://finance.eastmoney.com/a/202603253683284184.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">国家卫健委公布2026年国家医疗质量安全改进目标，对2025年两项目标进行动态调整</div><div class="news-meta"><span class="news-source">新华网</span><a href="https://www.news.cn/politics/20260317/dad7112b9f2f4fae87edce0de71a659c/c.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">热景生物发布12分钟全血快检化学发光C2100及AI智能体流水线LAS-H2</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">2026年新药政策落地：检查结果互认、创新药加速审评审批</div><div class="news-meta"><span class="news-source">新华网</span><a href="https://www.gov.cn/yaowen/liebiao/202601/content_7053642.htm" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 10. 教育培训 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">📚</span><span>教育培训</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">新东方市值重回101亿美元，教培行业盈利拐点确立</div><div class="news-meta"><span class="news-source">搜狐教育</span><a href="https://www.sohu.com/a/983629626_122175669" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">好未来2025财年Q2营收6.194亿美元，同比增长50%，增长动能强劲</div><div class="news-meta"><span class="news-source">雪球</span><a href="https://xueqiu.com/6078704079/309961352" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">BOSS直聘推出AI求职助手"直闪闪"和AI Agent，赋能招聘行业</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/ld326/article/details/159318709" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">职业教育赛道持续火热，技能培训与学历教育融合加速</div><div class="news-meta"><span class="news-source">教育在线</span><a href="https://news.eol.cn/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">AI大模型加速落地教育场景，个性化学习成行业新趋势</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/chen_si_shang_/article/details/159349513" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 11. 旅游民宿 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">✈️</span><span>旅游民宿</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">商务部等9部门联合发文：促进旅行服务出口扩大入境消费</div><div class="news-meta"><span class="news-source">商务部官网</span><a href="https://www.gov.cn/zhengce/zhengceku/202603/content_7063374.htm" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">2026年春运圆满收官，跨区域人员流动达94.1亿人次，再创历史新高</div><div class="news-meta"><span class="news-source">交通运输部</span><a href="https://www.mot.gov.cn/zhuanti/2026chunyun/qingmanlvtu/202603/t20260316_4201911.html" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">衢州推行"全球免费游"政策，每年11月至次年3月核心景区全免费</div><div class="news-meta"><span class="news-source">央视网</span><a href="https://news.cctv.com/2026/03/20/ARTI0dAPF6eHEDCsFfr4MiEz260320.shtml" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">博鳌亚洲论坛2026年年会聚焦数字经济与供应链合作</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">三月景区免票潮兴起，衢州9年验证"全免票"可持续性</div><div class="news-meta"><span class="news-source">央视网</span><a href="https://news.cctv.com/2026/03/20/ARTI0dAPF6eHEDCsFfr4MiEz260320.shtml" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 12. 国际视角 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🌍</span><span>国际视角</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">美股科技七雄集体走弱：道指-0.18%，纳指-0.84%，谷歌跌近4%</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">苹果、谷歌、微软、亚马逊四大巨头2026年资本支出合计将达6600亿美元</div><div class="news-meta"><span class="news-source">IT之家</span><a href="https://www.ithome.com/0/920/071.htm" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">苹果CEO库克表态：期待中国AI下一步发展，持续看好中国市场</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">美国私募信贷危机加剧，穆迪将KKR旗下基金降至"垃圾级"</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">美伊谈判陷入拉锯，特朗普称"接近达成协议"但不满意条款</div><div class="news-meta"><span class="news-source">盛开晨报</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5ODE5MzQ0Mw==&mid=2247483690&idx=1&sn=595bae7041250b7f1f22adf9c5bb4c80" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+            <!-- 13. 融资收购 -->
+            <div class="section">
+                <div class="section-title"><span class="icon">🚀</span><span>融资收购</span></div>
+                <div class="news-grid">
+                    <div class="news-card"><span class="news-number">01</span><div class="news-title">华深智药AI制药平台完成7.87亿美元融资，刷新行业纪录</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">02</span><div class="news-title">海淀AI独角兽一个月狂揽104亿元融资，政策与资本双重驱动</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">03</span><div class="news-title">Kimi完成10亿美元新一轮融资，估值持续攀升</div><div class="news-meta"><span class="news-source">CSDN</span><a href="https://blog.csdn.net/ld326/article/details/159318709" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">04</span><div class="news-title">宜兴首支AI产业基金落地，规模30亿元</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                    <div class="news-card"><span class="news-number">05</span><div class="news-title">银河通用机器人完成25亿元新一轮融资，估值领跑具身智能赛道</div><div class="news-meta"><span class="news-source">积墨AI</span><a href="https://jimo.studio/blog/2026-ai-surge-at-the-start-of-the-year-agent-explosion-compute-revolution-domestic-breakthroughs-march-trends-overview/" class="news-link" target="_blank">查看详情</a></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="brand">🌐 互联网早报</div>
+            <p>每日为您精选最重要的科技资讯</p>
+            <div class="stats">
+                <div class="stat-item"><span class="stat-number">13</span><span class="stat-label">核心栏目</span></div>
+                <div class="stat-item"><span class="stat-number">65</span><span class="stat-label">精选新闻</span></div>
+                <div class="stat-item"><span class="stat-number">09:00</span><span class="stat-label">准时推送</span></div>
+            </div>
+            <p>发送时间：2026年3月25日 09:00</p>
+        </div>
+    </div>
+</body>
+</html>

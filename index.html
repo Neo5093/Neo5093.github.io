@@ -1,166 +1,622 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>该影未来窗 | 每日资讯</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-primary: #1E3A5F;
-            --color-primary-light: #2D5A87;
-            --color-accent: #F59E0B;
-            --color-bg-primary: #FAFBFC;
-            --color-bg-secondary: #FFFFFF;
-            --color-text-primary: #111827;
-            --color-text-secondary: #4B5563;
-            --color-border: #E5E7EB;
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --radius-lg: 12px;
-            --radius-full: 9999px;
-            --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            --bg-base: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --primary: #4F46E5;
+            --secondary: #7C3AED;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent-success: #10B981;
+            --border: #E2E8F0;
+            --shadow-default: 0 4px 20px -2px rgba(79, 70, 229, 0.1);
+            --shadow-hover: 0 10px 25px -5px rgba(79, 70, 229, 0.15), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.4);
+            --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        [data-theme="dark"] {
-            --color-bg-primary: #0A0A0F;
-            --color-bg-secondary: #141419;
-            --color-text-primary: #F9FAFB;
-            --color-text-secondary: #D1D5DB;
-            --color-border: #374151;
-        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: var(--font-sans);
-            background: var(--color-bg-primary);
-            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            background: var(--bg-base);
+            color: var(--text-main);
             min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: pulse 4000ms ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            top: -200px;
+            left: -200px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #7C3AED, #4F46E5);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 2000ms;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #C7D2FE, #A78BFA);
+            top: 40%;
+            left: 30%;
+            opacity: 0.2;
+            animation-delay: 3000ms;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            perspective: 2000px;
+        }
+
+        .header-card {
+            display: inline-block;
+            background: var(--bg-surface);
+            padding: 48px 72px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-default);
+            transform: rotateX(5deg) rotateY(-8deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .header-card:hover {
+            transform: rotateX(2deg) rotateY(-4deg) translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .stats {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--bg-surface);
+            padding: 24px 48px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-default);
+            text-align: center;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px) rotateX(2deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .section {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-default);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .section:hover::before {
+            opacity: 1;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
             align-items: center;
-            padding: 2rem 1rem;
+            gap: 12px;
         }
-        .header { text-align: center; margin-bottom: 2rem; }
-        .header h1 { font-size: 1.75rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem; }
-        .header p { color: var(--color-text-secondary); font-size: 0.875rem; }
-        .tabs {
+
+        .section h2 .icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+            border-radius: 12px;
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            background: var(--color-bg-secondary);
-            padding: 0.25rem;
-            border-radius: var(--radius-full);
-            box-shadow: var(--shadow-md);
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
         }
-        .tab {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            background: transparent;
-            color: var(--color-text-secondary);
+
+        ul { list-style: none; }
+
+        li {
+            padding: 20px 24px;
+            margin: 14px 0;
+            border-radius: 16px;
+            background: var(--bg-base);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+            border-color: var(--primary);
+            transform: translateX(8px) rotateY(2deg);
+            box-shadow: var(--shadow-default);
+        }
+
+        li a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .link-content .text {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .series-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+            color: var(--primary);
+            border: 1px solid #C7D2FE;
+        }
+
+        .latest {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: var(--shadow-glow);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(79, 70, 229, 0.6); }
+        }
+
+        .date {
+            color: var(--text-muted);
             font-size: 0.875rem;
             font-weight: 500;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            transition: all 0.2s;
         }
-        .tab.active { background: var(--color-primary); color: white; }
-        .panel { display: none; width: 100%; max-width: 400px; }
-        .panel.active { display: block; }
-        .card { background: var(--color-bg-secondary); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 1.5rem; }
-        .card-title { font-size: 1rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1rem; }
-        .link-list { display: flex; flex-direction: column; gap: 0.5rem; }
-        .link-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            background: var(--color-bg-primary);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--color-text-primary);
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            color: var(--text-muted);
             font-size: 0.875rem;
-            transition: all 0.2s;
+            position: relative;
         }
-        .link-item:hover { background: var(--color-primary); color: white; transform: translateX(4px); }
-        .link-item .badge { font-size: 0.75rem; padding: 0.125rem 0.5rem; background: var(--color-accent); color: white; border-radius: var(--radius-full); }
-        .theme-toggle { position: fixed; top: 1rem; right: 1rem; width: 40px; height: 40px; border: none; background: var(--color-bg-secondary); border-radius: 50%; cursor: pointer; box-shadow: var(--shadow-md); font-size: 1.25rem; }
-        .quick-access { margin-top: 1.5rem; max-width: 400px; }
-        .quick-title { font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 0.75rem; }
-        .quick-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .quick-link { padding: 0.5rem 1rem; background: var(--color-bg-secondary); border-radius: var(--radius-full); text-decoration: none; color: var(--color-primary); font-size: 0.75rem; font-weight: 500; box-shadow: var(--shadow-md); }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 2px;
+        }
+
+        .footer .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .footer .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-success);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Responsive - Tablet */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .header-card { padding: 32px 40px; transform: none; }
+            .header-card:hover { transform: translateY(-2px); }
+            .container { padding: 48px 16px; }
+            .stats { gap: 16px; margin-bottom: 40px; }
+            .stat-item { padding: 20px 28px; flex: 1; min-width: 140px; }
+            .stat-number { font-size: 2rem; }
+            .section { padding: 24px; margin-bottom: 24px; border-radius: 20px; }
+            .section h2 { font-size: 1.25rem; }
+            li { padding: 16px 20px; }
+            .series-tag, .latest, .date { font-size: 0.75rem; padding: 6px 12px; }
+            .footer { margin-top: 40px; padding: 32px 16px; }
+            .blob { filter: blur(80px); }
+            .blob-1 { width: 350px; height: 350px; top: -100px; left: -100px; }
+            .blob-2 { width: 300px; height: 300px; bottom: -80px; right: -80px; }
+            .blob-3 { display: none; }
+        }
+
+        /* Responsive - Mobile Small */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 2rem; }
+            .header .subtitle { font-size: 0.875rem; }
+            .header-card { padding: 24px 28px; border-radius: 20px; }
+            .container { padding: 32px 12px; }
+            .stats { gap: 12px; }
+            .stat-item { padding: 16px 20px; min-width: 110px; }
+            .stat-number { font-size: 1.75rem; }
+            .stat-label { font-size: 0.75rem; }
+            .section { padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+            .section h2 { font-size: 1.125rem; margin-bottom: 20px; }
+            .section h2 .icon { width: 32px; height: 32px; }
+            li { padding: 14px 16px; margin: 10px 0; border-radius: 12px; flex-wrap: wrap; gap: 10px; }
+            .link-content { flex-wrap: wrap; }
+            .series-tag { font-size: 0.6875rem; }
+            .latest, .date { font-size: 0.6875rem; }
+            .footer { margin-top: 32px; padding: 28px 12px; }
+            .blob-1 { width: 280px; height: 280px; }
+            .blob-2 { width: 220px; height: 220px; }
+        }
+
+        /* Safe Area for iPhone X+ */
+        @supports (padding: max(0px)) {
+            .container { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+            .footer { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+        }
+
+        /* Touch-friendly */
+        @media (hover: none) {
+            li:hover { transform: none; background: var(--bg-base); border-color: var(--border); }
+            li:active { background: #EEF2FF; transform: scale(0.99); }
+            .section:active { transform: scale(0.99); }
+            .stat-item:active { transform: scale(0.98); }
+            .header-card:active { transform: scale(0.98); }
+        }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')">🌙</button>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
-    <div class="header">
-        <h1>该影未来窗</h1>
-        <p>每日资讯存档</p>
-    </div>
+    <div class="container">
+        <header class="header">
+            <div class="header-card">
+                <h1>该影未来窗</h1>
+                <p class="subtitle">每日资讯存档</p>
+            </div>
+        </header>
 
-    <div class="tabs">
-        <button class="tab active" onclick="showPanel('internet')">🌐 互联网早报</button>
-        <button class="tab" onclick="showPanel('openclaw')">⚡ OpenClaw简报</button>
-    </div>
-
-    <!-- 互联网早报 -->
-    <div class="panel active" id="panel-internet">
-        <div class="card">
-            <div class="card-title">📅 选择日期</div>
-            <div class="link-list">
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8824%E6%97%A5.html" class="link-item">2026年3月24日 <span class="badge">最新</span></a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8823%E6%97%A5.html" class="link-item">2026年3月23日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8820%E6%97%A5.html" class="link-item">2026年3月20日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8819%E6%97%A5.html" class="link-item">2026年3月19日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8818%E6%97%A5.html" class="link-item">2026年3月18日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8817%E6%97%A5.html" class="link-item">2026年3月17日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8816%E6%97%A5.html" class="link-item">2026年3月16日</a>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">2</div>
+                <div class="stat-label">资讯系列</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">18</div>
+                <div class="stat-label">总期数</div>
             </div>
         </div>
-        <div class="quick-access">
-            <div class="quick-title">⚡ 快速访问</div>
-            <div class="quick-links">
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8824%E6%97%A5.html" class="quick-link">3月24日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8823%E6%97%A5.html" class="quick-link">3月23日</a>
-                <a href="Intelnet-daily-news/%E4%BA%92%E8%81%94%E7%BD%91%E6%97%A9%E6%8A%A5_2026%E5%B9%B43%E6%9C%8820%E6%97%A5.html" class="quick-link">3月20日</a>
-            </div>
-        </div>
-    </div>
 
-    <!-- OpenClaw简报 -->
-    <div class="panel" id="panel-openclaw">
-        <div class="card">
-            <div class="card-title">📅 选择日期</div>
-            <div class="link-list">
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8824%E6%97%A5.html" class="link-item">2026年3月24日 <span class="badge">最新</span></a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8823%E6%97%A5.html" class="link-item">2026年3月23日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8820%E6%97%A5.html" class="link-item">2026年3月20日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8819%E6%97%A5.html" class="link-item">2026年3月19日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8818%E6%97%A5.html" class="link-item">2026年3月18日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8817%E6%97%A5.html" class="link-item">2026年3月17日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8816%E6%97%A5.html" class="link-item">2026年3月16日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8815%E6%97%A5.html" class="link-item">2026年3月15日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8814%E6%97%A5.html" class="link-item">2026年3月14日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2025%E5%B9%B43%E6%9C%8813%E6%97%A5.html" class="link-item">2025年3月13日</a>
-            </div>
+        <div class="section">
+            <h2>
+                <span class="icon">🌅</span>
+                互联网早报
+            </h2>
+            <ul>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月25日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月25日</span>
+                    </div>
+                    <span class="latest">最新</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月24日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月24日</span>
+                    </div>
+                    <span class="date">2026年3月24日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月23日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月23日</span>
+                    </div>
+                    <span class="date">2026年3月23日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月20日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月20日</span>
+                    </div>
+                    <span class="date">2026年3月20日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月19日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月19日</span>
+                    </div>
+                    <span class="date">2026年3月19日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月18日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月18日</span>
+                    </div>
+                    <span class="date">2026年3月18日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月17日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月17日</span>
+                    </div>
+                    <span class="date">2026年3月17日</span>
+                </li>
+                <li>
+                    <a href="Intelnet-daily-news/互联网早报_2026年3月16日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">互联网早报</span>
+                        <span class="text">2026年3月16日</span>
+                    </div>
+                    <span class="date">2026年3月16日</span>
+                </li>
+            </ul>
         </div>
-        <div class="quick-access">
-            <div class="quick-title">⚡ 快速访问</div>
-            <div class="quick-links">
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8824%E6%97%A5.html" class="quick-link">3月24日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8823%E6%97%A5.html" class="quick-link">3月23日</a>
-                <a href="openclaw-daily-news/OpenClaw%E7%AE%80%E6%8A%A5_2026%E5%B9%B43%E6%9C%8820%E6%97%A5.html" class="quick-link">3月20日</a>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        function showPanel(name) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            document.querySelector('[onclick="showPanel(\'' + name + '\')"]').classList.add('active');
-            document.getElementById('panel-' + name).classList.add('active');
-        }
-    </script>
+        <div class="section">
+            <h2>
+                <span class="icon">🦞</span>
+                OpenClaw简报
+            </h2>
+            <ul>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月24日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月24日</span>
+                    </div>
+                    <span class="latest">最新</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月23日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月23日</span>
+                    </div>
+                    <span class="date">2026年3月23日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月20日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月20日</span>
+                    </div>
+                    <span class="date">2026年3月20日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月19日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月19日</span>
+                    </div>
+                    <span class="date">2026年3月19日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月18日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月18日</span>
+                    </div>
+                    <span class="date">2026年3月18日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月17日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月17日</span>
+                    </div>
+                    <span class="date">2026年3月17日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月16日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月16日</span>
+                    </div>
+                    <span class="date">2026年3月16日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月15日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月15日</span>
+                    </div>
+                    <span class="date">2026年3月15日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2026年3月14日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2026年3月14日</span>
+                    </div>
+                    <span class="date">2026年3月14日</span>
+                </li>
+                <li>
+                    <a href="openclaw-daily-news/OpenClaw简报_2025年3月13日.html"></a>
+                    <div class="link-content">
+                        <span class="series-tag">OpenClaw简报</span>
+                        <span class="text">2025年3月13日</span>
+                    </div>
+                    <span class="date">2025年3月13日</span>
+                </li>
+            </ul>
+        </div>
+
+        <footer class="footer">
+            <div class="status">
+                <span class="status-dot"></span>
+                <span>系统运行中</span>
+            </div>
+            <p>自动更新于 2026-03-25</p>
+            <p style="margin-top: 8px; opacity: 0.7;">Powered by OpenClaw Agent</p>
+        </footer>
+    </div>
 </body>
 </html>
