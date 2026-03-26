@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>轻松健康集团 - 2025年度财报 | 移动版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --purple: #8b5cf6;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        [data-theme="dark"] {
+            --bg-light: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .header-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--secondary), var(--purple));
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: var(--bg-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .header-btn:active { transform: scale(0.95); }
+
+        /* Tab Navigation */
+        .tab-nav {
+            position: sticky;
+            top: 65px;
+            z-index: 99;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .tab-nav::-webkit-scrollbar { display: none; }
+
+        .tab-list {
+            display: flex;
+            padding: 0 12px;
+            gap: 4px;
+        }
+
+        .tab-item {
+            flex-shrink: 0;
+            padding: 12px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-item.active {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+
+        /* Main Content */
+        .main { 
+            padding: 16px; 
+            padding-bottom: 100px;
+        }
+
+        /* Snap Scroll Container */
+        .snap-container {
+            position: relative;
+        }
+        
+        .snap-section {
+            min-height: calc(100vh - 180px);
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        /* Hero Card */
+        .hero-card {
+            background: linear-gradient(135deg, #0a2a6c 0%, #1a4a8c 50%, #0d3a6e 100%);
+            border-radius: var(--radius);
+            padding: 24px 20px;
+            margin-bottom: 16px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Section */
+        .section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, var(--secondary), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 14px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .kpi-card.positive::before { background: linear-gradient(90deg, var(--success), #34d399); }
+        .kpi-card.negative::before { background: linear-gradient(90deg, var(--danger), #f87171); }
+        .kpi-card.warning::before { background: linear-gradient(90deg, var(--warning), #fbbf24); }
+        .kpi-card.info::before { background: linear-gradient(90deg, var(--secondary), var(--purple)); }
+
+        .kpi-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .kpi-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .kpi-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .kpi-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .kpi-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--secondary); }
+        .kpi-icon.purple { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+
+        .kpi-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .kpi-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .kpi-change {
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-weight: 500;
+        }
+
+        .kpi-change.up { color: var(--success); }
+        .kpi-change.down { color: var(--danger); }
+        .kpi-change.neutral { color: var(--text-muted); }
+
+        /* Conclusion Card */
+        .conclusion-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+            border-radius: var(--radius);
+            padding: 16px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .conclusion-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, var(--secondary), var(--purple));
+            border-radius: 20px;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .conclusion-content {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        .conclusion-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .data-table .positive { color: var(--success); font-weight: 600; }
+        .data-table .negative { color: var(--danger); font-weight: 600; }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 200px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        /* Progress Bar */
+        .progress-item {
+            margin-bottom: 12px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .progress-label span:first-child { color: var(--text-secondary); font-weight: 500; }
+        .progress-label span:last-child { color: var(--text-primary); font-weight: 600; }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-light);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        /* Risk Badges */
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .risk-high { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .risk-medium { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .risk-low { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+
+        /* Findings */
+        .finding-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .finding-card:last-child { margin-bottom: 0; }
+
+        .finding-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .finding-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .finding-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .finding-icon.danger { background: rgba(239, 68, 68, 0.1); }
+        .finding-icon.warning { background: rgba(245, 158, 11, 0.1); }
+        .finding-icon.info { background: rgba(59, 130, 246, 0.1); }
+        .finding-icon.success { background: rgba(16, 185, 129, 0.1); }
+
+        .finding-content {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* IPO Card */
+        .ipo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .ipo-item {
+            padding: 12px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .ipo-item-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .ipo-item-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+        }
+
+        .insight-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insight-content {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .insight-content strong { color: var(--text-primary); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 16px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            text-decoration: none;
+            padding: 4px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item.active { color: var(--secondary); }
+        .nav-item:active { transform: scale(0.95); }
+
+        .nav-item svg { width: 20px; height: 20px; }
+
+        /* Tab Progress Indicator */
+        .tab-progress {
+            position: fixed;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            z-index: 98;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        
+        .tab-progress:hover {
+            opacity: 1;
+        }
+        
+        .progress-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .progress-dot.active {
+            background: var(--secondary);
+            transform: scale(1.4);
+        }
+        
+        .progress-dot:hover {
+            background: var(--secondary);
+            transform: scale(1.3);
+        }
+
+        /* Hide on mobile */
+        .desktop-only { display: none !important; }
+
+        /* Chart legend for mobile */
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Print */
+        @media print {
+            .header, .tab-nav, .bottom-nav { display: none; }
+            body { padding: 0; }
+            .section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-brand">
+            <div class="header-logo"></div>
+            <span>轻松健康</span>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" id="themeToggle" aria-label="切换主题">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0323/2026032301507_c.pdf" target="_blank" class="header-btn" aria-label="下载原文">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+        <div class="tab-list">
+            <div class="tab-item active" data-target="overview">概览</div>
+            <div class="tab-item" data-target="financial">财务</div>
+            <div class="tab-item" data-target="business">业务</div>
+            <div class="tab-item" data-target="cashflow">现金流</div>
+            <div class="tab-item" data-target="risk">风险</div>
+            <div class="tab-item" data-target="ipo">IPO</div>
+        </div>
+    </nav>
+
+    <!-- Tab Progress Indicator -->
+    <div class="tab-progress" id="tabProgress">
+        <div class="progress-dot active" data-target="overview"></div>
+        <div class="progress-dot" data-target="financial"></div>
+        <div class="progress-dot" data-target="business"></div>
+        <div class="progress-dot" data-target="cashflow"></div>
+        <div class="progress-dot" data-target="risk"></div>
+        <div class="progress-dot" data-target="ipo"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Overview Section -->
+        <section id="overview" class="tab-content">
+            <!-- Hero -->
+            <div class="hero-card">
+                <div class="hero-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    2025年度业绩公告
+                </div>
+                <h1 class="hero-title">轻松健康集团</h1>
+                <p class="hero-subtitle">港股IPO新星 | 健康科技赛道领跑者</p>
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                        2025年1月1日-12月31日
+                    </div>
+                    <div class="hero-meta-item">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+                        02661.HK
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Grid -->
+            <div class="kpi-grid" style="margin-bottom: 16px;">
+                <div class="kpi-card positive">
+                    <div class="kpi-icon green">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="kpi-label">营业收入</div>
+                    <div class="kpi-value">12.56亿</div>
+                    <div class="kpi-change up">+32.9% 同比增长</div>
+                </div>
+                <div class="kpi-card negative">
+                    <div class="kpi-icon red">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div class="kpi-label">净利润(GAAP)</div>
+                    <div class="kpi-value">-3.80亿</div>
+                    <div class="kpi-change down">优先股影响</div>
+                </div>
+                <div class="kpi-card info">
+                    <div class="kpi-icon blue">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                    </div>
+                    <div class="kpi-label">经调整净利润</div>
+                    <div class="kpi-value">0.92亿</div>
+                    <div class="kpi-change up">+9.0% 非IFRS</div>
+                </div>
+                <div class="kpi-card warning">
+                    <div class="kpi-icon orange">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="kpi-label">毛利率</div>
+                    <div class="kpi-value">34.65%</div>
+                    <div class="kpi-change neutral">较去年38.3%下降</div>
+                </div>
+                <div class="kpi-card positive">
+                    <div class="kpi-icon purple">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    </div>
+                    <div class="kpi-label">经营性现金流</div>
+                    <div class="kpi-value">8.21亿</div>
+                    <div class="kpi-change up">现金流优异</div>
+                </div>
+                <div class="kpi-card positive">
+                    <div class="kpi-icon green">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg>
+                    </div>
+                    <div class="kpi-label">现金储备</div>
+                    <div class="kpi-value">10.16亿</div>
+                    <div class="kpi-change up">+137.5%</div>
+                </div>
+            </div>
+
+            <!-- Core Conclusion -->
+            <div class="conclusion-card">
+                <span class="conclusion-tag">核心结论</span>
+                <div class="conclusion-content">
+                    轻松健康集团2025年实现营收<strong>12.56亿元，同比增长32.9%</strong>，完成港股IPO募资5.02亿港元。账面净利润亏损3.80亿元，主要由<strong>可转换可赎回优先股公允价值变动</strong>导致，属一次性会计处理影响。剔除该非现金项目后，<strong>经调整净利润为0.92亿元，同比增长9.0%</strong>，核心业务盈利能力稳健。IPO后资本结构显著改善，流动比率从0.3跃升至6.4。
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Section -->
+        <section id="financial" class="tab-content" style="display: none;">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </span>
+                    收入与利润
+                </h2>
+                <div class="chart-container">
+                    <canvas id="revenueChartMobile"></canvas>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                    </span>
+                    关键财务指标
+                </h2>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>指标</th><th>2024年</th><th>2025年</th><th>变化</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>资产总额</td><td>5.82亿</td><td>11.92亿</td><td class="positive">+104.6%</td></tr>
+                        <tr><td>负债总额</td><td>18.99亿</td><td>1.90亿</td><td class="positive">-90.0%</td></tr>
+                        <tr><td>股东权益</td><td>-12.19亿</td><td>10.02亿</td><td class="positive">转正</td></tr>
+                        <tr><td>流动比率</td><td>0.30</td><td>6.40</td><td class="positive">大幅改善</td></tr>
+                        <tr><td>资产负债率</td><td>326.5%</td><td>15.9%</td><td class="positive">-310.6%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                    </span>
+                    资产结构（2025年末）
+                </h2>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>资产类别</th><th>金额</th><th>占比</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>银行存款</td><td>8.62亿</td><td>72.3%</td></tr>
+                        <tr><td>定期存款</td><td>1.54亿</td><td>12.9%</td></tr>
+                        <tr><td>应收账款</td><td>0.88亿</td><td>7.4%</td></tr>
+                        <tr><td>无形资产</td><td>0.20亿</td><td>1.7%</td></tr>
+                        <tr><td>其他资产</td><td>0.68亿</td><td>5.7%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Business Section -->
+        <section id="business" class="tab-content" style="display: none;">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                    </span>
+                    收入构成（2025年）
+                </h2>
+                <div class="chart-container">
+                    <canvas id="businessMixMobile"></canvas>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>业务板块</th><th>收入</th><th>占比</th><th>增长</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>健康相关服务</td><td>9.25亿</td><td>73.7%</td><td class="positive">+50.2%</td></tr>
+                        <tr><td>保险技术服务</td><td>2.21亿</td><td>17.6%</td><td class="positive">+22.7%</td></tr>
+                        <tr><td>保险经纪服务</td><td>1.21亿</td><td>9.6%</td><td class="negative">-32.9%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </span>
+                    毛利率对比
+                </h2>
+                <div class="progress-item">
+                    <div class="progress-label"><span>健康相关服务</span><span>34.6%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 34.6%; background: linear-gradient(90deg, var(--secondary), var(--purple));"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label"><span>保险经纪服务</span><span>97.4%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 97.4%; background: linear-gradient(90deg, var(--success), #34d399);"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label"><span>保险技术服务</span><span>73.4%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 73.4%; background: linear-gradient(90deg, var(--purple), #a78bfa);"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label"><span>整体毛利率</span><span>34.65%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 34.65%; background: linear-gradient(90deg, var(--warning), #fbbf24);"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cashflow Section -->
+        <section id="cashflow" class="tab-content" style="display: none;">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    </span>
+                    现金流量
+                </h2>
+                <div class="chart-container">
+                    <canvas id="cashFlowMobile"></canvas>
+                </div>
+                <div class="insight-box">
+                    <h3 class="insight-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>
+                        关键发现
+                    </h3>
+                    <div class="insight-content">
+                        2025年经营活动现金流净额<strong>8.21亿元</strong>，与经调整净利润0.92亿元基本匹配，验证盈利真实性。筹资活动现金净流入<strong>43.9亿元</strong>，主要来自IPO募集资金。现金及现金等价物从36.3亿元增至<strong>86.2亿元</strong>。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Section -->
+        <section id="risk" class="tab-content" style="display: none;">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </span>
+                    风险评估
+                </h2>
+                
+                <div class="finding-card">
+                    <div class="finding-header">
+                        <div class="finding-title">
+                            <span class="finding-icon danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M12 2L2 22h20L12 2zm0 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-8a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1z"/></svg></span>
+                            财务操纵风险
+                        </div>
+                        <span class="risk-badge risk-high">高风险</span>
+                    </div>
+                    <div class="finding-content">应收账款异常下降（-18%）与收入增长（+32.9%）背离；客户集中度高（前三大客户占比45.8%）。</div>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-header">
+                        <div class="finding-title">
+                            <span class="finding-icon warning"><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2L2 22h20L12 2zm0 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-8a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1z"/></svg></span>
+                            盈利质量风险
+                        </div>
+                        <span class="risk-badge risk-high">高风险</span>
+                    </div>
+                    <div class="finding-content">净利润-3.80亿元与经营现金流8.21亿元背离，主因为非现金优先股公允价值变动（-40.44亿元），经调整后盈利质量良好。</div>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-header">
+                        <div class="finding-title">
+                            <span class="finding-icon info"><svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span>
+                            客户集中度风险
+                        </div>
+                        <span class="risk-badge risk-medium">中风险</span>
+                    </div>
+                    <div class="finding-content">前三大客户合计贡献45.77%收入（客户C 24.06% + 客户B 17.16% + 客户A 7.55%）。</div>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-header">
+                        <div class="finding-title">
+                            <span class="finding-icon success"><svg width="14" height="14" viewBox="0 0 24 24" fill="#10b981"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
+                            资本结构风险
+                        </div>
+                        <span class="risk-badge risk-low">低风险</span>
+                    </div>
+                    <div class="finding-content">IPO后流动比率从0.3提升至6.4，可转换优先股全部转股，财务安全性显著改善。现金储备充裕（10.16亿元）。</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IPO Section -->
+        <section id="ipo" class="tab-content" style="display: none;">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </span>
+                    IPO影响分析
+                </h2>
+                <div class="chart-container">
+                    <canvas id="ipoImpactMobile"></canvas>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </span>
+                    IPO关键数据
+                </h2>
+                <div class="ipo-grid">
+                    <div class="ipo-item">
+                        <div class="ipo-item-label">上市日期</div>
+                        <div class="ipo-item-value">2025年12月23日</div>
+                    </div>
+                    <div class="ipo-item">
+                        <div class="ipo-item-label">募集资金净额</div>
+                        <div class="ipo-item-value">5.023亿港元</div>
+                    </div>
+                    <div class="ipo-item">
+                        <div class="ipo-item-label">截至期末使用</div>
+                        <div class="ipo-item-value">0（全部存放）</div>
+                    </div>
+                    <div class="ipo-item">
+                        <div class="ipo-item-label">计划使用期限</div>
+                        <div class="ipo-item-value">2030年底前</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>本报告基于轻松健康集团2025年度业绩公告自动生成</p>
+            <p style="margin-top: 6px;">分析日期：2026年3月24日 | 仅供参考，不构成投资建议</p>
+            <p style="margin-top: 10px;">
+                <a href="https://www.qingsonghealth.com/" target="_blank">轻松健康集团</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-target="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>概览</span>
+        </div>
+        <div class="nav-item" data-target="financial">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>财务</span>
+        </div>
+        <div class="nav-item" data-target="business">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+            <span>业务</span>
+        </div>
+        <div class="nav-item" data-target="cashflow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg>
+            <span>现金流</span>
+        </div>
+        <div class="nav-item" data-target="risk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>风险</span>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const isDark = localStorage.getItem('theme') === 'dark';
+        
+        if (isDark) document.body.setAttribute('data-theme', 'dark');
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? '' : 'dark');
+            localStorage.setItem('theme', isDark ? '' : 'dark');
+            updateCharts();
+        });
+
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab-item, .nav-item');
+        const contents = document.querySelectorAll('.tab-content');
+        
+        // Snap Scroll - Auto Tab Switching
+        const tabIds = ['overview', 'financial', 'business', 'cashflow', 'risk', 'ipo'];
+        let currentTabIndex = 0;
+        let isScrolling = false;
+        let scrollStartY = 0;
+        let touchStartY = 0;
+
+        function switchTab(target, smooth = true) {
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll(`[data-target="${target}"]`).forEach(t => t.classList.add('active'));
+            
+            contents.forEach(c => c.style.display = 'none');
+            const targetContent = document.getElementById(target);
+            targetContent.style.display = 'block';
+            
+            const targetIndex = tabIds.indexOf(target);
+            currentTabIndex = targetIndex >= 0 ? targetIndex : 0;
+            
+            if (smooth) {
+                targetContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                targetContent.scrollIntoView({ block: 'start' });
+            }
+            
+            // Update active nav item
+            updateBottomNav(target);
+        }
+        
+        function updateBottomNav(target) {
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.toggle('active', nav.dataset.target === target);
+            });
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.target));
+        });
+
+        // Touch/Swipe Detection for Snap Scroll
+        function handleScrollEnd() {
+            if (isScrolling) return;
+            
+            const windowHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+            const headerHeight = 130; // header + tab-nav height
+            const effectiveScroll = scrollY - headerHeight;
+            const sectionHeight = windowHeight - headerHeight - 80;
+            
+            // Determine which section we're in based on scroll position
+            const sections = document.querySelectorAll('.tab-content');
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                // If section takes up most of the viewport
+                if (rect.top <= headerHeight + 50 && rect.bottom >= windowHeight - 50) {
+                    const targetId = section.id;
+                    if (targetId !== tabIds[currentTabIndex]) {
+                        currentTabIndex = tabIds.indexOf(targetId);
+                        // Update active states without smooth scroll
+                        tabs.forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll(`[data-target="${targetId}"]`).forEach(t => t.classList.add('active'));
+                        updateBottomNav(targetId);
+                    }
+                }
+            });
+        }
+
+        // Debounced scroll listener
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                isScrolling = true;
+            }
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                isScrolling = false;
+                handleScrollEnd();
+                updateProgressDots(tabIds[currentTabIndex]);
+            }, 150);
+        }, { passive: true });
+
+        // Touch events for swipe detection
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            scrollStartY = window.scrollY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffY = touchStartY - touchEndY;
+            const windowHeight = window.innerHeight;
+            
+            // Only trigger if swipe is significant (> 80px)
+            if (Math.abs(diffY) > 80) {
+                const scrollY = window.scrollY;
+                const headerHeight = 130;
+                const maxScroll = document.documentElement.scrollHeight - windowHeight;
+                
+                // Check if at top or bottom boundaries
+                const atTop = scrollY < headerHeight + 50;
+                const atBottom = scrollY >= maxScroll - 50;
+                
+                if (diffY > 0 && !atBottom) {
+                    // Swipe up - go to next tab
+                    if (currentTabIndex < tabIds.length - 1) {
+                        switchTab(tabIds[currentTabIndex + 1]);
+                    }
+                } else if (diffY < 0 && !atTop) {
+                    // Swipe down - go to previous tab
+                    if (currentTabIndex > 0) {
+                        switchTab(tabIds[currentTabIndex - 1]);
+                    }
+                }
+            }
+        }, { passive: true });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                if (currentTabIndex < tabIds.length - 1) {
+                    switchTab(tabIds[currentTabIndex + 1]);
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                if (currentTabIndex > 0) {
+                    switchTab(tabIds[currentTabIndex - 1]);
+                }
+            }
+        });
+
+        // Progress Dots interaction
+        const progressDots = document.querySelectorAll('.progress-dot');
+        progressDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                switchTab(dot.dataset.target);
+            });
+        });
+
+        // Update progress dots when switching tabs
+        function updateProgressDots(targetId) {
+            progressDots.forEach(dot => {
+                dot.classList.toggle('active', dot.dataset.target === targetId);
+            });
+        }
+
+        // Override switchTab to also update progress dots
+        const originalSwitchTab = switchTab;
+        switchTab = function(target, smooth = true) {
+            originalSwitchTab(target, smooth);
+            updateProgressDots(target);
+        };
+
+        // Charts
+        const chartColors = {
+            primary: '#3b82f6',
+            secondary: '#8b5cf6',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+            text: '#64748b',
+            grid: 'rgba(148, 163, 184, 0.1)'
+        };
+
+        function getChartColors() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            return {
+                primary: '#3b82f6',
+                secondary: '#8b5cf6',
+                success: '#10b981',
+                warning: '#f59e0b',
+                danger: '#ef4444',
+                text: isDark ? '#94a3b8' : '#64748b',
+                grid: isDark ? 'rgba(148, 163, 184, 0.1)' : 'rgba(148, 163, 184, 0.2)'
+            };
+        }
+
+        let revenueChart, businessMixChart, cashFlowChart, ipoChart;
+
+        function initCharts() {
+            const colors = getChartColors();
+            const chartDefaults = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: colors.grid }, ticks: { color: colors.text, font: { size: 10 } } },
+                    y: { grid: { color: colors.grid }, ticks: { color: colors.text, font: { size: 10 } } }
+                }
+            };
+
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChartMobile');
+            if (revenueCtx) {
+                if (revenueChart) revenueChart.destroy();
+                revenueChart = new Chart(revenueCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2023H1', '2023H2', '2024H1', '2024H2', '2025H1', '2025H2'],
+                        datasets: [{
+                            label: '营业收入(亿元)',
+                            data: [3.2, 4.1, 4.7, 4.8, 5.6, 7.0],
+                            backgroundColor: colors.primary
+                        }]
+                    },
+                    options: { ...chartDefaults }
+                });
+            }
+
+            // Business Mix Chart
+            const businessCtx = document.getElementById('businessMixMobile');
+            if (businessCtx) {
+                if (businessMixChart) businessMixChart.destroy();
+                businessMixChart = new Chart(businessCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['健康相关服务', '保险技术服务', '保险经纪服务'],
+                        datasets: [{
+                            data: [73.7, 17.6, 9.6],
+                            backgroundColor: [colors.primary, colors.secondary, colors.warning]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 8, font: { size: 10 } } }
+                        }
+                    }
+                });
+            }
+
+            // Cash Flow Chart
+            const cashCtx = document.getElementById('cashFlowMobile');
+            if (cashCtx) {
+                if (cashFlowChart) cashFlowChart.destroy();
+                cashFlowChart = new Chart(cashCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['经营活动', '投资活动', '筹资活动'],
+                        datasets: [{
+                            label: '现金流(亿元)',
+                            data: [8.21, -1.82, 43.9],
+                            backgroundColor: [colors.success, colors.danger, colors.primary]
+                        }]
+                    },
+                    options: { ...chartDefaults }
+                });
+            }
+
+            // IPO Impact Chart
+            const ipoCtx = document.getElementById('ipoImpactMobile');
+            if (ipoCtx) {
+                if (ipoChart) ipoChart.destroy();
+                ipoChart = new Chart(ipoCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['IPO前', 'IPO后'],
+                        datasets: [{
+                            label: '流动比率',
+                            data: [0.3, 6.4],
+                            backgroundColor: [colors.danger, colors.success]
+                        }]
+                    },
+                    options: {
+                        ...chartDefaults,
+                        scales: { ...chartDefaults.scales, y: { ...chartDefaults.scales.y, beginAtZero: true } }
+                    }
+                });
+            }
+        }
+
+        function updateCharts() {
+            initCharts();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(initCharts, 100);
+        });
+    </script>
+</body>
+</html>

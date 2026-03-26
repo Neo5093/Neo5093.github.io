@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轻松健康集团 - 2025年度财报数据可视化</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0f172a;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --bg-dark: #0a0f1a;
+            --bg-card: #111827;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #1f2937;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2744 100%);
+            padding: 32px 48px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header-content { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--secondary), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .brand-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .brand-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .ipo-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 24px;
+            font-size: 13px;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .header-stat {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .header-stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .header-stat-change {
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .header-stat-change.up { color: var(--success); }
+        .header-stat-change.down { color: var(--danger); }
+        .header-stat-change.neutral { color: var(--text-secondary); }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            padding: 32px 48px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon.blue { background: rgba(59, 130, 246, 0.15); color: var(--secondary); }
+        .card-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .card-icon.purple { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
+        .card-icon.orange { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+        .card-icon.red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+        /* Column spans */
+        .col-3 { grid-column: span 3; }
+        .col-4 { grid-column: span 4; }
+        .col-5 { grid-column: span 5; }
+        .col-6 { grid-column: span 6; }
+        .col-7 { grid-column: span 7; }
+        .col-8 { grid-column: span 8; }
+        .col-12 { grid-column: span 12; }
+
+        /* Chart containers */
+        .chart-wrapper {
+            position: relative;
+            height: 280px;
+        }
+
+        .chart-wrapper.small { height: 220px; }
+        .chart-wrapper.pie { height: 260px; }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .kpi-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .kpi-item.green::before { background: linear-gradient(90deg, var(--success), #34d399); }
+        .kpi-item.red::before { background: linear-gradient(90deg, var(--danger), #f87171); }
+        .kpi-item.blue::before { background: linear-gradient(90deg, var(--secondary), #60a5fa); }
+        .kpi-item.purple::before { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+        .kpi-item.orange::before { background: linear-gradient(90deg, var(--accent), #fbbf24); }
+
+        .kpi-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .kpi-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .kpi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .kpi-badge.up { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .kpi-badge.down { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: rgba(255,255,255,0.02);
+            font-weight: 600;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .positive { color: var(--success); font-weight: 600; }
+        .negative { color: var(--danger); font-weight: 600; }
+
+        /* Progress bars */
+        .progress-item {
+            margin-bottom: 16px;
+        }
+
+        .progress-item:last-child { margin-bottom: 0; }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .progress-header span:first-child { color: var(--text-secondary); }
+        .progress-header span:last-child { font-weight: 600; }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Risk Cards */
+        .risk-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .risk-card:last-child { margin-bottom: 0; }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .risk-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .risk-high { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+        .risk-medium { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+        .risk-low { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+
+        .risk-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* IPO Grid */
+        .ipo-data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .ipo-data-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .ipo-data-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .ipo-data-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Conclusion */
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-left: 4px solid var(--secondary);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+        }
+
+        .conclusion-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--secondary), var(--purple));
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .conclusion-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .conclusion-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+
+        .footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.15s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.25s; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-grid { grid-template-columns: repeat(6, 1fr); }
+            .col-3, .col-4, .col-5, .col-6, .col-7, .col-8 { grid-column: span 6; }
+            .header-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 24px; }
+            .header-stats { grid-template-columns: 1fr; }
+            .main-grid { padding: 16px; gap: 16px; }
+            .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-12 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-top">
+                <div class="brand">
+                    <div class="brand-logo">轻</div>
+                    <div class="brand-text">
+                        <h1>轻松健康集团</h1>
+                        <p>2025年度业绩公告 | 港股IPO新星 02661.HK</p>
+                    </div>
+                </div>
+                <div class="ipo-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    2025年12月23日 港交所上市
+                </div>
+            </div>
+
+            <div class="header-stats">
+                <div class="header-stat">
+                    <div class="header-stat-label">营业收入</div>
+                    <div class="header-stat-value" style="color: var(--success);">12.56亿</div>
+                    <div class="header-stat-change up">+32.9% 同比增长</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-label">经调整净利润</div>
+                    <div class="header-stat-value" style="color: var(--secondary);">0.92亿</div>
+                    <div class="header-stat-change up">+9.0% 非IFRS</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-label">毛利率</div>
+                    <div class="header-stat-value" style="color: var(--accent);">34.65%</div>
+                    <div class="header-stat-change neutral">较去年38.3%下降</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-label">现金储备</div>
+                    <div class="header-stat-value" style="color: var(--purple);">10.16亿</div>
+                    <div class="header-stat-change up">+137.5% 大幅增长</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-grid">
+        <!-- Row 1: Revenue Chart -->
+        <div class="card col-8">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon blue">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </span>
+                    营业收入趋势（半年度）
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Row 1: Business Mix -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon purple">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                    </span>
+                    业务收入构成
+                </div>
+            </div>
+            <div class="chart-wrapper pie">
+                <canvas id="businessMixChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Row 2: KPI Cards -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon green">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </span>
+                    核心指标
+                </div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-item green">
+                    <div class="kpi-label">经营性现金流</div>
+                    <div class="kpi-value">8.21亿</div>
+                    <div class="kpi-sub">现金流优异</div>
+                    <div class="kpi-badge up">+优异</div>
+                </div>
+                <div class="kpi-item blue">
+                    <div class="kpi-label">净利润(GAAP)</div>
+                    <div class="kpi-value">-3.80亿</div>
+                    <div class="kpi-sub">优先股影响</div>
+                    <div class="kpi-badge down">会计处理</div>
+                </div>
+                <div class="kpi-item purple">
+                    <div class="kpi-label">资产总额</div>
+                    <div class="kpi-value">11.92亿</div>
+                    <div class="kpi-sub">较年初+104.6%</div>
+                    <div class="kpi-badge up">+104.6%</div>
+                </div>
+                <div class="kpi-item orange">
+                    <div class="kpi-label">资产负债率</div>
+                    <div class="kpi-value">15.9%</div>
+                    <div class="kpi-sub">从326.5%大幅下降</div>
+                    <div class="kpi-badge up">显著改善</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Cash Flow -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon orange">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    </span>
+                    现金流量概览
+                </div>
+            </div>
+            <div class="chart-wrapper small">
+                <canvas id="cashFlowChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Row 2: IPO Impact -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon red">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </span>
+                    IPO影响
+                </div>
+            </div>
+            <div class="chart-wrapper small">
+                <canvas id="ipoChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Row 3: Balance Sheet -->
+        <div class="card col-6">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon blue">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                    </span>
+                    资产负债表关键科目
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr><th>指标</th><th>2024年</th><th>2025年</th><th>变化</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>资产总额</td><td>5.82亿</td><td>11.92亿</td><td class="positive">+104.6%</td></tr>
+                    <tr><td>负债总额</td><td>18.99亿</td><td>1.90亿</td><td class="positive">-90.0%</td></tr>
+                    <tr><td>股东权益</td><td>-12.19亿</td><td>10.02亿</td><td class="positive">转正</td></tr>
+                    <tr><td>流动比率</td><td>0.30</td><td>6.40</td><td class="positive">大幅改善</td></tr>
+                    <tr><td>资产负债率</td><td>326.5%</td><td>15.9%</td><td class="positive">-310.6%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Row 3: Asset Structure -->
+        <div class="card col-6">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon green">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                    </span>
+                    资产结构（2025年末）
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr><th>资产类别</th><th>金额</th><th>占比</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>银行存款</td><td>8.62亿</td><td>72.3%</td></tr>
+                    <tr><td>定期存款</td><td>1.54亿</td><td>12.9%</td></tr>
+                    <tr><td>应收账款</td><td>0.88亿</td><td>7.4%</td></tr>
+                    <tr><td>无形资产</td><td>0.20亿</td><td>1.7%</td></tr>
+                    <tr><td>其他资产</td><td>0.68亿</td><td>5.7%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Row 4: Business Segment Performance -->
+        <div class="card col-6">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon purple">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                    </span>
+                    业务板块表现
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr><th>业务板块</th><th>收入</th><th>占比</th><th>增长</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>健康相关服务</td><td>9.25亿</td><td>73.7%</td><td class="positive">+50.2%</td></tr>
+                    <tr><td>保险技术服务</td><td>2.21亿</td><td>17.6%</td><td class="positive">+22.7%</td></tr>
+                    <tr><td>保险经纪服务</td><td>1.21亿</td><td>9.6%</td><td class="negative">-32.9%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Row 4: Gross Margin -->
+        <div class="card col-6">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon orange">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </span>
+                    毛利率对比
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>健康相关服务</span><span>34.6%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 34.6%; background: linear-gradient(90deg, var(--secondary), #60a5fa);"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>保险经纪服务</span><span>97.4%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 97.4%; background: linear-gradient(90deg, var(--success), #34d399);"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>保险技术服务</span><span>73.4%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 73.4%; background: linear-gradient(90deg, var(--purple), #a78bfa);"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header"><span>整体毛利率</span><span>34.65%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 34.65%; background: linear-gradient(90deg, var(--accent), #fbbf24);"></div></div>
+            </div>
+        </div>
+
+        <!-- Row 5: Risk Assessment -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon red">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </span>
+                    风险评估
+                </div>
+            </div>
+            <div class="risk-card">
+                <div class="risk-header">
+                    <div class="risk-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444"><path d="M12 2L2 22h20L12 2zm0 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-8a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1z"/></svg>
+                        财务操纵风险
+                    </div>
+                    <span class="risk-badge risk-high">高风险</span>
+                </div>
+                <div class="risk-desc">应收账款异常下降（-18%）与收入增长（+32.9%）背离；客户集中度高（前三大客户占比45.8%）。</div>
+            </div>
+            <div class="risk-card">
+                <div class="risk-header">
+                    <div class="risk-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2L2 22h20L12 2zm0 15a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-8a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1z"/></svg>
+                        盈利质量风险
+                    </div>
+                    <span class="risk-badge risk-high">高风险</span>
+                </div>
+                <div class="risk-desc">净利润-3.80亿元与经营现金流8.21亿元背离，主因为非现金优先股公允价值变动（-40.44亿元），经调整后盈利质量良好。</div>
+            </div>
+            <div class="risk-card">
+                <div class="risk-header">
+                    <div class="risk-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        客户集中度风险
+                    </div>
+                    <span class="risk-badge risk-medium">中风险</span>
+                </div>
+                <div class="risk-desc">前三大客户合计贡献45.77%收入（客户C 24.06% + 客户B 17.16% + 客户A 7.55%）。</div>
+            </div>
+            <div class="risk-card">
+                <div class="risk-header">
+                    <div class="risk-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#10b981"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        资本结构风险
+                    </div>
+                    <span class="risk-badge risk-low">低风险</span>
+                </div>
+                <div class="risk-desc">IPO后流动比率从0.3提升至6.4，可转换优先股全部转股，财务安全性显著改善。现金储备充裕（10.16亿元）。</div>
+            </div>
+        </div>
+
+        <!-- Row 5: IPO Details -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon blue">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </span>
+                    IPO关键数据
+                </div>
+            </div>
+            <div class="ipo-data-grid">
+                <div class="ipo-data-item">
+                    <div class="ipo-data-label">上市日期</div>
+                    <div class="ipo-data-value">2025.12.23</div>
+                </div>
+                <div class="ipo-data-item">
+                    <div class="ipo-data-label">募集资金净额</div>
+                    <div class="ipo-data-value">5.02亿港元</div>
+                </div>
+                <div class="ipo-data-item">
+                    <div class="ipo-data-label">截至期末使用</div>
+                    <div class="ipo-data-value">0（全部存放）</div>
+                </div>
+                <div class="ipo-data-item">
+                    <div class="ipo-data-label">计划使用期限</div>
+                    <div class="ipo-data-value">2030年底前</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 5: Conclusion -->
+        <div class="card col-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon green">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </span>
+                    核心结论
+                </div>
+            </div>
+            <div class="conclusion-box">
+                <span class="conclusion-tag">核心结论</span>
+                <div class="conclusion-text">
+                    轻松健康集团2025年实现营收<strong>12.56亿元，同比增长32.9%</strong>，完成港股IPO募资5.02亿港元。账面净利润亏损3.80亿元，主要由<strong>可转换可赎回优先股公允价值变动</strong>导致，属一次性会计处理影响。剔除该非现金项目后，<strong>经调整净利润为0.92亿元，同比增长9.0%</strong>，核心业务盈利能力稳健。IPO后资本结构显著改善，流动比率从0.3跃升至6.4。
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="card col-12">
+            <div class="footer">
+                <p>本报告基于轻松健康集团2025年度业绩公告自动生成 | 分析日期：2026年3月25日</p>
+                <p style="margin-top: 8px;">数据来源：港交所披露平台 | 仅供参考，不构成投资建议</p>
+                <p style="margin-top: 8px;"><a href="https://www.qingsonghealth.com/" target="_blank">轻松健康集团官网</a> | <a href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0323/2026032301507_c.pdf" target="_blank">原始业绩公告PDF</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Chart configurations
+        const colors = {
+            primary: '#3b82f6',
+            secondary: '#8b5cf6',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+            text: '#94a3b8',
+            grid: 'rgba(148, 163, 184, 0.1)'
+        };
+
+        const chartDefaults = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    grid: { color: colors.grid },
+                    ticks: { color: colors.text, font: { size: 11 } }
+                },
+                y: {
+                    grid: { color: colors.grid },
+                    ticks: { color: colors.text, font: { size: 11 } }
+                }
+            }
+        };
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart');
+        if (revenueCtx) {
+            new Chart(revenueCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2023H1', '2023H2', '2024H1', '2024H2', '2025H1', '2025H2'],
+                    datasets: [{
+                        label: '营业收入(亿元)',
+                        data: [3.2, 4.1, 4.7, 4.8, 5.6, 7.0],
+                        backgroundColor: colors.primary,
+                        borderRadius: 6,
+                        barThickness: 40
+                    }]
+                },
+                options: {
+                    ...chartDefaults,
+                    scales: {
+                        ...chartDefaults.scales,
+                        y: { ...chartDefaults.scales.y, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // Business Mix Chart
+        const businessCtx = document.getElementById('businessMixChart');
+        if (businessCtx) {
+            new Chart(businessCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['健康相关服务', '保险技术服务', '保险经纪服务'],
+                    datasets: [{
+                        data: [73.7, 17.6, 9.6],
+                        backgroundColor: [colors.primary, colors.secondary, colors.warning],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 16,
+                                font: { size: 12 },
+                                color: colors.text
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cash Flow Chart
+        const cashCtx = document.getElementById('cashFlowChart');
+        if (cashCtx) {
+            new Chart(cashCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['经营活动', '投资活动', '筹资活动'],
+                    datasets: [{
+                        label: '现金流(亿元)',
+                        data: [8.21, -1.82, 43.9],
+                        backgroundColor: [colors.success, colors.danger, colors.primary],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    ...chartDefaults,
+                    indexAxis: 'y',
+                    scales: {
+                        ...chartDefaults.scales,
+                        x: { ...chartDefaults.scales.x, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // IPO Impact Chart
+        const ipoCtx = document.getElementById('ipoChart');
+        if (ipoCtx) {
+            new Chart(ipoCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['IPO前', 'IPO后'],
+                    datasets: [{
+                        label: '流动比率',
+                        data: [0.3, 6.4],
+                        backgroundColor: [colors.danger, colors.success],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    ...chartDefaults,
+                    scales: {
+                        ...chartDefaults.scales,
+                        y: { ...chartDefaults.scales.y, beginAtZero: true }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

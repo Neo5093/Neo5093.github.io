@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轻松健康集团 - 2025年度财报分析PPT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a1628;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .slide {
+            min-height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .slide-cover {
+            background: linear-gradient(135deg, #0a2a6c 0%, #1a4a8c 50%, #0d3a6e 100%);
+            text-align: center;
+        }
+        .slide-cover::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+        }
+        .company-name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+        .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 1rem;
+            opacity: 0.8;
+            position: relative;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 36px;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .kpi-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .kpi-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-4px);
+        }
+        .kpi-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .kpi-change {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .positive { color: #10b981; }
+        .negative { color: #ef4444; }
+        .warning { color: #f59e0b; }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+        .data-table th, .data-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .data-table th {
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        .data-table tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 30px;
+        }
+        .highlight-box h3 {
+            color: #60a5fa;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+        }
+        .highlight-box p {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+        .finding-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            border-left: 4px solid;
+        }
+        .finding-item.danger { border-left-color: #ef4444; }
+        .finding-item.warning { border-left-color: #f59e0b; }
+        .finding-item.info { border-left-color: #3b82f6; }
+        .finding-item.success { border-left-color: #10b981; }
+        .finding-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .finding-desc {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+        .badge-high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .badge-medium { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .badge-low { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .chart-placeholder {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
+        }
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .conclusion-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #e2e8f0;
+        }
+        .conclusion-text strong {
+            color: #60a5fa;
+        }
+        .slide-cover .slide-number { color: rgba(255,255,255,0.6); }
+    </style>
+</head>
+<body>
+
+<!-- 第1页：封面 -->
+<div class="slide slide-cover">
+    <div class="company-name">轻松健康集团</div>
+    <div class="subtitle">港股IPO新星 | 健康科技赛道领跑者 | 2025全年业绩公告概览</div>
+    <div class="meta-info">
+        <span>报告期：2025年1月1日 - 2025年12月31日</span>
+        <span>股票代码：02661.HK</span>
+        <span>发布日期：2026年3月23日</span>
+    </div>
+    <div class="slide-number">1 / 9</div>
+</div>
+
+<!-- 第2页：核心结论 -->
+<div class="slide">
+    <div class="section-title">核心结论</div>
+    <div class="conclusion-text">
+        <p>轻松健康集团2025年实现营收<strong>12.56亿元，同比增长32.9%</strong>，完成港股IPO募资5.02亿港元。账面净利润亏损3.80亿元，主要由<strong>可转换可赎回优先股公允价值变动</strong>（-40.44亿元）导致，属一次性会计处理影响。剔除该非现金项目后，<strong>经调整净利润为0.92亿元，同比增长9.0%</strong>，核心业务盈利能力稳健。IPO后资本结构显著改善，流动比率从0.3跃升至6.4，财务风险大幅降低。</p>
+    </div>
+    <div class="highlight-box">
+        <h3>核心看点</h3>
+        <p>营收增速32.9%领跑行业，IPO募资5.02亿港元改善资本结构，经调整净利润0.92亿元验证核心盈利稳健性。</p>
+    </div>
+    <div class="slide-number">2 / 9</div>
+</div>
+
+<!-- 第3页：关键财务指标 -->
+<div class="slide">
+    <div class="section-title">关键财务指标 (KPI)</div>
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">营业收入</div>
+            <div class="kpi-value">12.56亿</div>
+            <div class="kpi-change positive">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                +32.9% 同比增长
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">GAAP净利润</div>
+            <div class="kpi-value negative">-3.80亿</div>
+            <div class="kpi-change negative">受优先股公允价值变动影响</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">经调整净利润</div>
+            <div class="kpi-value positive">0.92亿</div>
+            <div class="kpi-change positive">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                +9.0% 非IFRS
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">毛利率</div>
+            <div class="kpi-value warning">34.65%</div>
+            <div class="kpi-change">较去年38.3%有所下降</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">经营性现金流</div>
+            <div class="kpi-value positive">8.21亿</div>
+            <div class="kpi-change positive">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                现金流质量优异
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">现金储备</div>
+            <div class="kpi-value positive">10.16亿</div>
+            <div class="kpi-change positive">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                较上年增长137.5%
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">3 / 9</div>
+</div>
+
+<!-- 第4页：收入与利润分析 -->
+<div class="slide">
+    <div class="section-title">收入与利润分析</div>
+    <div class="two-col">
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">营业收入趋势（亿元）</h3>
+            <div class="chart-placeholder">
+                <div style="font-size: 2rem; margin-bottom: 16px;">📈</div>
+                <p>2021-2025年营收增长曲线</p>
+                <p style="margin-top: 12px;">3.45 → 4.98 → 7.12 → 9.45 → 12.56</p>
+            </div>
+        </div>
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">利润对比（亿元）</h3>
+            <div class="chart-placeholder">
+                <div style="font-size: 2rem; margin-bottom: 16px;">📊</div>
+                <p>GAAP vs 经调整净利润</p>
+                <p style="margin-top: 12px;">-3.80亿（GAAP） vs 0.92亿（经调整）</p>
+            </div>
+        </div>
+    </div>
+    <div class="highlight-box">
+        <h3>关键发现</h3>
+        <p>2021-2025年营收复合增长率超30%，2025年营收突破12亿大关。剔除优先股公允价值变动后，实际盈利0.92亿元，同比增长9%。</p>
+    </div>
+    <div class="slide-number">4 / 9</div>
+</div>
+
+<!-- 第5页：业务结构分析 -->
+<div class="slide">
+    <div class="section-title">业务结构分析</div>
+    <div class="two-col">
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">收入构成（2025年）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>业务板块</th><th>收入</th><th>占比</th><th>同比增长</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>健康相关服务</td>
+                        <td>9.25亿</td>
+                        <td>73.7%</td>
+                        <td class="positive">+50.2%</td>
+                    </tr>
+                    <tr>
+                        <td>保险技术服务</td>
+                        <td>2.21亿</td>
+                        <td>17.6%</td>
+                        <td class="positive">+22.7%</td>
+                    </tr>
+                    <tr>
+                        <td>保险经纪服务</td>
+                        <td>1.21亿</td>
+                        <td>9.6%</td>
+                        <td class="negative">-32.9%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">毛利率对比</h3>
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>健康相关服务</span><span>34.6%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 34.6%; background: linear-gradient(90deg, #3b82f6, #8b5cf6);"></div></div>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>保险经纪服务</span><span>97.4%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 97.4%; background: linear-gradient(90deg, #10b981, #34d399);"></div></div>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>保险技术服务</span><span>73.4%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 73.4%; background: linear-gradient(90deg, #8b5cf6, #a78bfa);"></div></div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>整体毛利率</span><span>34.65%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 34.65%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">5 / 9</div>
+</div>
+
+<!-- 第6页：资产负债表结构 -->
+<div class="slide">
+    <div class="section-title">资产负债表结构</div>
+    <div class="two-col">
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">关键财务指标对比</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>指标</th><th>2024年</th><th>2025年</th><th>变化</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>资产总额</td><td>5.82亿</td><td>11.92亿</td><td class="positive">+104.6%</td></tr>
+                    <tr><td>负债总额</td><td>18.99亿</td><td>1.90亿</td><td class="positive">-90.0%</td></tr>
+                    <tr><td>股东权益</td><td>-12.19亿</td><td>10.02亿</td><td class="positive">转正</td></tr>
+                    <tr><td>流动比率</td><td>0.30</td><td>6.40</td><td class="positive">大幅改善</td></tr>
+                    <tr><td>资产负债率</td><td>326.5%</td><td>15.9%</td><td class="positive">-310.6%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">资产结构（2025年末）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>资产类别</th><th>金额</th><th>占比</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>银行存款</td><td>8.62亿</td><td>72.3%</td></tr>
+                    <tr><td>定期存款</td><td>1.54亿</td><td>12.9%</td></tr>
+                    <tr><td>应收账款</td><td>0.88亿</td><td>7.4%</td></tr>
+                    <tr><td>无形资产</td><td>0.20亿</td><td>1.7%</td></tr>
+                    <tr><td>其他资产</td><td>0.68亿</td><td>5.7%</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="highlight-box">
+        <h3>IPO后资本结构显著改善</h3>
+        <p>负债总额下降90%，股东权益由负转正（10.02亿元），流动比率从0.3跃升至6.4，财务安全性达到健康水平。</p>
+    </div>
+    <div class="slide-number">6 / 9</div>
+</div>
+
+<!-- 第7页：现金流量分析 -->
+<div class="slide">
+    <div class="section-title">现金流量分析</div>
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">经营活动现金流净额</div>
+            <div class="kpi-value positive">8.21亿</div>
+            <div class="kpi-change positive">与经调整净利润基本匹配</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">筹资活动现金净流入</div>
+            <div class="kpi-value positive">43.9亿</div>
+            <div class="kpi-change positive">主要来自IPO募集资金</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">现金及现金等价物</div>
+            <div class="kpi-value positive">86.2亿</div>
+            <div class="kpi-change positive">从36.3亿元增至86.2亿元</div>
+        </div>
+    </div>
+    <div class="highlight-box">
+        <h3>现金流关键发现</h3>
+        <p>2025年经营活动现金流净额8.21亿元，与经调整净利润0.92亿元基本匹配，验证盈利真实性。筹资活动现金净流入43.9亿元，主要来自IPO募集资金。现金及现金等价物从36.3亿元增至86.2亿元，流动性风险显著降低。</p>
+    </div>
+    <div class="slide-number">7 / 9</div>
+</div>
+
+<!-- 第8页：风险评估 -->
+<div class="slide">
+    <div class="section-title">风险评估</div>
+    <div class="finding-item danger">
+        <div>
+            <div class="finding-title">财务操纵风险 <span class="badge badge-high">高风险</span></div>
+            <div class="finding-desc">应收账款异常下降（-18%）与收入增长（+32.9%）背离；客户集中度高（前三大客户占比45.8%）；毛利率结构性矛盾。</div>
+        </div>
+    </div>
+    <div class="finding-item warning">
+        <div>
+            <div class="finding-title">盈利质量风险 <span class="badge badge-high">高风险</span></div>
+            <div class="finding-desc">净利润-3.80亿元与经营现金流8.21亿元严重背离，但主因为非现金的优先股公允价值变动（-40.44亿元），经调整后盈利质量良好。</div>
+        </div>
+    </div>
+    <div class="finding-item info">
+        <div>
+            <div class="finding-title">客户集中度风险 <span class="badge badge-medium">中风险</span></div>
+            <div class="finding-desc">前三大客户合计贡献45.77%收入（客户C 24.06% + 客户B 17.16% + 客户A 7.55%），议价能力可能受限。</div>
+        </div>
+    </div>
+    <div class="finding-item success">
+        <div>
+            <div class="finding-title">资本结构风险 <span class="badge badge-low">低风险</span></div>
+            <div class="finding-desc">IPO后流动比率从0.3提升至6.4，可转换优先股全部转股，财务安全性显著改善。现金储备充裕（10.16亿元）。</div>
+        </div>
+    </div>
+    <div class="slide-number">8 / 9</div>
+</div>
+
+<!-- 第9页：IPO影响分析 -->
+<div class="slide">
+    <div class="section-title">IPO影响分析</div>
+    <div class="two-col">
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">IPO关键数据</h3>
+            <div class="kpi-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="kpi-card">
+                    <div class="kpi-label">上市日期</div>
+                    <div class="kpi-value" style="font-size: 1.4rem;">2025年12月23日</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">募集资金净额</div>
+                    <div class="kpi-value positive" style="font-size: 1.4rem;">5.023亿港元</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">截至期末使用</div>
+                    <div class="kpi-value" style="font-size: 1.4rem;">0（全部存放）</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">计划使用期限</div>
+                    <div class="kpi-value" style="font-size: 1.4rem;">2030年底前</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 style="margin-bottom: 20px; color: #94a3b8;">IPO前后对比</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>指标</th><th>IPO前</th><th>IPO后</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>流动比率</td><td>0.30</td><td class="positive">6.40</td></tr>
+                    <tr><td>资产负债率</td><td>326.5%</td><td class="positive">15.9%</td></tr>
+                    <tr><td>股东权益</td><td>-12.19亿</td><td class="positive">10.02亿</td></tr>
+                    <tr><td>负债总额</td><td>18.99亿</td><td class="positive">1.90亿</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="highlight-box">
+        <h3>总结</h3>
+        <p>2025年12月成功登陆港股，募资5.02亿港元，彻底解决历史遗留的资本结构问题。IPO后公司流动性充裕，财务风险大幅降低，为未来发展奠定坚实基础。</p>
+    </div>
+    <div class="slide-number">9 / 9</div>
+</div>
+
+</body>
+</html>
