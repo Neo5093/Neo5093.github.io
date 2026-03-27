@@ -9,3 +9,7 @@
 !Intelnet-daily-news/
 !openclaw-daily-news/
 !*.html
+!*.jpg
+!*.png
+!*.gif
+!*.webp
