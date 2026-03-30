@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f0f9ff">
+    <title>互联网早报 - 2026年3月30日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary-blue: #0ea5e9;
+            --light-blue: #f0f9ff;
+            --ice-gray: #f8fafc;
+            --tech-silver: #94a3b8;
+            --aurora-white: #ffffff;
+            --text-dark: #0f172a;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --gradient-start: #e0f2fe;
+            --gradient-end: #f0f9ff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+
+        .header .meta {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-card {
+            background: var(--aurora-white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--light-blue);
+        }
+
+        .section-icon {
+            font-size: 28px;
+        }
+
+        .section-title h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .news-list {
+            list-style: none;
+        }
+
+        .news-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--ice-gray);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .news-item:first-child {
+            padding-top: 0;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .news-title a:hover {
+            color: var(--primary-blue);
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-light);
+            flex-wrap: wrap;
+        }
+
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .news-summary {
+            font-size: 14px;
+            color: var(--text-medium);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .back-link:hover {
+            background: #0284c7;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .hot-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            color: white;
+            font-size: 11px;
+            border-radius: 4px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 16px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .content {
+                padding: 16px;
+            }
+            .section-card {
+                padding: 16px;
+            }
+            .section-title h2 {
+                font-size: 18px;
+            }
+            .news-title {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>互联网早报</h1>
+            <div class="date">2026年3月30日 星期一</div>
+            <div class="meta">
+                <span>📅 早8点更新</span>
+                <span>📂 13个栏目</span>
+                <span>🔄 每日更新</span>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 数据亮点 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">📊</span>
+                        <h2>数据亮点</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.stats.gov.cn/sj/zxfb/" target="_blank">2026年1-2月份全国规模以上工业企业利润增长15.2%</a>
+                                <span class="hot-tag">热点</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 国家统计局</span>
+                                <span>🕐 2026-03-27</span>
+                            </div>
+                            <div class="news-summary">1-2月份，全国规模以上工业企业实现利润总额同比增长15.2%，增速比去年全年加快，说明工业企业效益持续改善。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.ndrc.gov.cn/wsdwhfz/202603/t20260324_1404336.html" target="_blank">1-2月网上商品和服务零售额同比增长9.2%</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 国家发改委</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">1至2月，网上商品和服务零售额同比增长9.2%，明显快于社会消费品零售总额增速，线上消费持续活跃。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.sina.com.cn/jjxw/2026-03-28/doc-inhsnzav8910834.shtml" target="_blank">2026年3月楼市迎来历史性转折：全国普涨开启</a>
+                                <span class="hot-tag">重磅</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新浪财经</span>
+                                <span>🕐 2026-03-28</span>
+                            </div>
+                            <div class="news-summary">2026年3月，中国房地产市场正经历历史性转折，历经近四年深度调整后，政策底、市场底、信心底三底共振，楼市单边下行周期正式收官。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.stats.gov.cn/sj/zxfb/" target="_blank">2026年1-2月份规模以上工业增加值增长6.3%</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 国家统计局</span>
+                                <span>🕐 2026-03-16</span>
+                            </div>
+                            <div class="news-summary">1-2月份，规模以上工业增加值同比增长6.3%，国民经济起步有力、开局良好。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://fund.jrj.com.cn/2026/03/26085156473937.shtml" target="_blank">创业板人工智能ETF华宝最新规模达67.45亿元</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 金融界</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">创业板人工智能ETF华宝最新规模为67.45亿元，最近6个月日均成交达8.85亿元，规模、成交额持续增长。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 国内要闻 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">📰</span>
+                        <h2>国内要闻</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://lianghui.people.com.cn/2026/n1/2026/0313/c461827-40681711.html" target="_blank">2026年政府工作报告发布：GDP增长目标5%左右</a>
+                                <span class="hot-tag">重磅</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 人民网</span>
+                                <span>🕐 2026-03-13</span>
+                            </div>
+                            <div class="news-summary">十四届全国人大四次会议开幕，国务院总理李强作政府工作报告，GDP增长目标设定为5%左右，财政政策更加积极。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://news.cctv.cn/2026/03/24/ARTIJh6MKRsEfly8f7OCCCwF260324.shtml" target="_blank">中国发展高层论坛2026年年会举行，近百家跨国公司齐聚</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 央视新闻</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">3月22日至23日，中国发展高层论坛2026年年会在北京钓鱼台国宾馆举行，全球近百家跨国公司负责人参会共话中国机遇。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.xinhuanet.com/tech/20260326/c94e0c98cb0b4580b1ff7921c5833fa5/c.html" target="_blank">2026中关村论坛年会开幕：人工智能主题日贯穿全程</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新华网</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">本届中关村论坛年会打造"1+6"活动框架，聚焦"前沿技术"与"国际化"两大核心，人工智能主题日贯穿全程。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.cctv.com/2026/03/26/ARTICNDMyKvvmEBuw3F1r9Zg260326.shtml" target="_blank">博鳌论坛热议AI智能体元年：今年是智能体AI元年</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 央视财经</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">博鳌亚洲论坛"AI+"数智赋能产业升级分会上，中国工程院院士表示今年是智能体AI元年，AI从生成式走向智能体。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://news.qq.com/rain/a/20260325A049B600" target="_blank">2026年医保再升级：财政补助每人每年涨24元</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 腾讯新闻</span>
+                                <span>🕐 2026-03-25</span>
+                            </div>
+                            <div class="news-summary">2026年医保再升级，中央财政安排1.25万亿元确保养老金发放，医保财政补助每人每年增加24元。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 政务快讯 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">🏛️</span>
+                        <h2>政务快讯</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://lianghui.people.com.cn/2026/n1/2026/0313/c461827-40681711.html" target="_blank">十四届全国人大四次会议政府工作报告（全文）</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 中国政府网</span>
+                                <span>🕐 2026-03-13</span>
+                            </div>
+                            <div class="news-summary">新华社受权全文播发政府工作报告，涵盖经济民生、外交国防等各领域重点工作部署。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.nhsa.gov.cn/art/2026/2/2/art_53_19557.html" target="_blank">国家医保局：做好2026年医疗保障工作</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 国家医保局</span>
+                                <span>🕐 2026-02-02</span>
+                            </div>
+                            <div class="news-summary">强化基金监管队伍建设，坚决落实飞行检查"十不准"，提升医保基金监管系统拒腐防变能力。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.xinhuanet.com/politics/20260107/0d1d084d2ee54e56a1ceb9d2d67680dd/c.html" target="_blank">2026年医疗卫生健康领域一系列新政将陆续落地</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新华网</span>
+                                <span>🕐 2026-01-07</span>
+                            </div>
+                            <div class="news-summary">2026年将全面实现职工医保个账资金跨省共济使用，全面深化刷脸支付、一码支付等新型支付方式。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.beijing.gov.cn/ywdt/zybwdt/202512/t20251214_4340811.html" target="_blank">国家医保局公布2026年重点计划：个人账户全面实现跨省共济</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 北京市政府</span>
+                                <span>🕐 2025-12-14</span>
+                            </div>
+                            <div class="news-summary">通过推行刷脸支付等新型支付方式，力争用3年左右时间大幅减少医院排队缴费现象。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.gov.cn/yaowen/liebiao/202601/content_7053642.htm" target="_blank">新药来了！检查结果认了！——2026年医疗新政惠及你我</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 中国政府网</span>
+                                <span>🕐 2026-01-01</span>
+                            </div>
+                            <div class="news-summary">114种新药进医保，商保创新药目录首发，基层用药更加便利，一系列医疗新政惠及民生。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 科技通信 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">💻</span>
+                        <h2>科技通信</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.cctv.com/2026/03/26/ARTICNDMyKvvmEBuw3F1r9Zg260326.shtml" target="_blank">博鳌论坛热议AI智能体元年：爆发背后风险与治理成新焦点</a>
+                                <span class="hot-tag">热点</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 央视财经</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">中国工程院院士表示今年是智能体AI元年，AI出现三大趋势：从生成式AI走向智能体AI，面向消费者的智能体出现爆发。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://developer.baidu.com/article/detail.html?id=6270722" target="_blank">2026年3月全球AI技术动态全景解析</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 百度开发者中心</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">本文汇总2026年3月全球AI领域核心突破，涵盖基础架构创新、行业应用深化及安全伦理挑战三大维度，24项关键事件分析。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.xinhuanet.com/tech/20260326/c94e0c98cb0b4580b1ff7921c5833fa5/c.html" target="_blank">2026中关村论坛年会：人工智能主题日贯穿全程</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新华网</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">聚焦"交融·智享AI新范式下的全球创新与产业升级"，打造"1+6"活动框架。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.nbd.com.cn/articles/2026-03-26/4310593.html" target="_blank">大众与小鹏联合开发的首款车型"与众08"开启预售</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 每经网</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">大众汽车与小鹏汽车联合开发的全时互联全尺寸纯电SUV与众08开启预售，预售价23.99万至29.99万元，搭载小鹏最新VLA智能辅助驾驶系统。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.ibm.com/cn-zh/think/news/ai-tech-trends-predictions-2026" target="_blank">IBM发布2026年塑造AI与技术的趋势预测</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 IBM</span>
+                                <span>🕐 2026-01-01</span>
+                            </div>
+                            <div class="news-summary">IBM专家预测AI、安全、量子等领域的2026年发展趋势，为开发者和企业用户提供参考。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 文娱影游 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">🎬</span>
+                        <h2>文娱影游</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.sina.com.cn/jjxw/2026-02-25/doc-inhnyupw2455860.shtml" target="_blank">2026年开春首个交易日多只影视股跌停</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新浪财经</span>
+                                <span>🕐 2026-02-25</span>
+                            </div>
+                            <div class="news-summary">2026年春节档票房冠军《飞驰人生3》共有9家出品公司，已上市公司包括猫眼娱乐、大麦娱乐、万达电影、博纳影业等。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://ir.maoyan.com/2026-03-26" target="_blank">猫眼娱乐发布2025年业绩报告：多项指标创历史新高</a>
+                                <span class="hot-tag">业绩</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 猫眼娱乐</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">2025年中国电影票房与线下演出市场稳步增长，猫眼娱乐2025年全年业绩公告显示多项指标创历史新高，IP衍生业务表现亮眼。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://www.southmoney.com/gupiao/bkjj/202603/65181470.html" target="_blank">国产3A游戏概念股名单一览（2026年3月）</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 南方财富网</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">国产3A游戏概念股包括东方碳素、慈文传媒、奥飞娱乐、星辉娱乐等，行业发展备受市场关注。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.36kr.com/p/3635711578014723" target="_blank">2026年，12条文娱新趋势</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 36氪</span>
+                                <span>🕐 2026-01-12</span>
+                            </div>
+                            <div class="news-summary">2025年文娱行业经历洗牌，《哪吒：魔童闹海》等作品引发关注，行业格局生变。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://xueqiu.com/S/SZ300251" target="_blank">光线传媒：公司不追求单一爆款、不赌单一项目</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 雪球</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">光线传媒在投资者互动中表示，公司不追求单一爆款、不赌单一项目，坚持多元化内容策略。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 金融财经 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">💰</span>
+                        <h2>金融财经</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://q.stock.sohu.com/cn/bk_4555.shtml" target="_blank">今日A股三大指数集体上涨：上证指数涨0.88%</a>
+                                <span class="hot-tag">行情</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 搜狐证券</span>
+                                <span>🕐 2026-03-30</span>
+                            </div>
+                            <div class="news-summary">上证指数报3915.49点，涨0.88%；深证成指报13721.49点，涨1.37%；创业板指报3292.55点，涨1.26%。市场做多情绪回暖。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://data.eastmoney.com/gsrl/default.html" target="_blank">东方财富股市日历：2026年3月27日重要公告</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 东方财富网</span>
+                                <span>🕐 2026-03-27</span>
+                            </div>
+                            <div class="news-summary">今日股市日历显示停复牌提示、年报季报、新股发行、增发配股等多类公告信息。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.sohu.com/a/951092498_121099806" target="_blank">全球IPO市场正在站稳脚跟，2026年将继续回暖</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 搜狐财经</span>
+                                <span>🕐 2025-11-05</span>
+                            </div>
+                            <div class="news-summary">CoreWeave的融资规模和估值调整后，全球IPO市场正在站稳脚跟，2026年将继续回暖。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.cls.cn/quotation" target="_blank">财联社行情：今日股市行情走势分析</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 财联社</span>
+                                <span>🕐 2026-03-30</span>
+                            </div>
+                            <div class="news-summary">财联社提供全面股票行情走势分析，涵盖上证指数、深证成指、创业板指等热门行业板块涨跌排行榜。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://fund.jrj.com.cn/2026/03/26085156473937.shtml" target="_blank">科技首席亲历GTC、OFC现场：AI算力需求持续爆发</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 金融界</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">创业板人工智能ETF规模达67.45亿元，日均成交8.85亿元，反映市场对AI算力板块的持续看好。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 住房地产 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">🏠</span>
+                        <h2>住房地产</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.sina.com.cn/roll/2026-03-28/doc-inhsnzav8910834.shtml" target="_blank">重磅信号！2026年楼市迎来大反转，全国普涨开启</a>
+                                <span class="hot-tag">重磅</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新浪财经</span>
+                                <span>🕐 2026-03-28</span>
+                            </div>
+                            <div class="news-summary">2026年3月，中国房地产市场正经历历史性转折，政策底、市场底、信心底三底共振，楼市单边下行周期正式收官，新一轮上涨周期开启。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.mrjjxw.com/articles/2026-03-24/4305461.html" target="_blank">绿地集团董事长张玉良：今年是楼市关键之年，全力止跌回稳</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 每日经济新闻</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">绿地集团董事长张玉良在中国发展高层论坛上表示，房地产业深度调整未结束，预计今年底部到位，推动市场止跌回稳需政策加力。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.sohu.com/a/987728598_122341251" target="_blank">2026年3月起房子、车子、存款或将迎来重大改变</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 搜狐财经</span>
+                                <span>🕐 2026-03-01</span>
+                            </div>
+                            <div class="news-summary">开发商将逐渐从粗放式发展模式转向精细化，更加注重房屋品质，房地产市场进入品质提升阶段。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://m.sfccn.com/2026/3-24/0NMDE1MTNfMjEyMDc0NA.html" target="_blank">汽车、楼市回暖：并非短期效应，未来有望细水长流</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 南方财经网</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">在"工商并举、两业融合"战略思路下，汽车、楼市的回暖并非短期效应，未来有望持续修复。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.163.com/dy/article/KLQLJ3PQ0519GBC0.html" target="_blank">2026年3月起房子、车子、存款或将迎来重大改变深度解读</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 网易财经</span>
+                                <span>🕐 2026-03-01</span>
+                            </div>
+                            <div class="news-summary">错综复杂的经济局势下，房地产、汽车以及居民存款在2026年3月后或将迎来一系列重大变化。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 汽车出行 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">🚗</span>
+                        <h2>汽车出行</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.nbd.com.cn/articles/2026-03-26/4310593.html" target="_blank">大众+小鹏首车开启预售：与众08预售价23.99万起</a>
+                                <span class="hot-tag">新车</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 每日经济新闻</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">大众汽车与小鹏汽车联合开发的首款车型——全时互联全尺寸纯电SUV与众08开启预售，预售价23.99万至29.99万元，搭载小鹏最新VLA智能辅助驾驶系统。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://m.chinabgao.com/finance/hk/122242.html" target="_blank">岚图汽车在香港联交所正式敲钟上市</a>
+                                <span class="hot-tag">上市</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 中国资本观察</span>
+                                <span>🕐 2026-03-19</span>
+                            </div>
+                            <div class="news-summary">3月19日，"央国企高端新能源第一股"岚图汽车（07489.HK）在香港联交所正式敲钟上市，资本市场迎来这家新能源车企。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://assets.kpmg.com/content/dam/kpmgsites/cn/pdf/zh/2026/03/key-points-of-the-two-sessions-in-2026-an-interpretation.pdf.coredownload.inline.pdf" target="_blank">2026年两会要点解读：汽车补贴方式重大调整</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 毕马威</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">2026年汽车补贴方式由定额转变为按车价比例补贴，有助于更好发挥财政资金杠杆作用，新能源车补贴力度加大。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.dongchedi.com/article/7617944116781154841" target="_blank">2026年1-2月汽车消费降7%，生产降10%</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 懂车帝</span>
+                                <span>🕐 2026-03-14</span>
+                            </div>
+                            <div class="news-summary">2026年1-2月份社会消费品零售总额86079亿元，同比增长2.8%。其中汽车消费额6252亿元、同比降7%；汽车生产下降10%，行业调整压力仍在。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.nbd.com.cn/articles/2026-03-26/4310593.html" target="_blank">大众汽车齐泽凯：2026年将推13款新能源车</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 每日经济新闻</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">大众汽车计划2026年推出13款新能源车型，加快电动化转型步伐，与中国合作伙伴的技术合作持续深化。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 医疗健康 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">🏥</span>
+                        <h2>医疗健康</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://news.qq.com/rain/a/20260325A049B600" target="_blank">医保再升级！2026财政补助每人每年涨24元</a>
+                                <span class="hot-tag">民生</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 腾讯新闻</span>
+                                <span>🕐 2026-03-25</span>
+                            </div>
+                            <div class="news-summary">2026年医保再升级，中央财政安排1.25万亿元确保养老金发放，医保财政补助每人每年增加24元，报销更稳。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.xinhuanet.com/politics/20260107/0d1d084d2ee54e56a1ceb9d2d67680dd/c.html" target="_blank">2026年医疗卫生健康领域一系列新政将陆续落地</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新华网</span>
+                                <span>🕐 2026-01-07</span>
+                            </div>
+                            <div class="news-summary">2026年是"十五五"规划开局之年，医疗卫生健康领域一系列新政落地：新药耗材扩围上新、基层用药更加便利。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.sohu.com/a/965658161_122542876" target="_blank">2026医保八大改革要点出炉！全国分娩"零自付"</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 搜狐财经</span>
+                                <span>🕐 2025-12-16</span>
+                            </div>
+                            <div class="news-summary">会议要求2026年各级医保部门深入推进医保改革，全国分娩"零自付"、3年内医院排队缴费现象将大幅减少。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.sina.com.cn/jjxw/2026-01-01/doc-inhevhth2807983.shtml" target="_blank">114种新药进医保！2026年元旦起新版目录全国落地</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新浪财经</span>
+                                <span>🕐 2026-01-01</span>
+                            </div>
+                            <div class="news-summary">114种新药进医保，首版商保创新药目录发布，基本药物目录持续扩大，患者用药负担进一步减轻。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://m.21jingji.com/article/20251216/9fd16381ef608e4f5fc837c0288ecec9.html" target="_blank">国家医保局公布2026年重点计划：个人账户全面实现跨省共济</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 21财经</span>
+                                <span>🕐 2025-12-16</span>
+                            </div>
+                            <div class="news-summary">巩固全民参保成果，完善基本医疗保障制度，全面实现职工医保个人账户资金跨省共济使用。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 教育培训 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">📚</span>
+                        <h2>教育培训</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://lianghui.people.com.cn/2026/n1/2026/0313/c461827-40681711.html" target="_blank">2026年政府工作报告：持续改善民生福祉</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 人民网</span>
+                                <span>🕐 2026-03-13</span>
+                            </div>
+                            <div class="news-summary">政府工作报告提出持续改善民生福祉，包括促进教育公平和质量提升，完善终身学习体系，推进教育数字化。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://zhuanlan.zhihu.com/p/2012902112141551060" target="_blank">2026年政府工作报告六大关键词解读</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 知乎</span>
+                                <span>🕐 2026-03-05</span>
+                            </div>
+                            <div class="news-summary">六大关键词释放政策信号，教育领域重点推进高质量教育体系建设，加强教师队伍建设。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.xinhuanet.com/politics/20260107/0d1d084d2ee54e56a1ceb9d2d67680dd/c.html" target="_blank">2026年教育领域重点工作部署</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 新华网</span>
+                                <span>🕐 2026-01-07</span>
+                            </div>
+                            <div class="news-summary">推进高质量教育体系建设，完善终身学习体系，加强职业技能培训，提升国民素质。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://news.qq.com/rain/a/20260325A049B600" target="_blank">教育投入持续增加：2026年教育经费再提高</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 腾讯新闻</span>
+                                <span>🕐 2026-03-25</span>
+                            </div>
+                            <div class="news-summary">2026年各级财政教育投入持续增加，重点支持中西部地区教育发展，促进教育公平。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.stats.gov.cn/sj/zxfb/" target="_blank">统计数据显示：1-2月教育投资稳步增长</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 国家统计局</span>
+                                <span>🕐 2026-03-16</span>
+                            </div>
+                            <div class="news-summary">1-2月经济数据显示，教育投资稳步增长，反映政策对教育领域的持续支持。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 旅游民宿 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">✈️</span>
+                        <h2>旅游民宿</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.ndrc.gov.cn/wsdwhfz/202603/t20260324_1404336.html" target="_blank">1-2月消费数据：线上短剧平台交易额增长超30%</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 国家发改委</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">平台监测显示，前2个月线上短剧平台交易额增长超过30%，文旅融合消费新业态蓬勃发展。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://ir.maoyan.com/2026-03-26" target="_blank">猫眼娱乐2025年业绩：线下演出市场稳步增长</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 猫眼娱乐</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">2025年中国电影票房与线下演出市场稳步增长，现场娱乐消费持续复苏，演出市场活跃度提升。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://m.sfccn.com/2026/3-24/0NMDE1MTNfMjEyMDc0NA.html" target="_blank">消费回暖：旅游出行需求持续释放</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 南方财经网</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">在政策推动下，消费市场信心逐步恢复，旅游出行需求持续释放，文旅行业进入复苏快车道。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.sohu.com/a/987728598_122341251" target="_blank">2026年消费趋势：服务消费加速升级</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 搜狐财经</span>
+                                <span>🕐 2026-03-01</span>
+                            </div>
+                            <div class="news-summary">服务消费加速升级，旅游、文化、娱乐等消费需求旺盛，消费结构持续优化。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.36kr.com/p/3635711578014723" target="_blank">2026年文娱行业复苏：现场演出市场爆发</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 36氪</span>
+                                <span>🕐 2026-01-12</span>
+                            </div>
+                            <div class="news-summary">文娱行业经历洗牌后复苏，现场演出市场爆发，年轻人成为消费主力，推动文旅融合发展。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 国际视角 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">🌍</span>
+                        <h2>国际视角</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://news.cctv.cn/2026/03/24/ARTIJh6MKRsEfly8f7OCCCwF260324.shtml" target="_blank">中国发展高层论坛2026：近百家跨国公司齐聚北京</a>
+                                <span class="hot-tag">外交</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 央视新闻</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">3月22日至23日，中国发展高层论坛2026年年会在北京钓鱼台国宾馆举行，全球近百家跨国公司负责人同台共话中国机遇。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://developer.baidu.com/article/detail.html?id=6270722" target="_blank">2026年3月全球AI技术动态全景解析</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 百度开发者中心</span>
+                                <span>🕐 2026-03-24</span>
+                            </div>
+                            <div class="news-summary">本文汇总2026年3月全球AI领域核心突破，涵盖基础架构创新、行业应用深化及安全伦理挑战三大维度。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://www.odibeian.cn/market-intelligence-china-outbound-investment-weekly-march-2026/" target="_blank">上周中国出海投资：字节跳动60亿美元出售沐瞳</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 对外经贸大数据</span>
+                                <span>🕐 2026-03-23</span>
+                            </div>
+                            <div class="news-summary">2026年3月第三周全球出海核心动态：字节跳动60亿美元出售沐瞳布局AI、小米87亿美元AI投资计划、宁德时代匈牙利工厂投产等重磅新闻。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://www.sohu.com/a/951092498_121099806" target="_blank">全球IPO市场回暖：2026年将继续复苏</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 搜狐财经</span>
+                                <span>🕐 2025-11-05</span>
+                            </div>
+                            <div class="news-summary">CoreWeave等科技企业IPO表现显示全球资本市场信心恢复，2026年IPO市场将继续回暖。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://finance.cctv.com/2026/03/26/ARTICNDMyKvvmEBuw3F1r9Zg260326.shtml" target="_blank">博鳌论坛热议AI治理：国际合作成为新焦点</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 央视财经</span>
+                                <span>🕐 2026-03-26</span>
+                            </div>
+                            <div class="news-summary">博鳌亚洲论坛上，AI风险与治理成为国际合作新焦点，各国专家呼吁加强AI伦理和监管合作。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 融资收购 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-title">
+                        <span class="section-icon">💼</span>
+                        <h2>融资收购</h2>
+                    </div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://pitchhub.36kr.com/financing-flash" target="_blank">NeoWa Robotics完成种子轮融资：百度机器人与自动驾驶实验室主任创办</a>
+                                <span class="hot-tag">融资</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 36氪</span>
+                                <span>🕐 2026-03-29</span>
+                            </div>
+                            <div class="news-summary">36氪获悉，"NeoWa Robotics（纽娲机器人）"完成种子轮融资，该公司由百度机器人与自动驾驶实验室主任、嬴彻科技CTO、IEEE Fellow杨睿刚于2026年创办。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://www.odibeian.cn/market-intelligence-china-outbound-investment-weekly-march-2026/" target="_blank">字节跳动60亿美元出售沐瞳：布局AI转型</a>
+                                <span class="hot-tag">收购</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 对外经贸大数据</span>
+                                <span>🕐 2026-03-23</span>
+                            </div>
+                            <div class="news-summary">字节跳动以60亿美元出售沐瞳科技，套现资金将重点投入AI领域布局，显示公司战略重心转移。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://www.odibeian.cn/market-intelligence-china-outbound-investment-weekly-march-2026/" target="_blank">小米87亿美元AI投资计划：生态布局加速</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 对外经贸大数据</span>
+                                <span>🕐 2026-03-23</span>
+                            </div>
+                            <div class="news-summary">小米宣布87亿美元AI投资计划，重点布局AI芯片、智能硬件和汽车业务，生态布局全面加速。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="https://m.chinabgao.com/finance/hk/122242.html" target="_blank">岚图汽车成功登陆港交所：募资超预期</a>
+                                <span class="hot-tag">IPO</span>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 中国资本观察</span>
+                                <span>🕐 2026-03-19</span>
+                            </div>
+                            <div class="news-summary">岚图汽车在香港联交所正式敲钟上市，作为"央国企高端新能源第一股"，募资表现超预期。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-title">
+                                <a href="http://www.odibeian.cn/market-intelligence-china-outbound-investment-weekly-march-2026/" target="_blank">宁德时代匈牙利工厂投产：欧洲布局提速</a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📍 对外经贸大数据</span>
+                                <span>🕐 2026-03-23</span>
+                            </div>
+                            <div class="news-summary">宁德时代匈牙利工厂正式投产，欧洲新能源产业链布局提速，有利于就近服务欧洲客户。</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <a href="../index.html" class="back-link">← 返回首页</a>
+        </main>
+
+        <footer class="footer">
+            <p>互联网早报 · 每日早8点更新 · 数据来源：国家统计局、央视新闻、新华网等</p>
+            <p style="margin-top: 8px;">Powered by OpenClaw</p>
+        </footer>
+    </div>
+</body>
+</html>
