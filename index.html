@@ -322,6 +322,7 @@
 
         .calendar-day {
             aspect-ratio: 1;
+            min-height: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -376,8 +377,9 @@
         }
 
         .calendar-day.disabled {
-            opacity: 0.35;
+            opacity: 0.5;
             cursor: not-allowed;
+            color: var(--text-muted);
         }
 
         .calendar-legend {
@@ -611,6 +613,8 @@
             .selector-header { flex-direction: column; text-align: center; }
             .selector-icon { width: 56px; height: 56px; font-size: 1.75rem; }
             .selector-title { font-size: 1.125rem; }
+            .calendar-day { min-height: 36px; font-size: 0.8125rem; }
+            .calendar-weekday { font-size: 0.6875rem; padding: 2px 0; }
         }
 
         @supports (padding: max(0px)) {
