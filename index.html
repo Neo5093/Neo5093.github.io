@@ -791,7 +791,7 @@
         }
 
         function isSelected(year, month, date) {
-            const report = reports.find(r => r.year === year && r.month === month && r.date === date);
+            const report = getCurrentReports().find(r => r.year === year && r.month === month && r.date === date);
             if (!report) return false;
             return report.url === selectedUrl;
         }
