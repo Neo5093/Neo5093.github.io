@@ -701,7 +701,7 @@
                 </div>
 
                 <div class="calendar-selected-info">
-                    <span class="calendar-selected-text">已选择：<span id="selectedDateText">2026年4月8日</span></span>
+                    <span class="calendar-selected-text">已选择：<span id="selectedDateText">2026年04月09日</span></span>
                     <button class="go-btn" onclick="goToDaily()">
                         前往阅读
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -715,15 +715,15 @@
         <div class="quick-access">
             <div class="quick-access-title">快捷访问</div>
             <div class="quick-links">
-                <a href="Intelnet-daily-news/互联网早报_2026年4月8日.html" class="quick-link">
+                <a href="Intelnet-daily-news/互联网早报_2026年04月09日.html" class="quick-link">
                     <span class="link-icon">⚡</span>
                     <span class="link-text">最新一期</span>
                 </a>
-                <a href="Intelnet-daily-news/互联网早报_2026年4月7日.html" class="quick-link">
+                <a href="Intelnet-daily-news/互联网早报_2026年4月8日.html" class="quick-link">
                     <span class="link-icon">📅</span>
                     <span class="link-text">昨日资讯</span>
                 </a>
-                <a href="Intelnet-daily-news/互联网早报_2026年4月6日.html" class="quick-link">
+                <a href="Intelnet-daily-news/互联网早报_2026年4月7日.html" class="quick-link">
                     <span class="link-icon">📜</span>
                     <span class="link-text">往期回顾</span>
                 </a>
@@ -741,6 +741,7 @@
     <script>
         // Available reports data by series
         const 互联网早报_reports = [
+            { date: 9, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年04月09日.html', label: '2026年04月09日' },
             { date: 8, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月8日.html', label: '2026年4月8日' },
             { date: 7, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月7日.html', label: '2026年4月7日' },
             { date: 6, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月6日.html', label: '2026年4月6日' },
@@ -751,12 +752,11 @@
             { date: 30, month: 2, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年3月30日.html', label: '2026年3月30日' },
             { date: 27, month: 2, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年3月27日.html', label: '2026年3月27日' },
             { date: 26, month: 2, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年3月26日.html', label: '2026年3月26日' },
-            { date: 25, month: 2, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年3月25日.html', label: '2026年3月25日' },
-            { date: 9, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年04月09日.html', label: '2026年04月09日' }
+            { date: 25, month: 2, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年3月25日.html', label: '2026年3月25日' }
         ];
 
         let currentSeries = '互联网早报';
-        let selectedUrl = 'Intelnet-daily-news/互联网早报_2026年4月8日.html';
+        let selectedUrl = 'Intelnet-daily-news/互联网早报_2026年04月09日.html';
         let currentMonth = new Date().getMonth(); // 0-indexed
         let currentYear = new Date().getFullYear();
 
