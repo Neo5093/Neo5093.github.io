@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f0f9ff">
+    <title>互联网早报 - 2026年4月20日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary-blue: #0ea5e9;
+            --light-blue: #f0f9ff;
+            --ice-gray: #f8fafc;
+            --tech-silver: #94a3b8;
+            --aurora-white: #ffffff;
+            --text-dark: #0f172a;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --gradient-start: #e0f2fe;
+            --gradient-end: #f0f9ff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+
+        .header .meta {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 16px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .section-title:hover {
+            transform: translateX(5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .section-title .icon {
+            font-size: 28px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .news-card {
+            background: var(--aurora-white);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0ea5e9, #6366f1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #0ea5e9;
+        }
+
+        .news-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .news-number {
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 28px; height: 28px;
+            background: linear-gradient(135deg, #e0f2fe, #e0f2fe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0ea5e9;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 10px;
+            padding-right: 36px;
+        }
+
+        .news-summary {
+            font-size: 13px;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 12px;
+            padding-left: 12px;
+            border-left: 3px solid #0ea5e9;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(99, 102, 241, 0.05));
+            padding: 10px 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .news-source {
+            background: linear-gradient(135deg, #e0f2fe, #e0f2fe);
+            color: #0ea5e9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .news-link {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(14, 165, 233, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .news-link:hover {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-medium);
+        }
+
+        .footer .brand {
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer .stats {
+            display: inline-flex;
+            gap: 20px;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            margin: 16px 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .footer .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease;
+        }
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 20px; }
+            .header .meta { gap: 10px; }
+            .content { padding: 12px; }
+            .news-card { padding: 12px; }
+            .news-title { font-size: 13px; }
+            .news-summary { font-size: 12px; }
+            .footer .stats { gap: 10px; padding: 8px 14px; }
+            .back-home { padding: 8px 14px; font-size: 12px; top: 10px; left: 10px; }
+            .section-title { font-size: 18px; padding: 12px 16px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .news-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1025px) {
+            .news-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-home">← 返回首页</a>
+    <div class="container">
+        <div class="header">
+            <h1>互联网早报</h1>
+            <div class="date">2026年4月20日 星期一</div>
+            <div class="meta">
+                <span>📊 <strong>13</strong> 个核心栏目</span>
+                <span>📰 <strong>65</strong> 条精选新闻</span>
+                <span>⏰ <strong>09:00</strong> 准时推送</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 1. 数据亮点 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">✨</span>
+                    <span>数据亮点</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">纳指连续13个交易日上涨创历史新高</div>
+                        <div class="news-summary">美股上周五集体收涨，纳斯达克连续13个交易日上涨刷新历史纪录，科技股持续走强带动整体市场情绪。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/detail/2348791" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">年内公募机构新发产品规模近3200亿元</div>
+                        <div class="news-summary">截至今日，年内公募基金新发产品规模接近3200亿元，市场交投活跃，权益类基金发行持续回暖。</div>
+                        <div class="news-meta">
+                            <span class="news-source">证券日报</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">WTI原油期货开盘大涨7%</div>
+                        <div class="news-summary">中东局势升级刺激布伦特原油一度飙升近8%，霍尔木兹海峡航运再次停滞，油价短期波动剧烈。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/detail/2348753" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">10年期日本国债收益率下降2.0个基点至2.400%</div>
+                        <div class="news-summary">日本国债收益率小幅回落，市场避险情绪略有缓解，但整体仍维持高位震荡态势。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">韩元兑美元一度下跌1.5%创一个月最大跌幅</div>
+                        <div class="news-summary">受油价上涨影响，韩元汇率承压下跌，为一个月来最大跌幅，亚洲货币整体面临贬值压力。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 国内要闻 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🇨🇳</span>
+                    <span>国内要闻</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">DeepSeek被曝首次启动外部融资，估值超680亿</div>
+                        <div class="news-summary">DeepSeek正在首次洽谈外部资本，以超100亿美元估值募集至少3亿美元，V4全面"换芯"实现完整自主可控。</div>
+                        <div class="news-meta">
+                            <span class="news-source">36氪</span>
+                            <a href="https://36kr.com/p/3774401650656001" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">东方证券拟收购上海证券100%股权</div>
+                        <div class="news-summary">东方证券通过发行A股股份及支付现金方式收购上海证券100%股权，A股4月20日起停牌，预计不超过10个交易日。</div>
+                        <div class="news-meta">
+                            <span class="news-source">MBA智库</span>
+                            <a href="https://news.mbalib.com/story/258655" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">荣耀"闪电"机器人半马夺冠打破人类纪录</div>
+                        <div class="news-summary">北京亦庄机器人半马开跑，荣耀"闪电"机器人以50分26秒夺冠，打破人类半程马拉松世界纪录。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/969.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">万达电影宣布更名</div>
+                        <div class="news-summary">万达电影发布公告宣布更名，具体更名原因和新名称尚未公布，市场关注其后续战略调整。</div>
+                        <div class="news-meta">
+                            <span class="news-source">微信</span>
+                            <a href="http://mp.weixin.qq.com/s?__biz=MjM5OTAzMjc4MA==&mid=2650871047&idx=1&sn=486f2d647e561c6dd0a5b323d45a7c97" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">港股通标的证券名单调入诺比侃</div>
+                        <div class="news-summary">深交所公告，港股通标的证券名单调入诺比侃，自4月20日起生效，相关概念股受到市场关注。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 政务快讯 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📋</span>
+                    <span>政务快讯</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">国务院办公厅健全药品价格形成机制</div>
+                        <div class="news-summary">国办发〔2026〕9号文件明确提出完善多层次医疗保障体系，充分发挥商业健康保险、公益慈善等功能作用。</div>
+                        <div class="news-meta">
+                            <span class="news-source">中国政府网</span>
+                            <a href="https://www.nhsa.gov.cn/art/2026/4/14/art_104_20214.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">国家医保局发布2026年度第一批场景清单</div>
+                        <div class="news-summary">涵盖深化医保数据应用、提升医保服务水平、发挥长护制度效能三方面13个应用场景，加快场景培育和开放。</div>
+                        <div class="news-meta">
+                            <span class="news-source">国家医保局</span>
+                            <a href="https://www.news.cn/government/20260415/3d2d8c0901bd4a20a325f55f23c6cd33/c.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">教育部等五部门印发"人工智能+教育"行动计划</div>
+                        <div class="news-summary">根据《教育强国建设规划纲要》战略部署，制定行动计划推动AI与教育深度融合创新发展。</div>
+                        <div class="news-meta">
+                            <span class="news-source">教育部</span>
+                            <a href="https://www.nda.gov.cn/sjj/zwgk/tzgg/0410/20260410162428109058250_pc.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">12306五一期间已拒绝抢票软件出票105.6万张</div>
+                        <div class="news-summary">为防范恶意刷票抢票等非正常访问行为，12306平台已拒绝抢票软件出票105.6万张票。</div>
+                        <div class="news-meta">
+                            <span class="news-source">36氪</span>
+                            <a href="https://36kr.com/p/3774401650656001" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">市场监管总局对7家电商平台处罚35.97亿元</div>
+                        <div class="news-summary">针对"幽灵外卖"等违规行为，市场监管总局对7家电商平台处罚没35.97亿元，维护市场秩序。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/detail/2348791" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 科技通信 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📱</span>
+                    <span>科技通信</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">SK海力士正式量产192GB容量SOCAMM2</div>
+                        <div class="news-summary">面向下一代AI服务器，SK海力士正式量产192GB容量SOCAMM2模组，满足AI服务器高带宽需求。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/976.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">DRAM提产速度仅能满足市场六成需求</div>
+                        <div class="news-summary">行业内存短缺持续，DRAM提产速度仅能满足市场六成需求，短缺和涨价预计仍将持续数年。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/978.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">Vercel遭黑客入侵第三方AI工具成突破口</div>
+                        <div class="news-summary">主流网页部署平台Vercel遭黑客入侵，第三方AI工具成为攻击突破口，用户数据安全受到威胁。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/971.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">微软为Win11开始菜单开发更多自定义功能</div>
+                        <div class="news-summary">微软正在为Windows 11开始菜单开发更多自定义功能，提升用户个性化体验和操作效率。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/973.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">古尔曼称iOS 27主屏幕编辑加入撤销/重做</div>
+                        <div class="news-summary">苹果iOS 27主屏幕编辑将加入撤销/重做快捷开关，提升桌面管理效率，细节体验持续优化。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/962.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 文娱影游 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎬</span>
+                    <span>文娱影游</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">2026年电影票房突破125亿元</div>
+                        <div class="news-summary">据网络平台数据，2026年中国电影票房含预售已突破125亿元，17部新片集中定档五一。</div>
+                        <div class="news-meta">
+                            <span class="news-source">央视网</span>
+                            <a href="https://news.cctv.cn/2026/04/15/ARTIhtHJ2LsswkYyTfraXwpn260415.shtml" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">《羊蹄山之魂》1.601版本更新上线</div>
+                        <div class="news-summary">《羊蹄山之魂》1.601版本更新上线，地狱模式首领战来袭，带来全新挑战内容。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/979.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">《空洞骑士：丝之歌》在ARM掌机上突破100帧</div>
+                        <div class="news-summary">Valve Proton 11 Beta实测显示，《空洞骑士：丝之歌》在ARM掌机上帧率突破100帧，性能表现优秀。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/975.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">曼城2-1阿森纳仅差3分 英超争冠形势反转</div>
+                        <div class="news-summary">英超焦点战曼城2-1战胜阿森纳，积分榜上仅差3分，争冠形势发生重大反转。</div>
+                        <div class="news-meta">
+                            <span class="news-source">直播吧</span>
+                            <a href="https://news.zhibo8.com/zuqiu/2026-04-20/69e52228d3a4bnative.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">拜仁提前4轮卫冕德甲冠军</div>
+                        <div class="news-summary">拜仁慕尼黑提前4轮锁定德甲联赛冠军，成功卫冕再度证明其在德国足坛的统治地位。</div>
+                        <div class="news-meta">
+                            <span class="news-source">直播吧</span>
+                            <a href="https://news.zhibo8.com/zuqiu/2026-04-20/69e52228d3a4bnative.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 金融财经 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">💰</span>
+                    <span>金融财经</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">华泰证券：中期A股向上的趋势判断不变</div>
+                        <div class="news-summary">华泰证券研报认为，在政策持续发力和经济内生修复双重驱动下，中期A股向上的趋势判断不变。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">中信建投：锂价仍有望继续走强</div>
+                        <div class="news-summary">中信建投研报指出，低库存、弱供给、强消费背景下锂价仍有望继续走强，新能源材料景气延续。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">中金：并购重组新周期建议四条主线布局</div>
+                        <div class="news-summary">中金研报指出当前处于并购重组新周期，建议从四条主线布局相关投资机会。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">中信证券：AI推动激光器芯片量价齐升</div>
+                        <div class="news-summary">中信证券研报称AI推动激光器芯片量价齐升，国产厂商迎来新机遇，建议关注产业链投资价值。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">A股公司拟10派20元大手笔分红</div>
+                        <div class="news-summary">多家A股公司公布分红预案，部分公司拟10派20元大手笔分红，回报投资者意识显著提升。</div>
+                        <div class="news-meta">
+                            <span class="news-source">同花顺</span>
+                            <a href="https://stock.10jqka.com.cn/20260420/c676102367.shtml" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. 住房地产 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🏠</span>
+                    <span>住房地产</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">中国房地产报社评：用好用活政策加力稳定楼市</div>
+                        <div class="news-summary">中国房地产报社评文章指出要用好用活政策工具，加力稳定楼市推进行业健康发展。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/telegraph" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">告别烂尾楼！2026年4月现房销售全面铺开</div>
+                        <div class="news-summary">2026年4月起现房销售全面铺开，从源头解决烂尾楼问题，楼市迈入高质量发展新阶段。</div>
+                        <div class="news-meta">
+                            <span class="news-source">新浪财经</span>
+                            <a href="https://finance.sina.com.cn/roll/2026-04-08/doc-inhtucsa2895319.shtml" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">2026年楼市政策暖开局稳</div>
+                        <div class="news-summary">2026年开年以来房地产市场持续迎来利好，降低购房成本、盘活存量住房等举措稳步推进。</div>
+                        <div class="news-meta">
+                            <span class="news-source">新华网</span>
+                            <a href="http://www3.xinhuanet.com/house/20260119/04d4fdb7ebfd4ad38eb543b73e3593db/c.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">一季度楼市乍暖还寒弱复苏与强分化交织</div>
+                        <div class="news-summary">2026年一季度房地产市场呈现"小阳春"行情，但复苏基础并不牢固，城市分化态势明显。</div>
+                        <div class="news-meta">
+                            <span class="news-source">凤凰网</span>
+                            <a href="https://house.ifeng.com/news/2026_04_07-57346954_0.shtml" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">LPR连续三个月维持3.5%</div>
+                        <div class="news-summary">4月LPR报价出炉，1年期和5年期均维持不变，央行在货币宽松方面保持定力。</div>
+                        <div class="news-meta">
+                            <span class="news-source">知乎</span>
+                            <a href="https://zhuanlan.zhihu.com/p/109837111" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. 汽车出行 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🚗</span>
+                    <span>汽车出行</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">比亚迪第三代元PLUS北京车展全球首发</div>
+                        <div class="news-summary">比亚迪第三代元PLUS在北京车展全球首发，定位"元力智趣闪充SUV"，综合产品力全面提升。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/977.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">特斯拉AI5芯片完成流片2027年启动量产</div>
+                        <div class="news-summary">马斯克官宣特斯拉AI5芯片完成流片，设计已移交代工厂，2027年启动量产，性能对标英伟达Blackwell。</div>
+                        <div class="news-meta">
+                            <span class="news-source">每日经济新闻</span>
+                            <a href="https://www.nbd.com.cn/articles/2026-04-16/4341642.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">奔驰"赢回中国"策略遭投资者质疑</div>
+                        <div class="news-summary">奔驰"赢回中国"策略遭到投资者质疑，过于强调豪华品牌定位或将适得其反，市场竞争压力加大。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/974.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">携程滴滴客服回应订购火车票受限</div>
+                        <div class="news-summary">携程滴滴客服回应订购火车票受限问题，称受12306风控升级影响，正积极配合解决。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/963.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">工信部明确2026年L3级以上自动驾驶规模化应用</div>
+                        <div class="news-summary">工信部明确2026年重点任务，加快突破全固态电池及L3级以上自动驾驶规模化应用。</div>
+                        <div class="news-meta">
+                            <span class="news-source">中国汽车供应商网</span>
+                            <a href="https://www.chinaautosupplier.com/show_article-89159.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. 医疗健康 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🏥</span>
+                    <span>医疗健康</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">32条创新医药高质量发展措施发布</div>
+                        <div class="news-summary">北京市10部门联合发布《北京市支持创新医药高质量发展若干措施（2026年）》，推出32条举措。</div>
+                        <div class="news-meta">
+                            <span class="news-source">北京市政府</span>
+                            <a href="https://www.beijing.gov.cn/ywdt/yaowen/202604/t20260408_4576216.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">商业保险创新药目录落地进行时</div>
+                        <div class="news-summary">国务院办公厅发布《关于健全药品价格形成机制的若干意见》，完善多层次医疗保障体系。</div>
+                        <div class="news-meta">
+                            <span class="news-source">央视财经</span>
+                            <a href="https://jingji.cctv.com/2026/04/17/ARTI8sURfVe3MnvSdOXwJHEj260417.shtml" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">2026年将全面实现职工医保个账资金跨省共济</div>
+                        <div class="news-summary">2026年作为"十五五"开局之年，将全面实现职工医保个账资金跨省共济使用，提升医保便利性。</div>
+                        <div class="news-meta">
+                            <span class="news-source">新华网</span>
+                            <a href="https://www.xinhuanet.com/politics/20260107/0d1d084d2ee54e56a1ceb9d2d67680dd/c.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">国家医保局发布首批医疗保障场景清单</div>
+                        <div class="news-summary">围绕深化医保数据应用、提升医保服务水平、发挥长护制度效能三方面发布13个应用场景。</div>
+                        <div class="news-meta">
+                            <span class="news-source">光明网</span>
+                            <a href="https://health.gmw.cn/2026-04/17/content_38714318.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">格力海信"真铜实料"之争背后</div>
+                        <div class="news-summary">空调行业"铝代铜"技术引发争议，格力海信就材料使用问题产生分歧，影响产业链供应格局。</div>
+                        <div class="news-meta">
+                            <span class="news-source">澎湃新闻</span>
+                            <a href="https://www.thepaper.cn/" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. 教育培训 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📚</span>
+                    <span>教育培训</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">教育部等五部门印发"人工智能+教育"行动计划</div>
+                        <div class="news-summary">根据《教育强国建设规划纲要》战略部署，制定行动计划推动AI与教育深度融合。</div>
+                        <div class="news-meta">
+                            <span class="news-source">教育部</span>
+                            <a href="https://www.nda.gov.cn/sjj/zwgk/tzgg/0410/20260410162428109058250_pc.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">就业公共服务进校园百日行动启动</div>
+                        <div class="news-summary">人社部、教育部部署开展"就业公共服务进校园百日行动"，4月1日至7月10日面向2026届高校毕业生。</div>
+                        <div class="news-meta">
+                            <span class="news-source">人社部</span>
+                            <a href="https://chinajob.mohrss.gov.cn/c/2026-04-07/525002.shtml" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">2026年春季教师招聘公告密集发布</div>
+                        <div class="news-summary">南通、济南等地教育局陆续发布直属学校公开招聘教师公告，扩大教育人才储备。</div>
+                        <div class="news-meta">
+                            <span class="news-source">地方教育局</span>
+                            <a href="https://jyj.nantong.gov.cn/ntsjyj/gggs/content/26433319-b907-40e4-a5f3-977b29db77b5.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">2026年研究生招生复试工作陆续展开</div>
+                        <div class="news-summary">天津职业技术师范大学等高校发布2026年硕士研究生复试安排，招生工作进入关键阶段。</div>
+                        <div class="news-meta">
+                            <span class="news-source">高校官网</span>
+                            <a href="https://zjxy.tute.edu.cn/info/1223/14100.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">教育部职业教育发展中心培训项目公告</div>
+                        <div class="news-summary">教育部职业教育发展中心发布2025-2026年度培训项目第二批公告，深化职业教育改革。</div>
+                        <div class="news-meta">
+                            <span class="news-source">教育部</span>
+                            <a href="https://www.civte.edu.cn/info/1080/3707.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. 旅游民宿 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">✈️</span>
+                    <span>旅游民宿</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">五一假期机票预订量同比增长约8%</div>
+                        <div class="news-summary">航旅纵横大数据显示，五一假期国内航线机票预订量超194万张，同比增长约8%，旅游市场持续复苏。</div>
+                        <div class="news-meta">
+                            <span class="news-source">腾讯新闻</span>
+                            <a href="https://news.qq.com/rain/a/20260416A05XOU00" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">清明假期酒店民宿数据报告发布</div>
+                        <div class="news-summary">订单来了发布清明假期酒店民宿数据报告，酒店平均房价上涨，行业迎来阶段性复苏热潮。</div>
+                        <div class="news-meta">
+                            <span class="news-source">知乎</span>
+                            <a href="https://zhuanlan.zhihu.com/p/2027456242159820911" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">3月酒店民宿大整治这些乱象全叫停</div>
+                        <div class="news-summary">文旅部联合公安部、市场监管总局印发专项整治行动工作方案，为期7个月覆盖清明五一端午。</div>
+                        <div class="news-meta">
+                            <span class="news-source">行业网站</span>
+                            <a href="https://www.szite.com.cn/sys-nd/2090.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">五一航班被取消航司被迫断臂求生</div>
+                        <div class="news-summary">高油价下航司被迫取消部分航线，多条中国到东南亚航线航班被取消，运营压力显著增加。</div>
+                        <div class="news-meta">
+                            <span class="news-source">人民网</span>
+                            <a href="https://sh.people.com.cn/n2/2026/0416/c176737-41554524.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">春假衔接清明假期拉长出游半径</div>
+                        <div class="news-summary">2026年春假首次写入政府工作报告，与清明假期衔接形成6天"清明黄金周"，长沙等地旅游预订热潮兴起。</div>
+                        <div class="news-meta">
+                            <span class="news-source">华声在线</span>
+                            <a href="https://hunan.voc.com.cn/news/202603/31825765.html" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12. 国际视角 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌍</span>
+                    <span>国际视角</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">美军向伊朗货船开火霍尔木兹海峡再开火</div>
+                        <div class="news-summary">美军向伊朗商船开火，伊美停火协议濒临破裂，霍尔木兹海峡局势骤然紧张，油价应声大涨。</div>
+                        <div class="news-meta">
+                            <span class="news-source">财联社</span>
+                            <a href="https://www.cls.cn/detail/2348724" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">伊朗拒绝参加第二轮谈判</div>
+                        <div class="news-summary">伊朗已为战火重燃做好准备，伊媒报道伊朗拒绝参加与美国第二轮谈判，中东和平进程受挫。</div>
+                        <div class="news-meta">
+                            <span class="news-source">英为财情</span>
+                            <a href="https://cn.investing.com/news/stock-market-news/article-3318032" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">伊朗在霍尔木兹海峡划定新航线</div>
+                        <div class="news-summary">伊朗在霍尔木兹海峡划定新航线命名为"拉腊克走廊"，试图绕道通行规避封锁风险。</div>
+                        <div class="news-meta">
+                            <span class="news-source">澎湃新闻</span>
+                            <a href="https://www.thepaper.cn/" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">谷歌正与Marvell洽谈合作开发AI芯片</div>
+                        <div class="news-summary">消息称谷歌正与Marvell洽谈合作开发两款AI芯片，挑战英伟达霸主地位，芯片竞争格局生变。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/965.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">朝鲜试射地对地战术弹道导弹金正恩观摩</div>
+                        <div class="news-summary">朝鲜试射地对地战术弹道导弹，金正恩现场观摩，地区安全局势引发国际社会关注。</div>
+                        <div class="news-meta">
+                            <span class="news-source">澎湃新闻</span>
+                            <a href="https://www.thepaper.cn/" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 13. 融资收购 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🚀</span>
+                    <span>融资收购</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">DeepSeek首次外部融资估值超680亿</div>
+                        <div class="news-summary">DeepSeek正在首次洽谈外部资本，以超100亿美元估值募集至少3亿美元，此前多次拒绝投资。</div>
+                        <div class="news-meta">
+                            <span class="news-source">格隆汇</span>
+                            <a href="https://www.gelonghui.com/p/4463868" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">Cursor洽谈20亿美元融资估值超500亿美元</div>
+                        <div class="news-summary">AI编程工具Cursor即将完成20亿美元融资，Thrive、安德森霍洛维茨基金和英伟达等参投，估值飙升。</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/940/965.htm" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">东方证券拟收购上海证券100%股权</div>
+                        <div class="news-summary">东方证券通过发行A股股份及支付现金方式收购上海证券100%股权券商并购浪潮持续。</div>
+                        <div class="news-meta">
+                            <span class="news-source">MBA智库</span>
+                            <a href="https://news.mbalib.com/story/258655" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">微软收购AI金融研究助手Fintool</div>
+                        <div class="news-summary">微软宣布收购专注AI金融研究助手开发的Fintool，未来数月将深度整合进Microsoft 365。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/daily" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">香港将公布新一批重点引进企业名单</div>
+                        <div class="news-summary">香港明天将公布第六批重点引进企业名单，涵盖生命健康科技等前沿领域，多间千亿港元市值公司入选。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/daily" class="news-link" target="_blank">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="brand">互联网早报</div>
+            <p>每日为您精选最重要的科技资讯</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">13</span>
+                    <span class="stat-label">核心栏目</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">65</span>
+                    <span class="stat-label">精选新闻</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">09:00</span>
+                    <span class="stat-label">准时推送</span>
+                </div>
+            </div>
+            <p>发送时间：2026年4月20日</p>
+        </div>
+    </div>
+</body>
+</html>
