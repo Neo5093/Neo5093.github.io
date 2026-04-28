@@ -648,7 +648,7 @@
                 <span class="tab-icon">🌅</span>
                 <div class="tab-info">
                     <span class="tab-name">互联网早报</span>
-                    <span class="tab-count">24 期</span>
+                    <span class="tab-count">25 期</span>
                 </div>
             </button>
         </div>
@@ -701,7 +701,7 @@
                 </div>
 
                 <div class="calendar-selected-info">
-                    <span class="calendar-selected-text">已选择：<span id="selectedDateText">2026年4月27日</span></span>
+                    <span class="calendar-selected-text">已选择：<span id="selectedDateText">2026年4月28日</span></span>
                     <button class="go-btn" onclick="goToDaily()">
                         前往阅读
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -715,15 +715,15 @@
         <div class="quick-access">
             <div class="quick-access-title">快捷访问</div>
             <div class="quick-links">
-                <a href="Intelnet-daily-news/互联网早报_2026年4月27日.html" class="quick-link">
+                <a href="Intelnet-daily-news/互联网早报_2026年4月28日.html" class="quick-link">
                     <span class="link-icon">⚡</span>
                     <span class="link-text">最新一期</span>
                 </a>
-                <a href="Intelnet-daily-news/互联网早报_2026年4月24日.html" class="quick-link">
+                <a href="Intelnet-daily-news/互联网早报_2026年4月27日.html" class="quick-link">
                     <span class="link-icon">📅</span>
                     <span class="link-text">昨日资讯</span>
                 </a>
-                <a href="Intelnet-daily-news/互联网早报_2026年4月23日.html" class="quick-link">
+                <a href="Intelnet-daily-news/互联网早报_2026年4月24日.html" class="quick-link">
                     <span class="link-icon">📜</span>
                     <span class="link-text">往期回顾</span>
                 </a>
@@ -733,7 +733,7 @@
 
         <footer class="footer">
             <div class="footer-status">系统运行中</div>
-            <p>自动更新于 2026-04-27</p>
+            <p>自动更新于 2026-04-28</p>
             <p style="margin-top: 4px; opacity: 0.6;">Powered by OpenClaw Agent</p>
         </footer>
     </div>
@@ -741,6 +741,7 @@
     <script>
         // Available reports data by series
         const 互联网早报_reports = [
+            { date: 28, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月28日.html', label: '2026年4月28日' },
             { date: 27, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月27日.html', label: '2026年4月27日' },
             { date: 24, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月24日.html', label: '2026年4月24日' },
             { date: 23, month: 3, year: 2026, url: 'Intelnet-daily-news/互联网早报_2026年4月23日.html', label: '2026年4月23日' },
@@ -768,7 +769,7 @@
         ];
 
         let currentSeries = '互联网早报';
-        let selectedUrl = 'Intelnet-daily-news/互联网早报_2026年4月27日.html';
+        let selectedUrl = 'Intelnet-daily-news/互联网早报_2026年4月28日.html';
         let currentMonth = new Date().getMonth(); // 0-indexed
         let currentYear = new Date().getFullYear();
 
