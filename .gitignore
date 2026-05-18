@@ -1,13 +1,17 @@
 
-
 # Ignore everything
 *
 
 # But not these files and folders
+!.gitignore
 !index.html
 !.github/
+!Internet-daily-news/
+!Internet-daily-news/*
 !Intelnet-daily-news/
+!Intelnet-daily-news/*
 !openclaw-daily-news/
+!openclaw-daily-news/*
 !*.html
 !*.jpg
 !*.png
