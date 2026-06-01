@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f0f9ff">
+    <title>互联网早报 - 2026年05月14日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-blue: #0ea5e9;
+            --light-blue: #f0f9ff;
+            --ice-gray: #f8fafc;
+            --tech-silver: #94a3b8;
+            --aurora-white: #ffffff;
+            --text-dark: #0f172a;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --gradient-start: #e0f2fe;
+            --gradient-end: #f0f9ff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+
+        .header .meta {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 16px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .section-title:hover {
+            transform: translateX(5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .section-title .icon {
+            font-size: 28px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .news-card {
+            background: var(--aurora-white);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0ea5e9, #6366f1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #0ea5e9;
+        }
+
+        .news-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .news-number {
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 28px; height: 28px;
+            background: linear-gradient(135deg, #e0f2fe, #e0f2fe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0ea5e9;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 8px;
+            padding-right: 36px;
+        }
+
+        .news-summary {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .news-source {
+            background: linear-gradient(135deg, #e0f2fe, #e0f2fe);
+            color: #0ea5e9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .news-link {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(14, 165, 233, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .news-link:hover {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-medium);
+        }
+
+        .footer .brand {
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer .stats {
+            display: inline-flex;
+            gap: 20px;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            margin: 16px 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .footer .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease;
+        }
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 20px; }
+            .header .meta { gap: 10px; }
+            .content { padding: 12px; }
+            .news-card { padding: 12px; }
+            .news-title { font-size: 13px; }
+            .footer .stats { gap: 10px; padding: 8px 14px; }
+            .back-home { padding: 8px 14px; font-size: 12px; top: 10px; left: 10px; }
+            .section-title { font-size: 18px; padding: 12px 16px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .news-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1025px) {
+            .news-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-home">← 返回首页</a>
+    <div class="container">
+        <div class="header">
+            <h1>互联网早报</h1>
+            <div class="date">2026年05月14日 星期四</div>
+            <div class="meta">
+                <span>📊 <strong>13</strong> 个核心栏目</span>
+                <span>📰 <strong>22</strong> 条精选新闻</span>
+                <span>⏰ <strong>09:00</strong> 准时推送</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 数据亮点 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">✨</span>
+                    <span>数据亮点</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">早报（05.13）|美国CPI爆表！3.8%通胀重创降息预期；伊朗开出与美谈判先决条件；马斯克、库克随特朗普访华</div>
+                        <div class="news-summary">美国CPI爆表！3.8%通胀重创降息预期；伊朗开出与美谈判先决条件；马斯克、库克随特朗普访华</div>
+                        <div class="news-meta">
+                            <span class="news-source">今日热榜</span>
+                            <a href="https://www.123.com.cn/kline/a1288226.html" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 国内要闻 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🇨🇳</span>
+                    <span>国内要闻</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">01前阿里千问技术负责人林俊旸开启创业：目标估值 20 亿美元</div>
+                        <div class="news-summary">前阿里千问大模型技术负责人林俊旸近期开启创业，考虑方向有世界模型和具身大脑，已招募数名字节、腾讯和海外背景成员，以约 20 亿美金估值开启融资，接触基金包括红杉中国、高榕创投等。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5wACdOj71" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">02吴泳铭：阿里 AI 模型与应用 ARR 6 月季度将破 100 亿元，年底超 300 亿元</div>
+                        <div class="news-summary">在 2026 财年 Q4 财报分析师电话会上，阿里巴巴称 AI 模型与应用服务收入呈指数级爆发，正成为全新收入引擎。集团 CEO吴泳铭预计，6 月季度包含百炼 MaaS 平台在内的 AI 模型与应用服务年化经常性收入将突破 100 亿元，年底突破 300 亿元，这部分收入高利润率优势渐显，将是未来收入健康、高质量增长支柱。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t6E3ALYkZK" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">04腾讯刘炽平：腾讯没有大裁员计划</div>
+                        <div class="news-summary">腾讯股东大会上，针对腾讯是否会大裁员问题，总裁刘炽平回应称肯定没有大裁员计划，腾讯与硅谷公司不同。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5zl0jUQI7" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">08腾讯元宝上线新功能：支持总结微信聊天记录</div>
+                        <div class="news-summary">腾讯元宝宣布支持总结微信聊天记录，用户在微信选中聊天记录，点击「转发到其他应用」，若已下载元宝 app，可在列表中选元宝，将内容一键复制粘贴至元宝对话框，由元宝提供智能总结、分析等服务。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5eJaLFgDI" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">小米汽车：YU7 交付能力大幅提升，买车不用等最快 2 小时提车</div>
+                        <div class="news-summary">YU7 交付能力大幅提升，买车不用等最快 2 小时提车</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/949/943.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 政务快讯 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📋</span>
+                    <span>政务快讯</span>
+                </div>
+                <div class="news-grid">
+
+                </div>
+            </div>
+
+            <!-- 科技通信 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📱</span>
+                    <span>科技通信</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">03马化腾：一年前以为上了 AI 的船结果发现漏水了，现在站上去但还坐不下去</div>
+                        <div class="news-summary">今日，腾讯股东大会召开，马化腾谈及公司 AI 发展现状与战略思路。他坦言腾讯早期 AI 基础能力不突出，近年持续补短板，正逐步发展。在策略上，腾讯不追求最快抓住机遇，坚持走正确道路，结合自身优势稳扎稳打。他还称过去抢别人地盘基本失败了。针对腾讯 AI 是否掉队的问题，马化腾用比喻回应，称原来以为上船，后发现船漏水，现在站上去了但坐不下去，希望船速能快一点。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5zOTN53yL" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">05苹果探索在 App Store 纳入 AI 智能体</div>
+                        <div class="news-summary">苹果公司探索在应用商店App Store纳入 AI 智能体。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t6cJXvw5IM" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">10软银因所持 OpenAI 股权增值，入账利润达 120 亿美元</div>
+                        <div class="news-summary">软银集团周三公布今年 1-3 月季度净利润增至原先三倍以上，达 1.83 万亿日元，得益于所持OpenAI投资资产增值入账，这是其连续第五个季度盈利，愿景基金本季度获 3.1 万亿日元投资收益，对 OpenAI 投资累计浮盈 450 亿美元。不过，这笔大规模投资引发市场对其融资压力的质疑，批评人士指出 OpenAI 不再有绝对主导地位且 AI 模型成本攀升。为筹措资金，软银减持T-Mobile、英伟达等公司股权，发行债券、新增贷款，本财年已累计减持价值 162.5 亿美元的 T-Mobile 股票。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5sdU7LMPR" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">小米 17 Max 手机官宣本月发布</div>
+                        <div class="news-summary">米 17 Max 手机官宣本月发布</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/949/584.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">苹果 iPhone 18 Pro / Max 爆料：灵动岛缩小 25%，配 C2 卫星 5G 基带</div>
+                        <div class="news-summary">灵动岛缩小 25%，配 C2 卫星 5G 基带</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/948/086.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 文娱影游 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎬</span>
+                    <span>文娱影游</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">微软推送 Xbox 主机预览更新：启用新开机画面、增强游戏库筛选</div>
+                        <div class="news-summary">启用新开机画面、增强游戏库筛选</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/950/129.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">七彩虹确认 iGame M16 Origo 游戏本 270HX Plus + 5060 配置到手价 8999 元</div>
+                        <div class="news-summary">iGame M16 Origo 游戏本 270HX Plus + 5060 配置到手价 8999 元</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/950/102.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 金融财经 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">💰</span>
+                    <span>金融财经</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">12首个国有大行信用卡 App 即将关停，相关功能迁移至中国银行 App</div>
+                        <div class="news-summary">中国银行「缤纷生活」App 将于 2026 年 6 月 30 日 24 时起全面停止服务，其相关功能及服务已迁移至「中国银行」App，这是国有大行首个即将关停的信用卡 App。此前邮储银行也宣布调整信用卡 App 业务，尚未公布正式下线时间。近期多家银行停发部分信用卡产品，如民生银行11 款信用卡停止发行。截至 2025 年末，全国信用卡数量降至 6.96 亿张。银行停发信用卡主要受监管政策收紧、睡眠卡占比高、消费信贷竞争加剧等因素影响。与此同时，多家中小农商行「逆势」入局信用卡业务，以寻求新的利润增长点和客户黏性抓手。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5mtiHyuLK" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 住房地产 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🏠</span>
+                    <span>住房地产</span>
+                </div>
+                <div class="news-grid">
+
+                </div>
+            </div>
+
+            <!-- 汽车出行 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🚗</span>
+                    <span>汽车出行</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">30.58 万元起比亚迪方程豹豹 8 / 豹 5 闪充版上市：搭云辇-P Ultra 技术、二代刀片电池</div>
+                        <div class="news-summary">搭云辇-P Ultra 技术、二代刀片电池</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/950/043.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 医疗健康 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🏥</span>
+                    <span>医疗健康</span>
+                </div>
+                <div class="news-grid">
+
+                </div>
+            </div>
+
+            <!-- 教育培训 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📚</span>
+                    <span>教育培训</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">武汉大学就 OPPO 母亲节文案发声：极不认同内容表述和价值倾向</div>
+                        <div class="news-summary">极不认同内容表述和价值倾向</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/948/487.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 旅游民宿 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">✈️</span>
+                    <span>旅游民宿</span>
+                </div>
+                <div class="news-grid">
+
+                </div>
+            </div>
+
+            <!-- 国际视角 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌍</span>
+                    <span>国际视角</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">07马斯克点赞宇树载人变形机甲：很酷</div>
+                        <div class="news-summary">5 月 12 日，宇树科技正式发布全球首款量产载人变形机甲 GD01，马斯克留言称其很酷。该机甲起售价 390 万元，定位为民用新型交通工具，载人完成状态下整机约重 500kg，站立姿态约两个成年人高，还能抡臂锤翻墙。有网友翻出马斯克 2018 年想创造机甲的动态，调侃中国企业帮他完成了心愿。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5hBBBzYZM" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">02</span>
+                        <div class="news-title">09SpaceX 星舰 V3 火箭完成首次燃料加注，试飞进入倒计时</div>
+                        <div class="news-summary">SpaceX首次为新版星舰超大型火箭完成加注燃料，最快本周发射。上周末，该公司组装完成 3 代星舰，其高度创全球最高火箭新纪录。5 月 11 日，SpaceX 完成发射彩排，首次为 3 代星舰及超重型助推器加注超 5000 公吨推进剂。星舰此前已完成 11 次试飞，即将到来的第 12 次试飞是 3 代星舰首飞，对 SpaceX 和 NASA 意义重大。NASA 选定星舰作为阿耳忒弥斯月球探测计划的载人着陆器之一，阿耳忒弥斯 3 号任务最快明年开展交会对接技术验证，阿耳忒弥斯 4 号任务最早 2028 年末送宇航员至月球南极。星舰第 12 次试飞最快 5 月 15 日实施，即便试飞顺利，星舰全面运营仍需攻克多项技术难关。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t4UuWIWApo" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">03</span>
+                        <div class="news-title">11蓝色起源拟启动首次外部融资，贝索斯火箭公司寻求更多资金支持</div>
+                        <div class="news-summary">随着马斯克SpaceX的 IPO 临近，杰夫・贝索斯旗下的蓝色起源考虑启动首次外部融资。蓝色起源 CEO 戴夫・林普称，提升发射频率需大量资金，远超单个投资者所能提供的规模，预计贝索斯不会出售公司，但不排除未来 IPO 的可能性。2025 年 1 月，蓝色起源将重型运载火箭「新格伦」首次送入轨道，目前正与 SpaceX 竞争商业合同和登月着陆器开发项目。SpaceX 估值超 1.75 万亿美元，已提交 IPO 注册文件。蓝色起源近年因开发新格伦火箭面临成本上涨，与 SpaceX 的人才竞争也推高了薪资。林普表示可通过融资轮次帮助员工行权期权，近期推出新的员工股票计划，旨在防御人才流失风险。蓝色起源计划今年用新格伦火箭发射 8 至 12 次，还设定了年发射 100 次的长远目标，部分用于建设 TeraWave 卫星通信网络。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5iGm2ILGB" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">04</span>
+                        <div class="news-title">13黄仁勋临时更改行程，将随美国总统访华</div>
+                        <div class="news-summary">全球市值最高的 AI 芯片龙头英伟达CEO黄仁勋临时更改行程，作为临时新增成员于 5 月 13 日登上美国总统专机「空军一号」，随美国总统特朗普赴华，《纽约邮报》记者发布其登机照片，英伟达官方也证实了此消息。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5fjwFfOe8" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-number">05</span>
+                        <div class="news-title">苹果官宣约翰 · 特努斯 9 月 1 日接任 CEO，蒂姆 · 库克将出任执行董事长</div>
+                        <div class="news-summary">约翰 · 特努斯 9 月 1 日接任 CEO，蒂姆 · 库克将出任执行董事长</div>
+                        <div class="news-meta">
+                            <span class="news-source">IT之家</span>
+                            <a href="https://www.ithome.com/0/941/380.htm" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 融资收购 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🚀</span>
+                    <span>融资收购</span>
+                </div>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-number">01</span>
+                        <div class="news-title">06Anthropic 洽谈按 9000 亿美元估值融资至少 300 亿美元</div>
+                        <div class="news-summary">Anthropic正与投资者进行初步洽谈，计划以超 9000 亿美元估值筹集至少 300 亿美元新资金，这或成该公司迄今最大规模一轮融资。</div>
+                        <div class="news-meta">
+                            <span class="news-source">Readhub</span>
+                            <a href="https://readhub.cn/topic/8t5EYvGMEci" target="_blank" class="news-link">查看详情</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="footer">
+            <div class="brand">互联网早报</div>
+            <p>每日为您精选最重要的科技资讯</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">13</span>
+                    <span class="stat-label">核心栏目</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">22</span>
+                    <span class="stat-label">精选新闻</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">09:00</span>
+                    <span class="stat-label">准时推送</span>
+                </div>
+            </div>
+            <p>发送时间：2026年05月14日</p>
+        </div>
+    </div>
+</body>
+</html>
