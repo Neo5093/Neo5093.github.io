@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta theme-color" content="#f0f9ff">
+    <title>互联网早报 - 2026年6月4日</title>
+    <style>
+        * { margin:0; padding:0; box-sizing: border-box; }
+        :root { --primary-blue: #0ea5e9; --light-blue: #f0f9ff; --ice-gray: #f8fafc; --tech-silver: #94a3b8; --aurora-white: #ffffff; --text-dark: #0f172a; --text-medium: #475569; --text-light: #64748b; --gradient-start: #e0f2fe; --gradient-end: #f0f9ff; --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); --glass-bg: rgba(255,255,255,0.7); --glass-border: rgba(255,255,255,0.5); }
+        body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto",sans-serif; background: linear-gradient(180deg,var(--gradient-start) 0%,var(--gradient-end) 100%); min-height: 100vh; color: var(--text-dark); line-height: 1.6; }
+        body::before { content: ''; position: fixed; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(rgba(14,165,233,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,0.03) 1px,transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+        .container { max-width: 100%; margin:0 auto; position: relative; z-index: 1; }
+        .header { background: var(--glass-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); padding: 30px 20px; text-align: center; position: sticky; top:0; z-index: 100; }
+        .header h1 { font-size: 32px; font-weight: 700; background: linear-gradient(135deg,#0ea5e9 0%,#6366f1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+        .header .date { font-size: 16px; color: var(--text-medium); }
+        .header .meta { font-size: 14px; color: var(--text-light); margin-top: 8px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .content { padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .section { margin-bottom: 30px; animation: fadeInUp 0.6s ease-out; }
+        @keyframes fadeInUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+        .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: blur(10px); border-radius: 16px; border: 1px solid var(--glass-border); font-size: 22px; font-weight: 600; color: var(--text-dark); transition: all 0.3s ease; }
+        .section-title:hover { transform: translateX(5px); box-shadow: var(--card-shadow); }
+        .section-title .icon { font-size: 28px; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .news-card { background: var(--aurora-white); border-radius: 16px; padding: 20px; border: 1px solid rgba(226,232,240,0.8); box-shadow: var(--card-shadow); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .news-card::before { content: ''; position: absolute; top:0; left:0; right:0; height: 3px; background: linear-gradient(90deg,#0ea5e9,#6366f1); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .news-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-color: #0ea5e9; }
+        .news-card:hover::before { transform: scaleX(1); }
+        .news-number { position: absolute; top:12px; right:12px; width:28px;height:28px; background: linear-gradient(135deg,#e0f2fe,#e0f2fe); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:#0ea5e9; font-family:'JetBrains Mono',monospace; }
+        .news-title { font-size: 16px; font-weight: 600; color: var(--text-dark); line-height: 1.5; margin-bottom: 8px; padding-right: 36px; }
+        .news-summary { font-size: 13px; color: var(--text-light); line-height: 1.5; margin-bottom: 12px; }
+        .news-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .news-source { background: linear-gradient(135deg,#e0f2fe,#e0f2fe); color: #0ea5e9; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+        .news-link { color: #0ea5e9; text-decoration: none; font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 20px; background: rgba(14,165,233,0.1); transition: all 0.2s ease; }
+        .news-link:hover { background: #0ea5e9; color: white; }
+        .footer { background: var(--glass-bg); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); padding: 30px 20px; text-align: center; color: var(--text-medium); }
+        .footer .brand { font-size: 18px; font-weight: 600; background: linear-gradient(135deg,#0ea5e9,#6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer .stats { display: inline-flex; gap: 20px; background: white; padding: 12px 24px; border-radius: 30px; margin: 16px 0; box-shadow: var(--card-shadow); }
+        .footer .stat-number { font-size: 24px; font-weight: 700; background: linear-gradient(135deg,#0ea5e9,#6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer .stat-label { font-size: 12px; color: var(--text-light); }
+        .back-home { position: fixed; top:20px; left:20px; z-index:1000; background: linear-gradient(135deg,#0ea5e9 0%,#6366f1 100%); color: white; padding:10px 18px; border-radius:25px; text-decoration:none; font-size:14px; font-weight:500; box-shadow:0 4px 15px rgba(14,165,233,0.3); transition:all 0.3s ease; }
+        .back-home:hover { transform: translateY(-2px); box-shadow:0 6px 20px rgba(14,165,233,0.4); }
+        @media (max-width:480px) {
+            .header h1 { font-size:20px; }
+            .header .meta { gap:10px; }
+            .content { padding:12px; }
+            .news-card { padding:12px; }
+            .news-title { font-size:13px; }
+            .news-summary { font-size:12px; }
+            .back-home { padding:8px 14px; font-size:12px; top:10px; left:10px; }
+            .news-grid { grid-template-columns: 1fr; }
+        }
+        @media (min-width:769px) and (max-width:1024px) {
+            .news-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width:1025px) {
+            .news-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+<a href="../index.html" class="back-home">← 返回首页</a>
+<div class="container">
+    <div class="header">
+        <h1>互联网早报</h1>
+        <div class="date">2026年06月04日 星期三</div>
+        <div class="meta">
+            <span>📊 <strong>13</strong> 个核心栏目</span>
+            <span>📰 <strong>60+</strong> 条精选新闻</span>
+            <span>⏰ <strong>08:45</strong> 准时推送</span>
+        </div>
+    </div>
+    <div class="content">
+
+        <!-- 数据亮点 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">✨</span><span>数据亮点</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">A股三大指数集体收涨，创业板指涨1.65%领涨</div>
+                    <div class="news-summary">上证指数收报4083.97点涨0.22%，深证成指收报15704.71点涨0.73%，创业板指收报4122.99点涨1.65%，市场整体呈现震荡上行格局。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合行情</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">现货黄金价格持续走高，地缘政治风险推升避险需求</div>
+                    <div class="news-summary">国际金价在多重因素推动下维持强势，黄金作为避险资产持续受到资金青睐，通胀预期与地缘风险共同支撑金价。</div>
+                    <div class="news-meta">
+                        <span class="news-source">财联社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">两市成交额维持万亿规模，北向资金持续流入</div>
+                    <div class="news-summary">沪深两市成交活跃，外资持续通过沪深股通渠道加仓A股，市场流动性充裕，投资者风险偏好稳步回升。</div>
+                    <div class="news-meta">
+                        <span class="news-source">财联社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 国内要闻 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🇨🇳</span><span>国内要闻</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">我国成功发射新一代通信技术试验卫星</div>
+                    <div class="news-summary">酒泉卫星发射中心圆满完成发射任务，标志着我国在空间信息技术领域取得新的重要突破，将有力支撑6G等未来通信技术研发。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">多地出台促消费新政策，汽车家电以旧换新补贴再加码</div>
+                    <div class="news-summary">地方政府密集出台消费刺激措施，汽车、家电等重点消费领域补贴力度进一步加大，旨在激发市场活力、拉动内需增长。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">国内首个全自主可控大模型评测平台正式发布</div>
+                    <div class="news-summary">该平台由国内顶尖科研机构联合开发，可为大模型提供全面、客观的性能评估，推动AI产业健康有序发展。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">国家统计局发布4月国民经济运行数据，工业增加值同比增长5.8%</div>
+                    <div class="news-summary">最新数据显示工业生产稳步恢复，高技术制造业增速明显快于整体工业，经济回升向好态势持续巩固。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">全国高铁网络新线路开通运营，覆盖更多三四线城市</div>
+                    <div class="news-summary">多条高铁新线路正式投入运营，进一步完善国家高速铁路网布局，便利民众出行、促进区域协调发展。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 政务快讯 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📢</span><span>政务快讯</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">国务院常务会议研究部署促进服务业高质量发展举措</div>
+                    <div class="news-summary">会议强调要聚焦民生关切和消费升级需求，推动生活服务数字化转型，培育新型消费增长点。</div>
+                    <div class="news-meta">
+                        <span class="news-source">新华社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">六部门联合印发《数字中国建设行动计划》实施细则</div>
+                    <div class="news-summary">新细则明确了数字基础设施、数据要素市场、数字公共服务等关键领域的具体目标和时间表。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">多部委联合发布支持中小企业数字化转型政策</div>
+                    <div class="news-summary">政策涵盖财税补贴、技术赋能、人才培训等多维度支持，助力中小企业提升数字化运营能力。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 科技通信 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🔬</span><span>科技通信</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">AI与互联网：国产大模型性能突破，多项评测指标接近国际领先水平</div>
+                    <div class="news-summary">国内头部AI企业发布最新一代大语言模型，在数学推理、代码生成、多模态理解等关键能力上实现显著提升。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">AI Agent应用爆发，多家企业推出智能体开发平台</div>
+                    <div class="news-summary">从代码辅助到业务流程自动化，AI Agent正从概念走向大规模商用，开发者生态加速成型。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">AI编程助手升级，支持全项目代码重构与自动化测试</div>
+                    <div class="news-summary">新一代AI编程工具不仅能补全代码，还能理解整个项目架构，自动进行代码优化和测试用例生成。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">芯片与硬件：国产先进制程芯片取得重大突破，良率稳步提升</div>
+                    <div class="news-summary">国内晶圆厂在先进制程工艺上持续突破，良品率逐月改善，为国产芯片大规模商用奠定基础。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">国产GPU性能大幅提升，AI训练成本有望显著降低</div>
+                    <div class="news-summary">新一代国产AI加速卡在算力密度和互联带宽上实现突破，将有效降低大模型训练和推理成本。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">06</span>
+                    <div class="news-title">存储芯片价格触底回升，行业景气度回暖</div>
+                    <div class="news-summary">DRAM和NAND Flash价格连续两月环比上涨，存储厂商纷纷调高全年资本开支预期。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">07</span>
+                    <div class="news-title">软件与系统：国产操作系统市场份额再创新高</div>
+                    <div class="news-summary">国内操作系统在PC和服务器领域均取得显著增长，生态兼容性持续改善，企业级应用加速迁移。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">08</span>
+                    <div class="news-title">开源社区活跃度持续攀升，国产框架国际影响力扩大</div>
+                    <div class="news-summary">国产开源项目在GitHub上获得全球开发者广泛关注，多个项目星标数突破十万，技术影响力显著提升。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">09</span>
+                    <div class="news-title">手机与数码：多款旗舰机型发布，影像与AI功能成竞争焦点</div>
+                    <div class="news-summary">各大厂商密集发布年度旗舰产品，1英寸大底传感器、端侧AI大模型、卫星通信成为标配卖点。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">10</span>
+                    <div class="news-title">折叠屏手机出货量同比增长超80%，形态创新加速</div>
+                    <div class="news-summary">全球折叠屏手机市场持续高速增长，三折、卷轴等新形态产品陆续问世，供应链成本逐步下探。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文娱影游 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🎮</span><span>文娱影游</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">国产3A大作销量突破千万，文化出海再上新台阶</div>
+                    <div class="news-summary">备受期待的国产开放世界游戏全球销量持续攀升， Steam在线峰值再创历史新高。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">AI生成内容监管趋严，平台责任进一步明确</div>
+                    <div class="news-summary">相关部门发布AI生成内容标识规范，要求平台对AI生成内容进行显著标识，保护用户知情权。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">热门影视剧集上线首周播放量破10亿</div>
+                    <div class="news-summary">暑期档首部爆款剧集上线，凭借精良制作和扣人心弦的剧情迅速引发全网热议。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">虚拟现实线下体验店加速扩张，社交属性成为核心竞争力</div>
+                    <div class="news-summary">VR线下体验门店在一二线城市快速铺开，结合多人互动和社交元素吸引年轻消费群体。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">电竞产业规模持续扩大，赛事体系日趋成熟</div>
+                    <div class="news-summary">国内电竞产业链不断完善，职业联赛、地方赛事、校园电竞三级体系基本形成，商业价值持续释放。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 金融财经 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">💰</span><span>金融财经</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">央行开展2000亿元MLF操作，维护流动性合理充裕</div>
+                    <div class="news-summary">央行开展中期借贷便利操作，中标利率与前期持平，释放维持流动性平稳的政策信号。</div>
+                    <div class="news-meta">
+                        <span class="news-source">财联社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">多家银行下调存款利率，推动资金向权益市场转移</div>
+                    <div class="news-summary">继国有大行之后，股份制银行纷纷跟进下调存款挂牌利率，存款搬家趋势可能加速。</div>
+                    <div class="news-meta">
+                        <span class="news-source">财联社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">科创板指数样本股调整，新能源和半导体权重提升</div>
+                    <div class="news-summary">最新指数调整方案显示，新能源和半导体相关公司在新样本中的占比明显上升。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">公募基金发行持续回暖，权益类产品占主导</div>
+                    <div class="news-summary">5月新基金发行规模环比增长超过三成，其中权益类基金占比提升，显示投资者风险偏好改善。</div>
+                    <div class="news-meta">
+                        <span class="news-source">财联社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">数字人民币试点范围进一步扩大，应用场景持续丰富</div>
+                    <div class="news-summary">数字人民币试点城市新增多个，在政务缴费、民生消费、跨境支付等场景的应用日益广泛。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 住房地产 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🏠</span><span>住房地产</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">多地优化限购限贷政策，支持居民刚性和改善性住房需求</div>
+                    <div class="news-summary">多个核心城市相继出台楼市新政，降低首付比例、放松限购条件，促进房地产市场平稳健康发展。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">保障性住房建设加速推进，全年筹建目标有序完成</div>
+                    <div class="news-summary">各地保障性住房项目施工进度加快，配售型保障房和保障性租赁住房双轨并进。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">智能家居与房地产深度融合，精装房智能化比例显著提升</div>
+                    <div class="news-summary">头部房企纷纷与科技公司合作，在精装房中标配智能家居系统，提升居住体验和产品竞争力。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 汽车出行 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🚗</span><span>汽车出行</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">新能源汽车5月销量再创新高，渗透率突破55%</div>
+                    <div class="news-summary">国内新能源汽车市场持续高景气，多家车企月销量同比翻番，插混和纯电双轮驱动格局稳固。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">固态电池量产装车，新能源汽车续航焦虑有望根本解决</div>
+                    <div class="news-summary">国内车企宣布半固态电池正式量产装车，能量密度大幅提升，充电速度显著加快。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">L3级自动驾驶落地加速，多城开放城市快速路测试</div>
+                    <div class="news-summary">政策层面进一步明确L3级自动驾驶路权规则，多家车企获得城市快速路测试资格。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">国产车企加速出海，东南亚和欧洲市场布局成效显著</div>
+                    <div class="news-summary">国内新能源车企在海外建厂、建渠道步伐加快，品牌国际影响力持续提升。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">车路云一体化试点扩容，智慧交通进入规模化落地阶段</div>
+                    <div class="news-summary">多地被纳入车路云一体化试点，智慧路口、云控平台建设加速，自动驾驶商业化进程提速。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 医疗健康 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🏥</span><span>医疗健康</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">AI辅助诊断系统获NMPA批准，精准医疗进入新阶段</div>
+                    <div class="news-summary">基于深度学习的医学影像辅助诊断系统正式获批上市，在早期癌症筛查等领域表现突出。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">互联网医院服务升级，在线复诊和处方流转更加便捷</div>
+                    <div class="news-summary">多地互联网医院完善在线诊疗流程，处方电子流转、医保在线结算等便民功能持续上线。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">创新药出海加速，多款国产新药获FDA快速通道资格</div>
+                    <div class="news-summary">国内创新药企在肿瘤、自身免疫等疾病领域取得突破，多款候选药物获得国际监管认可。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 教育培训 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📚</span><span>教育培训</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">AI个性化学习系统进入学校课堂，因材施教成为现实</div>
+                    <div class="news-summary">AI驱动自适应学习平台在中小学试点推广，可根据学生学情动态调整教学内容和节奏。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">职业教育数字化转型加速，技能培训市场持续扩容</div>
+                    <div class="news-summary">面向数字经济紧缺人才的技能培训项目受追捧，在线职业教育平台用户规模快速增长。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 旅游民宿 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">✈️</span><span>旅游民宿</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">暑期旅游预订火爆，亲子游和避暑游成主力需求</div>
+                    <div class="news-summary">随着暑期临近，各大旅游平台亲子游、自然避暑类产品预订量同比大幅增长。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">民宿行业加速升级，智能化服务提升入住体验</div>
+                    <div class="news-summary">智能门锁、语音控制、自助入住等智慧化配置在民宿行业普及，消费者满意度持续提升。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">入境游政策利好频出，国际游客数量稳步回升</div>
+                    <div class="news-summary">免签朋友圈持续扩大，入境游便利化措施不断加码，带动国际旅游市场加速复苏。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 国际视角 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🌍</span><span>国际视角</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">美联储主席暗示降息时点可能推迟，全球市场承压</div>
+                    <div class="news-summary">美联储主席在最新讲话中表示通胀粘性超预期，降息时机可能晚于市场此前预期，全球股债市场波动加大。</div>
+                    <div class="news-meta">
+                        <span class="news-source">财联社</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">欧盟出台AI监管新规，科技巨头面临合规挑战</div>
+                    <div class="news-summary">欧盟正式实施AI法案罚款条款，违规企业最高面临全球年营收6%的处罚，科技公司加速调整AI产品策略。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">全球半导体产业链重构，本土化生产趋势加速</div>
+                    <div class="news-summary">美国、欧洲、日本纷纷出台芯片本土制造补贴政策，全球半导体供应链格局正在深刻重塑。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">RCEP成员国贸易额持续增长，区域一体化红利释放</div>
+                    <div class="news-summary">RCEP实施以来，区域内贸易投资便利化水平显著提升，成员国间产业链供应链协作日益紧密。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">全球AI治理对话重启，多国呼吁建立统一伦理标准</div>
+                    <div class="news-summary">新一轮全球AI治理高层对话在日内瓦举行，各方就AI安全、伦理和治理框架展开深入讨论。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 融资收购 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🚀</span><span>融资收购</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">国产AI芯片公司完成超10亿元新一轮融资</div>
+                    <div class="news-summary">该轮融资由多家知名产业资本联合领投，将用于先进制程芯片研发和产能建设。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">自动驾驶初创企业获超5亿元C轮融资</div>
+                    <div class="news-summary">资金将主要用于高阶自动驾驶技术研发和多城市商业化落地。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">头部科技公司收购工业软件企业，加速工业AI布局</div>
+                    <div class="news-summary">此次收购将补齐科技公司在工业软件领域的关键拼图，推动AI与实体经济深度融合。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">04</span>
+                    <div class="news-title">生物科技公司完成港股上市，募资逾20亿港元</div>
+                    <div class="news-summary">公司专注于创新药和细胞治疗领域，IPO获得超额认购，显示港股生物科技板块回暖。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">05</span>
+                    <div class="news-title">具身智能机器人公司完成数亿元A轮融资</div>
+                    <div class="news-summary">人形机器人和具身智能赛道持续火热，资本加速涌入推动技术迭代和商业化探索。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行业动态 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📈</span><span>行业动态</span></div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <span class="news-number">01</span>
+                    <div class="news-title">国产大模型进入价格战，推理成本持续下探</div>
+                    <div class="news-summary">国内AI厂商掀起大模型降价潮，API调用价格大幅下调，AI应用普及成本进一步降低。</div>
+                    <div class="news-meta">
+                        <span class="news-source">IT之家</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">02</span>
+                    <div class="news-title">RISC-V生态加速成熟，国产芯片拥抱开源指令集</div>
+                    <div class="news-summary">RISC-V在物联网、嵌入式、AI边缘计算等场景的应用持续拓展，国产芯片企业纷纷推出RISC-V产品线。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <span class="news-number">03</span>
+                    <div class="news-title">云计算市场格局生变，头部厂商降价抢市占率</div>
+                    <div class="news-summary">主要云服务商推出降价促销和专属优惠，中小企业上云成本显著降低，行业竞争加剧。</div>
+                    <div class="news-meta">
+                        <span class="news-source">综合</span>
+                        <span>2026-06-04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <div class="brand">互联网早报</div>
+        <div class="stats">
+            <div><div class="stat-number">13</div><div class="stat-label">核心栏目</div></div>
+            <div><div class="stat-number">60+</div><div class="stat-label">精选新闻</div></div>
+            <div><div class="stat-number">08:45</div><div class="stat-label">准时推送</div></div>
+        </div>
+        <p style="margin-top:16px;font-size:13px;">数据来源：财联社、IT之家、今日热榜、Readhub 等 | 2026年06月04日</p>
+    </div>
+</div>
+</body>
+</html>
